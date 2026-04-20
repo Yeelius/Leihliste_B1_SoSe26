@@ -1,6 +1,10 @@
 = Zeitplan: {Leihliste B1}
 
-- Hinweis: ein Sprint beginnt in der Regel mit Sprint Planning am Sonntag, sodass eine Woche von Sonntag bis Samstag gezählt wird
+*Hinweise*
+
+* ein Sprint beginnt in der Regel mit Sprint Planning am Sonntag, sodass eine Woche von Sonntag bis Samstag gezählt wird
+* wegen Termin-Problemen soll unser Sprint 2 fünf Wochen und der Sprint 3 nur drei Wochen gehen
+
 
 [cols="1,1,1,1,1,1", options="header"]
 |===
