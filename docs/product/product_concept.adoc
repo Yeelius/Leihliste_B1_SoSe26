@@ -25,10 +25,7 @@ _Warum wird dieses Produkt gebaut? Welches Problem existiert heute, und warum is
 Dieser Abschnitt beschreibt den Ausgangszustand und den Handlungsbedarf — ohne bereits eine
 Lösung zu nennen. 3–5 Sätze genügen._
 
-[Hier die Ausgangssituation und den Handlungsbedarf beschreiben. Beispiel:
-„Studierende an der Hochschule haben heute keinen zentralen Überblick über verfügbare
-Lernräume. Die Suche nach freien Plätzen kostet täglich wertvolle Zeit und führt zu Frust.
-Eine einfache, mobil nutzbare Lösung fehlt bisher."]
+Gemeinsam genutzte Gegenstände in Hochschulen, Vereinen oder privaten Gruppen werden oft unübersichtlich verwaltet. Häufig gibt es keine klare Übersicht darüber, welche Objekte vorhanden sind, wer sie aktuell nutzt oder wann sie zurückgegeben werden müssen. Dadurch entstehen organisatorischer Aufwand, Missverständnisse, verspätete Rückgaben oder sogar Verluste. Deshalb wünschen sich diese eine transparente, vereinfachte und effiziente Lösung.
 
 == Produktvision
 
@@ -109,25 +106,48 @@ erklärt, warum bestimmte Entscheidungen getroffen wurden.
 |===
 | Stakeholder | Rolle / Interesse | Erwartungen an das Produkt | Einfluss
 
-| [z. B. Hochschulverwaltung]
+| Verleiher
+| Eigentümer der technischen Geräten, Laborzubehör und Medien
+| Nachverfolgbarkeit, eine Historie, ein klares Ausleihverfahren und eine Zustandsdokumentaion(vor/nach Nutzung)
+| Hoch
+
+| Ausleiher
+| Personen die Gegenstände ausleihen möchten
+| einfaches Ausleihverfahren, transparente Anzeige(Verfügbarkeit), einfacher Verlängerungsprozess, Erinnerungen an Fristen
+| Mittel
+
+| Portalbetreiber
+| Betreiber der Website
+| Stabiler Betrieb, geringe Supportkosten und Differenzierung gegenüber Konkurrenz
+| Hoch
+
+| Gesetzgeber
+| geben gesetzliche Bedingungen vor
+| saubere Protokollierung, Einhaltung von Gesetzen und Vorschriften 
+| Hoch
+
+| Konkurrenz
+| alternative Anbieter
+| Wettbewerbsdynamik, Reaktionen auf Innovationen
+| Mittel
+
+
+
+
+| _Hochschulverwaltung ?_
 | [Betreiber der Infrastruktur; will Raumauslastung optimieren]
 | [Auslastungsberichte, DSGVO-Konformität]
 | Hoch
 
-| [z. B. Studierende]
+| _Firmen ?_
 | [Hauptnutzer:innen; wollen schnell freie Plätze finden]
 | [Einfache Bedienung, mobiler Zugang]
 | Mittel
 
-| [z. B. Lehrende]
+| _Privatpersonen ?_
 | [Nutzen Räume für Lehrveranstaltungen; wollen Konflikte vermeiden]
 | [Sichtbarkeit ihrer Buchungen]
 | Mittel
-
-| [Weiterer Stakeholder]
-| [Beschreibung]
-| [Erwartungen]
-| [Hoch / Mittel / Niedrig]
 |===
 
 == Hauptfunktionen
