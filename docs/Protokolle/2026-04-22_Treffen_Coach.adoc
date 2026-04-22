@@ -1,0 +1,38 @@
+= Kurzprotokoll Treffen mit Coach Robert Ringel
+
+Anwesend:: Team (komplett), Herr Ringel (Coach) 
+Sprint:: 1
+Datum:: 22.04.2026; 11:20 - 11:45 Uhr
+Ort:: U526
+
+== Generelle Hinweise
+
+=== Meetings
+* jedes Meeting braucht eine Agenda, die vorher allen bekannt ist
+* für jeden Punkt auf der Agenda muss klar sein, wer dafür verantwortlich bzw. wer diesen vorbereitet
+* auf Meetings werden Entscheidungsgrundlagen präsentiert und Entscheidungen getroffen
+* Erarbeitung der Entscheidungsvorschläge erfolgt vorher in Kleinteams
+* Ergbnisse von Meetings sind dokumentierte Aufgaben mit Termin und Verantwortlichkeit
+
+* für Nachvollziehbarkeit auch dokumentieren, wer beim Meeting dabei war
+
+* ein Meeting könnte z.B. 60 bis 90 min dauern und besteht aus einzelnen Themen-Slots von 10 bis 15 min, die vorbereitet sein müssen
+
+== Fragen
+=== Prgrammiersprache BackEnd
+* die Sprache auswählen, mit der die meisten gut arbeiten können
+* Entscheidung für Sprache als Architektur-Entscheidung dokumentieren
+* kann auch zeitig getroffen werden, z.B. wir nutzen nach aktuellem Wissensstand Sprache XYZ, weil alle Entwickler*innen damit die meste Erfahrung haben und die von uns verstandenen Anforderungen damit erfüllbar sind
+
+=== Rollen
+* programmieren PO und SM eigentlich mit?
+* eher nicht, da sie mit ihren Aufgaben der Rolle ausgelastet sind
+
+== Entscheidungen
+* Zentrale Entscheidung(en):
+* Wichtige Trade-offs:
+
+
+== Nächste Schritte / Aufgaben
+* Link zum Repo per Mail an Herrn Ringel (VA: PO ?)
+* Zeitplan anpassen, sodass 3 Sprints à maximal 4 Wochen enstehen (VA: SM ?)
