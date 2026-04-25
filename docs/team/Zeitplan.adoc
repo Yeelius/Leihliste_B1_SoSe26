@@ -4,16 +4,17 @@
 
 * ein Sprint beginnt in der Regel mit Sprint Planning am Sonntag, sodass eine Woche von Sonntag bis Samstag gezählt wird
 * wegen Termin-Problemen soll unser Sprint 2 fünf Wochen und der Sprint 3 nur drei Wochen gehen
+*-> muss nochmal geändert werden*
 
 
 [cols="1,1,1,1,1,1", options="header"]
 |===
-| *Sprint* | *Was* | *Wann* | *Zeit* | *Wo* | *Bemerkung*
-| *Sprint 1* (Woche 1) | Team-Charter-Workshop ✓| Mi 15.04.26 | 17:30 – 20:00 | S531 |
-| (Woche 2)| Sprint Planning ✓| So 19.04.26 | 15:00 – 17:00 | Discord | Fortsetzung Team-Charter-Workshop
-| (Woche 2)| Standup (Weekly): Produktkonzept | Mo 20.04.26 | 17:30 – 18:30 | Discord |
-| (Woche 2)| *Treffen mit Coach Herr Ringel* | Mi 22.04.26 | 11:20 – 11:50 | folgt noch, bevorzugt U-Gebäude |
-| (Woche 3)| Standup (Weekly) | So 26.04.26 | 15:00 – 16:00 | Discord |
+| *Sprint* | *Was* | *Wann* | *Zeit* | *Wo* | *Mitschrift / Bemerkung*
+| *Sprint 1* (Woche 1) | Team-Charter-Workshop ✓| Mi 15.04.26 | 17:30 – 20:00 | S531 | link:teamcharter.adoc[Teamcharter]
+| (Woche 2)| Sprint Planning ✓| So 19.04.26 | 15:00 – 17:00 | Discord | link:teamcharter.adoc[Fortsetzung Teamcharter]
+| (Woche 2)| Standup (Weekly): Produktkonzept ✓ | Mo 20.04.26 | 17:30 – 18:30 | Discord | link:../product/product_concept.adoc[Produkt-Konzept]
+| (Woche 2)| Treffen mit Coach Herr Ringel ✓ | Mi 22.04.26 | 11:20 – 11:50 | U526 | link:../Protokolle/2026-04-22_Treffen_Coach.adoc[1. Coach-Treffen]
+| (Woche 3)| *Standup (Weekly)* | So 26.04.26 | 15:00 – 16:00 | Discord |
 | (Woche 3)| [BackUp Standup (Weekly)] | Mo 27.04.26 | 17:00 – 18:00 | Discord |
 | (Woche 4)| Standup (Weekly) | So 03.05.26 | 15:00 – 16:00 | Discord |
 | (Woche 4)| [BackUp Standup (Weekly)] | Mo 04.05.26 | 17:00 – 18:00 | Discord |
