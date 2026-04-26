@@ -1,6 +1,7 @@
 = Weekly Meetings - Sprint 1
 
 == Meeting 26.04.2026
+:id: meeting26042026
 
 *Datum:* 26.04.2026  
 *Dauer:* 60 min.
