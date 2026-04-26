@@ -18,7 +18,7 @@ _Warum wird dieses Produkt gebaut? Welches Problem existiert heute, und warum is
 Dieser Abschnitt beschreibt den Ausgangszustand und den Handlungsbedarf — ohne bereits eine
 Lösung zu nennen. 3–5 Sätze genügen._
 
-Gemeinsam genutzte Gegenstände in Hochschulen, Vereinen oder privaten Gruppen werden oft unübersichtlich verwaltet. Häufig gibt es keine klare Übersicht darüber, welche Objekte vorhanden sind, wer sie aktuell nutzt oder wann sie zurückgegeben werden müssen. Dadurch entstehen organisatorischer Aufwand, Missverständnisse, verspätete Rückgaben oder sogar Verluste. Deshalb wünschen sich diese eine transparente, vereinfachte und effiziente Lösung.
+Gemeinsam genutzte Gegenstände in Hochschulen, Vereinen oder privaten Gruppen werden oft unübersichtlich verwaltet. Häufig gibt es keine klare Übersicht darüber, welche Objekte vorhanden sind, wer sie aktuell nutzt oder wann sie zurückgegeben werden müssen. Dadurch entstehen organisatorischer Aufwand, Missverständnisse, verspätete Rückgaben oder sogar Verluste. Deshalb wünschen sich diese Gruppen eine transparente, vereinfachte und effiziente Lösung.
 
 == Produktvision
 
@@ -33,7 +33,7 @@ Für Hochschulen, Vereine und Unternehmen,
 die gemeinsam genutzte Gegenstände verwalten möchten,
 ist LeihListe
 ein Verwaltungssystem,
-welches das Ausleihen von Gegenständen vereinfacht und transparent gestaltet.
+das das Ausleihen von Gegenständen vereinfacht und transparent gestaltet.
 Im Gegensatz zu Excel, ERP-Systemen und anderen Asset-Tools
 bietet unser Produkt eine strukturierte, automatisierte und nutzerfreundliche Lösung.
 ____
@@ -46,7 +46,7 @@ NOTE: Das Visions-Statement kann im Team mit der „Elevator Pitch"-Methode oder
 
 _Optional: Beschreibe in 2–4 Sätzen, wie die Welt mit diesem Produkt aussieht. Was hat sich für die Nutzer:innen verändert?_
 
-Mit LeihListe werden ausgeliehene Gegenstände transparent und nachvollziehbar organisiert, sodass jederzeit klar ist, wer was besitzt, wann etwas zurückgegeben werden muss und in welchem Zustand sich die Objekte befinden. Nutzer:innen müssen keine unübersichtlichen Tabellen oder informellen Absprachen mehr verwenden, wodurch Abstimmungsaufwand und Missverständnisse deutlich reduziert werden. Ausleihen werden zu einem klar strukturierten, digitalen Prozess mit Erinnerungen und Historie, der sowohl in formellen Organisationen als auch in privaten Gruppen funktioniert. Insgesamt entsteht ein Umfeld, in dem geteilte Ressourcen verlässlicher, effizienter und konfliktärmer genutzt werden.
+Mit LeihListe werden ausgeliehene Gegenstände transparent und nachvollziehbar organisiert, sodass jederzeit klar ist, wer was besitzt, wann etwas zurückgegeben werden muss und in welchem Zustand es zurückgegeben wurde. Nutzer:innen müssen keine unübersichtlichen Tabellen oder informellen Absprachen mehr nutzen, wodurch Abstimmungsaufwand und Missverständnisse deutlich reduziert werden. Ausleihen werden zu einem klar strukturierten, digitalen Prozess mit Erinnerungen und Historie, der sowohl in formellen Organisationen als auch in privaten Gruppen funktioniert. Insgesamt entsteht ein Umfeld, in dem geteilte Ressourcen verlässlicher, effizienter und konfliktärmer genutzt werden.
 
 
 == Produktpositionierung
@@ -81,24 +81,24 @@ typische Aufgaben — sind im link:ux_concept.adoc[UX-Konzept] dokumentiert.
 | Alternative | Beschreibung | Warum unser Produkt besser passt
 
 | Excel und Listen
-| Nutzer führen eine zentrale Liste, in der Gegenstände, Entleiher und Rückgabedaten manuell eingetragen werden. Änderungen werden händisch aktualisiert
+| Nutzer führen eine zentrale Liste, in der Gegenstände, Entleiher und Rückgabedaten manuell eingetragen werden. Änderungen werden händisch aktualisiert.
 | LeihListe ersetzt manuelle Listen durch strukturierte, automatisierte Prozesse
 
 | Asset-Tools
-| Gegenstände werden als „Assets“ erfasst und bestimmten Personen zugewiesen. Ausleihen werden über Check-in/Check-out-Funktionen dokumentiert
+| Gegenstände werden als „Assets“ erfasst und bestimmten Personen zugewiesen. Ausleihen werden über Check-in-/Check-out-Funktionen dokumentiert.
 | LeihListe ist deutlich einfacher und nutzerzentrierter
 
 | Cloud-Asset-Tools
-| Nutzer reservieren oder buchen Gegenstände über ein System, das Verfügbarkeit automatisch verwaltet und Zuweisungen dokumentiert
+| Nutzer reservieren oder buchen Gegenstände über ein System, das die Verfügbarkeit automatisch verwaltet und Zuweisungen dokumentiert.
 | LeihListe ist leichter zugänglich und weniger IT-lastig
 
 | Inventar-Apps
-| Gegenstände werden katalogisiert, und Nutzer behalten den Überblick darüber, wo sich etwas befindet oder wer es nutzt
+| Gegenstände werden katalogisiert, und Nutzer behalten den Überblick darüber, wo sich etwas befindet oder wer es nutzt.
 | LeihListe ergänzt diese Tools um strukturierte Ausleihprozesse und Nachverfolgung
 
 | Enterprise-Systeme
-| Ausleihen sind Teil umfassender Unternehmensprozesse. Assets werden entlang ihres gesamten Lebenszyklus verwaltet und Nutzern zugewiesen
-| LeihListe ist eine leichtgewichtige Alternative für spezifische Use Cases
+| Ausleihen sind Teil umfassender Unternehmensprozesse. Assets werden entlang ihres gesamten Lebenszyklus verwaltet und Nutzern zugewiesen.
+| LeihListe ist eine leichtgewichtige Alternative für spezifische Anwendungsfälle
 |===
 
 
@@ -112,28 +112,28 @@ erklärt, warum bestimmte Entscheidungen getroffen wurden.
 | Stakeholder | Rolle / Interesse | Erwartungen an das Produkt | Einfluss
 
 | Verleiher
-| Eigentümer der technischen Geräten, Laborzubehör und Medien
-| Nachverfolgbarkeit, eine Historie, ein klares Ausleihverfahren und eine Zustandsdokumentaion(vor/nach Nutzung)
+| Eigentümer technischer Geräte, von Laborzubehör und Medien
+| Nachverfolgbarkeit, eine lückenlose Historie, ein klares Ausleihverfahren und eine Zustandsdokumentation (vor/nach der Nutzung)
 | Hoch
 
 | Ausleiher
-| Personen die Gegenstände ausleihen möchten
-| einfaches Ausleihverfahren, transparente Anzeige(Verfügbarkeit), einfacher Verlängerungsprozess, Erinnerungen an Fristen
-| Mittel
+| Personen, die Gegenstände ausleihen möchten
+| Einfaches Ausleihverfahren, transparente Anzeige der Verfügbarkeit, einfacher Verlängerungsprozess, Erinnerungen an Fristen
+| Hoch
 
 | Portalbetreiber
 | Betreiber der Website
-| Stabiler Betrieb, geringe Supportkosten und Differenzierung gegenüber Konkurrenz
+| Stabiler Betrieb, geringe Supportkosten und Differenzierung gegenüber der Konkurrenz
 | Hoch
 
 | Gesetzgeber
-| geben gesetzliche Bedingungen vor
-| saubere Protokollierung, Einhaltung von Gesetzen und Vorschriften 
-| Hoch
+| Geben gesetzliche Rahmenbedingungen vor
+| Saubere Protokollierung sowie die Einhaltung von Gesetzen und Vorschriften
+| Mittel
 
 | Konkurrenz
-| alternative Anbieter
-| Wettbewerbsdynamik, Reaktionen auf Innovationen
+| Alternative Anbieter
+| Wettbewerbsdynamik und Reaktionen auf Innovationen
 | Mittel
 |===
 
@@ -155,28 +155,28 @@ Diese Hauptfunktionen sollten als Epics im Product Backlog für die Gruppierung 
 | Anzeige von Verfügbarkeiten in Echtzeit
 | Hoch
 
-| Verleiher und Admins müssen schnell sehen, was gerade im Umlauf ist
+| Verleiher und Admins müssen schnell sehen, welche Gegenstände sich aktuell im Umlauf befinden
 | Übersicht aktiver Ausleihen
 | Hoch
 
-| Verleiher müssen wissen, wer genau eine Ausleihe durchgeführt hat und unterschiedliche Nutzer eindeutig unterscheiden können
+| Verleiher müssen wissen, wer eine Ausleihe durchgeführt hat, und Nutzer eindeutig unterscheiden können
 | Erstellung und Verwaltung von Nutzerkonten
 | Hoch
 
 | Es braucht einen klaren, einheitlichen Prozess, um Missverständnisse bei Ausleihen zu vermeiden
-| digitaler Ausleihprozess (Anfrage -> Bestätigung -> Übergabe)
+| Digitaler Ausleihprozess (Anfrage -> Bestätigung -> Übergabe)
 | Hoch
 
-| Nicht jeder soll die gleichen Berechtigungen haben
-| Rollenmodell (z.B. Verleiher, Ausleiher, Admin)
+| Nicht alle Nutzer sollen die gleichen Berechtigungen haben
+| Rollenmodell (z. B. Verleiher, Ausleiher, Admin)
 | Mittel
 
 | Gegenstände sollen rechtzeitig und nachvollziehbar zurückgegeben werden
-| Rückgabeprozess mit Statusänderungen und Dokumentationen
+| Rückgabeprozess mit Statusänderungen und Dokumentation
 | Mittel
 
 | Verleiher möchten wissen, wer was wann genutzt hat
-| vollständige Historie aller Ausleihen pro Gegenstand
+| Vollständige Historie aller Ausleihen pro Gegenstand
 | Mittel
 
 | Verleiher müssen den Zustand vor und nach der Nutzung nachvollziehen können
@@ -184,7 +184,7 @@ Diese Hauptfunktionen sollten als Epics im Product Backlog für die Gruppierung 
 | Mittel
 
 | Nutzer vergessen häufig Rückgabefristen
-| automatische Erinnerungen vor Ablauf der Ausleihfrist
+| Automatische Erinnerungen vor Ablauf der Ausleihfrist
 | Niedrig
 |===
 
@@ -220,11 +220,11 @@ technischen Entscheidungen, die sich daraus ergeben — ohne sie hier zu wiederh
 
 | Verfügbarkeit
 | Das Produkt ist während der Betriebszeit zuverlässig erreichbar
-| Verfügbarkeit ≥ 99 % während Betriebszeiten
+| Verfügbarkeit ≥ 99 % während der Betriebszeiten
 
 | Effizienter Ausleihprozess
 | Ausleihen können mit minimalem Aufwand durchgeführt werden
-| max. 5 Interaktionen für eine Standart-Ausleihe
+| Max. 5 Interaktionen für eine Standard-Ausleihe
 |===
 
 === Einschränkungen
@@ -248,16 +248,20 @@ organisatorische, rechtliche oder zeitliche Vorgaben._
 | Das System muss auf den vorhandenen Servern betrieben werden können
 | Technisch
 
-| Skaliebarkeit
-| Das System muss kleine Gruppen (≈10 Nutzer) sowie größere Organisationen (bis mehrere 1000 Assets) unterstützen
+| Skalierbarkeit
+| Das System muss kleine Gruppen (≈10 Nutzer) sowie größere Organisationen (bis mehrere 1.000 Assets) unterstützen
 | Technisch
 
 | Datenkonsistenz
 | Eine gleichzeitige doppelte Ausleihe desselben Gegenstands ist systemseitig ausgeschlossen
 | Technisch
 
+| Mobile Benutzbarkeit
+| Das System muss auf mobilen Endgeräten funktionieren
+| Technisch
+
 | Projektlaufzeit
-| Das Produkt muss innerhalb zwei Semesters (ca. 8 Monate) lieferbar sein.
+| Das Produkt muss innerhalb von zwei Semestern (ca. 8 Monate) lieferbar sein
 | Zeitlich
 
 | Rollenmodell
@@ -269,7 +273,7 @@ organisatorische, rechtliche oder zeitliche Vorgaben._
 | Organisatorisch
 
 | Nutzungskontexte
-| Das System muss sowohl formelle (Institutionen) als auch informelle (private Gruppen) Ausleihszenarien unterstützen 
+| Das System muss sowohl formelle (Institutionen) als auch informelle (private Gruppen) Ausleihszenarien unterstützen
 | Organisatorisch
 |===
 
