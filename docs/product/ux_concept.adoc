@@ -136,23 +136,82 @@ _Der Nutzungskontext gemäß DIN EN ISO 9241-11 beschreibt die Lebenswirklichkei
 | Aspekt | Beschreibung
  
 | Benutzer
-| [Eigenschaften, Kenntnisse, Erfahrung, Motivation der Nutzenden.
-(Verweis auf Personas für ausführliche Beschreibungen)]
+| *Eigenschaften*: 
+ Heterogene Nutzergruppen mit unterschiedlichem Formalitätsgrad
+
+*Kenntnisse*: 
+ Grundlegende digitale Kompetenzen
+
+*Erfahrung*: 
+ Teilweise Efahrung mit komplexeren Systemen
+
+*Motivation*:
+- Transparenz
+
+- Reduktion von organisatorischem Aufwand
+
+- Vermeidung von Konflikten und Verlusten
+
+- Wunsch nach einer einfachen, schnellen und verlässlichen Lösung
  
 | Ziele & Aufgaben
-| [Was wollen Nutzende erreichen?
-Welche konkreten Aufgaben führen sie dazu aus?]
+| *Ziele*:
+- Überblick über verfügbare Gegenstände
+
+- Verlässliche Ausleih- und Rückgabeprozesse
+
+- Minimierung von Verlusten und Konflikten
+
+- Reduktion von Abstimmungsaufwand
+
+
+*Aufgaben*:
+- Gegenstände anlegen und pflegen (Inventar)
+
+- Verfügbarkeit prüfen und Reservierungen/Ausleihen durchführen
+
+- Rückgaben bestätigen und Zustände dokumentieren
+
+- Fristen einhalten (Erinnerungen beachten)
+
+- Historie einsehen (Wer hatte was wann?)
+
+- Rollen und Rechte verwalten 
  
 | Ressourcen
-| [Hardware, Software, Eingabegeräte, Hilfsmittel, die zur Nutzung des Produkts benötigt werden oder vorhanden sind.]
+| *Hardware*: 
+Desktop-PCs, Laptops, Smartphones
+
+*Software*: 
+- Webbrowser
+
+- Bestehende Tools wie Excel, E-Mail, Messenger
+
+*Eingabe*:
+Tastatur/Maus, Touch, Kamera
  
 | Umgebung
-| [Technische Umgebung: Netzwerk, Plattformen, Betriebssysteme, Interoperabilität.
+| *Technische Umgebung*: 
+- Webbasierte Nutzung über gängige Browser
 
- Physische Umgebung: Ort der Nutzung, Lichtverhältnisse, Lärm, Mobilität.
+- Unterschiedliche Netzqualitäten
 
-Soziale & organisatorische Umgebung: Organisationsstruktur, Zusammenarbeit, Unterbrechungen, rechtliche oder regulatorische Rahmenbedingungen.]
- 
+*Physische Umgebung*: 
+- Büro/Arbeitsplatz (ruhig, stationär)
+
+- Veranstaltungen (teilweise hektisch)
+
+- Zuhause/unterwegs (mobil, wechselne Bedingungen)
+
+*Soziale & organisatorische Umgebung*:
+- Formelle Strukturen (Hochschule/Unternehmen) vs informelle Nutzung (WGs/Vereine)
+
+- Häufige Unterbrechungen und parallele Aufgaben
+
+- Notwendigkeit klarer Verantwortlichkeiten
+
+- Rechtliche Rahmenbedingungen, insbesondere DSGVO
+
 |===
 
 === Aktuelle Situation (ohne das Produkt)
@@ -160,8 +219,7 @@ Soziale & organisatorische Umgebung: Organisationsstruktur, Zusammenarbeit, Unte
 _Wie lösen die Nutzenden ihr Problem heute? Diese Beschreibung zeigt, was das Produkt
 verbessern soll — und macht den Mehrwert explizit._
 
-[Beschreibe den heutigen Ablauf in 3–5 Sätzen oder als kurze Schrittfolge. Beispiel: „Heute fragt Maria an der Infotheke nach freien Räumen, erhält eine Liste per E-Mail, und stellt beim Ankommen fest, dass der Raum bereits belegt ist.
-Der Prozess kostet sie im Schnitt 20 Minuten pro Tag."]
+Heute wird die Ausleihe eines Gegenstands informell organisiert: Eine Person fragt per Messenger oder persönlich nach der Verfügbarkeit, erhält eine unklare oder verspätete Rückmeldung und trägt die Ausleihe ggf. in eine Tabelle ein. Während der Nutzung gibt es keine automatischen Erinnerungen, sodass Rückgaben häufig verspätet erfolgen. Andere Nutzer:innen wissen nicht, ob oder wann der Gegenstand wieder verfügbar ist und müssen erneut nachfragen. Der gesamte Prozess ist unübersichtlich, ineffizient und nicht nachvollziehbar.
 
 === Nutzungshürden & Risiken
 
@@ -171,14 +229,32 @@ _Was könnte die Akzeptanz oder Nutzung des Produkts beeinträchtigen?_
 |===
 | Hürde / Risiko | Mögliche Reaktion im Design
 
-| [z. B. Datenschutzbedenken bei Registrierungspflicht]
-| [z. B. Gastzugang für erste Nutzung anbieten]
+| Datenschutzbedenken bei Registrierungspflicht
+| Gastzugang für erste Nutzung anbieten
 
-| [z. B. Schlechte WLAN-Verfügbarkeit in Gebäudeteilen]
-| [z. B. Offline-Ansicht für zuletzt geladene Daten]
+| Schlechte Internetverbindung
+| Offline-Ansicht für zuletzt geladene Daten
 
-| [Weitere Hürde]
-| [Reaktion]
+| Vergessen von Einträgen (Ausleihe/Rückgabe)
+| Erinnerungen und Benachrichtigungen
+
+| Unklare Verantwortlichkeiten
+| Klare Zuordnung von Ausleihen zu Nutzern, Sichtbarkeit von Verantwortlichen
+
+| Zu komplexe Bedienung
+| Fokus auf minimalistische UI, klare Kernfunktionen, reduzierte Optionen für Standardnutzer
+
+| Fehlende Motivation zur konsequenten Nutzung
+| Niedrige Nutzungshürde, schneller Nutzen sichtbar (z.B. "wer hat was?" sofort erkennbar)
+
+| Widerstand gegen "zu viel Struktur" 
+| Flexible Nutzung (optionale Regeln, keine Pflicht-Genehmigungen)
+
+| Hoher initialer Aufwand für Inventarisierung
+| einfache Eingabemasken, schrittweises Anlegen von Gegenständen
+
+| Geringe Bereitschaft zur Nutzung eines neuen Systems
+| Sehr einfacher Einstieg, klare Vorteile kommunizieren, Import aus bestehenden Listen (z.B. Excel)
 |===
 
 == Systemweite Interaktionsflüsse
