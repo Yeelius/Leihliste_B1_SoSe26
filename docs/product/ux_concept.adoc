@@ -127,6 +127,35 @@ _Hinweis: Im link:product_concept.adoc[Produktkonzept] werden Zielgruppen nur be
 NOTE: Für jedes Projekt sind 2–4 Personas ausreichend. Mehr Personas verwässern
 den Fokus. Wenn eine Persona in keiner User Story vorkommt, wird sie gestrichen.
 
+=== Persona 5: Nina Nutzerin
+
+[cols="1,3"]
+|===
+| *Rolle*
+| aktive Ausleiherin in mehreren Kontexten: Hochschulbibliothek, WG, Kulturverein, Büro
+
+| *Alter*
+| 22
+
+| *Zitat*
+| _„Ich will einfach wissen, ob das Buch da ist, bevor ich quer durch die Stadt fahre."_
+
+| *Ziele*
+| Schneller Überblick, ob ein Gegenstand verfügbar ist, bevor sie sich auf den Weg macht; Unkomplizierte Ausleihe ohne lange Wartezeiten oder Rückfragen; Den Überblick behalten, was sie wo aktuell ausgeliehen hat 
+
+| *Frustrationen*
+| Vergebliche Wege zur Bibliothek, weil das Buch schon ausgeliehen ist; Unklarheit, wer in der WG gerade welchen Gegenstand hat; Doppelbuchungen von Vereins-Equipment kurz vor Veranstaltungen; Vergessen, Sachen rechtzeitig zurückzugeben
+
+| *Verhalten & Kontext*
+| Nutzt überwiegend Smartphone, gelegentlich Laptop für Studium; Gewohnt an Apps wie OPAC, Moodle, Messenger; Hohe digitale Kompetenz, erwartet schnelle und intuitive Bedienung; Oft unter Zeitdruck zwischen Vorlesungen, Verein, WG und Teilzeitjob.
+
+| *Bezug zum Produkt*
+| Nutzt LeihListe als Ausleiherin in drei verschiedenen Kontexten; Hauptnutzen: Echtzeit-Verfügbarkeit, klare Übersicht eigener Ausleihen, weniger Abstimmungsaufwand
+|===
+
+NOTE: Für jedes Projekt sind 2–4 Personas ausreichend. Mehr Personas verwässern
+den Fokus. Wenn eine Persona in keiner User Story vorkommt, wird sie gestrichen.
+
 == Nutzungskontext
 
 _Der Nutzungskontext gemäß DIN EN ISO 9241-11 beschreibt die Lebenswirklichkeit der Personas — unabhängig vom Produkt. Er zeigt, in welchem Umfeld, mit welchen Mitteln und unter welchen Bedingungen das Produkt genutzt wird._
