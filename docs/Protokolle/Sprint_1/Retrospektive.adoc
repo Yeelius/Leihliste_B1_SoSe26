@@ -1,0 +1,104 @@
+== Retrospektive — Sprint 1
+
+:doctype: article
+:toc: left
+
+== Datum
+06.05.2025
+
+== Teilnehmer
+Alle Mitglieder des Teams
+
+== Moderator
+Scrum Muster - Adrian
+
+== Dauer
+100 Minuten
+
+== Ziele der Retrospektive
+
+Einen offenen und konstruktiven Rückblick auf den ersten Sprint zu ermöglichen, um Erkenntnisse zu gewinnen, Verbesserungen zu identifizieren und die Zusammenarbeit im Team zu stärken.
+
+== Stop / Start / Continue
+
+Die Gruppe sammelt Eindrücke und Erkenntnisse von jedem einzelnen Teammitglied, um daraus konkrete Maßnahmen abzuleiten.
+
+=== Stop -> Start
+
+Jeder Stop-Punkt wird direkt mit der konkreten Start-Maßnahme verbunden, die daraus folgt.
+
+[cols="2,3,1",options="header"]
+|===
+|Stop (Problem) |Start (konkrete Maßnahme) | Verantwortlich
+
+
+| Es wird manches auf den letzten Drücker erledigt(z.B. vor dem Weekly Meeting)
+| Wir setzen Deadline anhand von Github Issues
+| Scrum Master
+
+
+| Wir haben einen schlechten Überblick über welche Aufgaben im Sprint anstehen
+| Alle Aufgaben des Sprints im Sprint Planning erfassen und dokumentieren (auch in welcher Woche was gemacht werden soll)
+| Project Owner, Scrum Master
+
+
+| Wir benötigen zu viel Zeit zu Themen in den Meetings (bspw. Meeting ist auf 1 Stunde angesetzt, aber es wird zu viel Zeit für Diskussionen benötigt)
+| Es wird sich mehr auf das Meeting vorbereitet, um mehr zu beschließen als darüber zu denken. Mehr auf Timeboxen achten und wenn nötig auf seperates Meeting umlegen
+| Scrum Master
+
+
+| Es wird zu lang Zeit gebraucht um Termine festzulegen
+| Wir setzen mit dem Terminfindungstool Nuudel eine Terminfindungsumfrage auf
+| Aufsetzen der Umfrage: Scrum Master
+
+
+| Wenig Kommunikation über den Fortschritt der Aufgaben
+| Wenn benötigt kommen in der Woche kleine Meetings zu stande *oder* Updates im Discord geben
+| Alle
+
+| Es sind zu viele Nachrichten die ich mir nicht durchlesen möchte
+| Für Person relevante Nachrichten in Discord wird ein Ping (@Die betroffene Person) gesetzt
+| Alle
+|===
+
+=== Continue (weitermachen)
+
+Liste von Dingen, die gut laufen und weitergeführt werden sollen:
+
+
+==== Punkt:
+
+- Regelmäßige Meetings
+- Anwesenheit aller Teammitglieder bei Meetings
+- Offene Kommunikation im Team
+- freundlicher Umgang miteinander
+- wertschätzender Umgang 
+- Agenda für jedes Treffen
+-Qualitätsanspruch an die Arbeitsergebnisse
+- an gemeinsamer Produktvision arbeiten
+
+
+
+== Aktionen / ToDos
+
+Eine zusammenfassende Liste aller vereinbarten Aktionen, die auch seperat getroffen wurden.
+
+==== Aktion:
+- Issues auch als Tasks benutzen
+- wenn Issue Task auf 2 Personen fallen -> Sub Issue erstellen
+- Agenda auf Github, damit jeder falls nötig, einen Punkt hinzufügen kann
+- Terminfindung -> Nuudel
+- Sprint Planing nutzen um alle Aufgaben zu erfassen und noch mehr zu planen
+- Mehr Updates im Discord geben
+- Mehr Vorbereitung auf Meetings
+- Zeit in Meetings besser nutzen und besser darauf achten
+
+== Nächste Schritte
+
+- Kommendes Review vorbereiten und durchführen
+- Report zum Sprint 1 (jeder einzelne) Gedanken machen und zum nächsten Weekly Meeting mitbringen
+
+== Feedback zur Retrospektive
+
+- Kam gut an
+
