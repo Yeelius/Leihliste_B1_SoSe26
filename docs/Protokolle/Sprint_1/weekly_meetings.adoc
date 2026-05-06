@@ -85,3 +85,12 @@
 === Naechste Besprechung
 *Termin:* 10.05.2026, 15:00 Uhr 
 *Ziel:* Abschließen des 1. Sprints und Planung des 2. Sprints
+
+== Meeting 10.05.2026
+:id: meeting10052026
+
+*Datum:* 10.05.2026  
+*Dauer:* 
+*Teilnehmende:* 
+
+=== Agenda
