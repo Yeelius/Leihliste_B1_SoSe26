@@ -4,13 +4,13 @@
 :toc: left
 
 == Datum
-06.05.2025
+06.05.2025; 13:20 bis 15:00 Uhr
 
 == Teilnehmer
 Alle Mitglieder des Teams
 
 == Moderator
-Scrum Muster - Adrian
+Scrum Master - Adrian
 
 == Dauer
 100 Minuten
@@ -32,18 +32,18 @@ Jeder Stop-Punkt wird direkt mit der konkreten Start-Maßnahme verbunden, die da
 |Stop (Problem) |Start (konkrete Maßnahme) | Verantwortlich
 
 
-| Es wird manches auf den letzten Drücker erledigt(z.B. vor dem Weekly Meeting)
-| Wir setzen Deadline anhand von Github Issues
+| Es wird manches auf den letzten Drücker erledigt (z.B. vor dem Weekly Meeting).
+| Wir setzen Deadline anhand von Github Issues.
 | Scrum Master
 
 
-| Wir haben einen schlechten Überblick über welche Aufgaben im Sprint anstehen
-| Alle Aufgaben des Sprints im Sprint Planning erfassen und dokumentieren (auch in welcher Woche was gemacht werden soll)
-| Project Owner, Scrum Master
+| Wir haben einen schlechten Überblick darüber, welche Aufgaben im Sprint anstehen.
+| Alle Aufgaben des Sprints im Sprint Planning erfassen und dokumentieren (auch in welcher Woche was gemacht werden soll).
+| Product Owner, Scrum Master
 
 
-| Wir benötigen zu viel Zeit zu Themen in den Meetings (bspw. Meeting ist auf 1 Stunde angesetzt, aber es wird zu viel Zeit für Diskussionen benötigt)
-| Es wird sich mehr auf das Meeting vorbereitet, um mehr zu beschließen als darüber zu denken. Mehr auf Timeboxen achten und wenn nötig auf seperates Meeting umlegen
+| Wir benötigen zu viel Zeit zu Themen in den Meetings (bspw. Meeting ist auf 1 Stunde angesetzt, aber es wird zu viel Zeit für Diskussionen benötigt.)
+| Es wird sich mehr auf das Meeting vorbereitet, um mehr zu beschließen als erst im Meeting darüber nach zu denken. Mehr auf Timeboxen achten und wenn nötig auf seperates Meeting umlegen.
 | Scrum Master
 
 
@@ -52,12 +52,12 @@ Jeder Stop-Punkt wird direkt mit der konkreten Start-Maßnahme verbunden, die da
 | Aufsetzen der Umfrage: Scrum Master
 
 
-| Wenig Kommunikation über den Fortschritt der Aufgaben
-| Wenn benötigt kommen in der Woche kleine Meetings zu stande *oder* Updates im Discord geben
+| Wenig Kommunikation über den Fortschritt der Aufgaben.
+| Wenn benötigt kommen in der Woche kleine Meetings zu stande *oder* Updates im Discord geben.
 | Alle
 
-| Es sind zu viele Nachrichten die ich mir nicht durchlesen möchte
-| Für Person relevante Nachrichten in Discord wird ein Ping (@Die betroffene Person) gesetzt
+| Es sind zu viele Nachrichten, die ich mir nicht durchlesen möchte.
+| Für Person-relevante Nachrichten in Discord wird ein Ping (@die betroffene Person) gesetzt.
 | Alle
 |===
 
@@ -66,15 +66,15 @@ Jeder Stop-Punkt wird direkt mit der konkreten Start-Maßnahme verbunden, die da
 Liste von Dingen, die gut laufen und weitergeführt werden sollen:
 
 
-==== Punkt:
+==== Punkte:
 
-- Regelmäßige Meetings
+- regelmäßige Meetings
 - Anwesenheit aller Teammitglieder bei Meetings
-- Offene Kommunikation im Team
+- offene Kommunikation im Team
 - freundlicher Umgang miteinander
 - wertschätzender Umgang 
 - Agenda für jedes Treffen
--Qualitätsanspruch an die Arbeitsergebnisse
+- Qualitätsanspruch an die Arbeitsergebnisse
 - an gemeinsamer Produktvision arbeiten
 
 
@@ -85,20 +85,20 @@ Eine zusammenfassende Liste aller vereinbarten Aktionen, die auch seperat getrof
 
 ==== Aktion:
 - Issues auch als Tasks benutzen
-- wenn Issue Task auf 2 Personen fallen -> Sub Issue erstellen
-- Agenda auf Github, damit jeder falls nötig, einen Punkt hinzufügen kann
-- Terminfindung -> Nuudel
-- Sprint Planing nutzen um alle Aufgaben zu erfassen und noch mehr zu planen
-- Mehr Updates im Discord geben
-- Mehr Vorbereitung auf Meetings
-- Zeit in Meetings besser nutzen und besser darauf achten
+- wenn Issue Task auf 2 Personen fallen -> Sub Issue für jede Person erstellen
+- Agenda auf Github, damit jede*r falls nötig, einen Punkt hinzufügen kann
+- für Terminfindung bei Treffen -> gern 2 Tage vorab schon Nuudel erstellen und rumschicken
+- Sprint Planing nutzen um alle Aufgaben des Sprints zu erfassen und besser zu planen
+- mehr Updates im Discord geben
+- mehr individuelle Vorbereitung auf Meetings
+- Zeit in Meetings besser nutzen und besser auf Einhaltung der Timeboxen achten
 
 == Nächste Schritte
 
-- Kommendes Review vorbereiten und durchführen
+- kommendes Review vorbereiten und durchführen
 - Report zum Sprint 1 (jeder einzelne) Gedanken machen und zum nächsten Weekly Meeting mitbringen
 
 == Feedback zur Retrospektive
 
-- Kam gut an
+- kam gut an
 
