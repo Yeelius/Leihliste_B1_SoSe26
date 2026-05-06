@@ -27,10 +27,10 @@ Formulieren Sie Ihr Sprintziel in 1–2 Sätzen. Leitfragen:
 | Kriterium | Ihre Antwort
 
 | Sprintziel
-| 
+| Erstellung eines ersten Produktkonzepts, gemeinsame Vorstellung des Produkts zu gewinnen, Teambildung/findung
 
 | Zentrale Unsicherheit / Annahme
-| 
+| Vetrauen in das Team, Teamfindung -> Gruppe von Fremden, welche Arbeitsmittel?(WahtsApp), eine Person die alles allein angibt(Diktator)
 |===
 
 
@@ -62,29 +62,29 @@ Beziehen Sie sich bevorzugt auf Praktiken, die in den Hinweisen für Sprint 1 be
 | Nachweis / Artefakt (Link einfügen)
 | Nutzen, Erkenntnis oder Anpassung
 
+| Akzeptanzkriterien für ausgewählte User Stories formulieren
 | 
-| 
-| 
-| 
-
-| 
-| 
-| 
+| Miro-Board Link
 | 
 
-| 
-| 
-| 
-| 
-
-| 
-| 
-| 
+| Wireframes oder Low-Fidelity-Prototypen erstellen
+| Stakeholder vorstellung, vision vorstellung, erste skizzen
+| Miro-Board Link
 | 
 
+| Rollen, Zusammenarbeit oder Arbeitsvereinbarungen im Team klären
+| 
+| Protokoll Ringel + Commit Link Rollen Teamcharta
+| Falsche vorstellung (vom Workload) der Rollenverteilung, erst nach Gespräch mit Ringel klar
+
+| Epics und User Stories ableiten
 | 
 | 
+| Komplett falscher weg, über hauptfunktion und nicht über pesonas. personas mussten darauf angepasst geschrieben werden
+
+| Feedback zum Produktkonzept einholen
 | 
+| Protokoll Feedbackrunde Link
 | 
 |===
 
