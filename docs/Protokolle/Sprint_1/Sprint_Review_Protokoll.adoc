@@ -16,8 +16,7 @@ Datum:: 08.05.2026
 // "Artefakte" können z. B. ein Produktinkrement, Wireframes, Architekturentwürfe, Modelle, Produktvision 
 // oder andere überprüfte Ergebnisse sein.
 == Gezeigte Ergebnisse
-* Gezeigte Artefakte:
-* Links zu Nachweisen:
+* Gezeigte Artefakte: https://github.com/RicoHTWDD/Leihliste_B1_SoSe26/blob/main/docs/product/product_concept.adoc[Produktkonzept], https://miro.com/app/board/uXjVHdvYs9k=/?moveToWidget=3458764670267088697&cot=14[User Stories], https://miro.com/app/board/uXjVHdvYs9k=/?moveToWidget=3458764670926154178&cot=14[Wireframes], 
 
 // Feedback möglichst knapp und konkret dokumentieren.
 // Positiv = was überzeugt hat
