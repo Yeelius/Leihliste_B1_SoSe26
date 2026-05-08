@@ -1,16 +1,16 @@
 = Kurzprotokoll für ein Sprint-Review
 
 // Kurzer Kontext zur Einordnung des Reviews.
-Team:: 
-Sprint:: 
-Datum:: 
+Team:: Leihliste_B1_SoSe26
+Sprint:: 1
+Datum:: 08.05.2026
 
 // Das Sprint-Ziel soll in einem Satz benannt werden.
 // Es beschreibt, was im Sprint erreicht oder validiert werden sollte.
 
 == Sprint-Ziel
-* Ziel:
-* Status: Erreicht / Teilweise erreicht / Nicht erreicht
+* Ziel: Unsere erarbeiteten Ergebnisse (Wireframes, Konzepte, Anforderungen) durch externes Feedback validieren und konkrete Erkenntnisse sammeln, wie die Lösung ankommt und welche Bereiche überarbeitet oder angepasst werden müssen.
+* Status: Teilweise erreicht
 
 // Hier nur die wichtigsten Ergebnisse des Reviews festhalten.
 // "Artefakte" können z. B. ein Produktinkrement, Wireframes, Architekturentwürfe, Modelle, Produktvision 
@@ -25,22 +25,45 @@ Datum::
 // Offene Fragen = was noch geklärt werden muss
 == Feedback
 * Positiv:
+  - Wireframes und Live-Designs sind überzeugender als rein theoretische Konzepte
+  - Ausleih- und Rückgabeprozess (mit differenzierten Ansichten für Leiher und Verleiher) wirkt gut strukturiert
 * Bedenken:
+  - Python als Programmiersprache mit schwierigem Internetzugriff -> Risiko für Prototyp-Umsetzung
+  - Statusanzeige als Ausleihübersicht ist zu überfordernd und unübersichtlich
 * Offene Fragen:
+  - Unterstützen wir unterschiedliche Verleiher-Typen? (Großverleiher vs. Kleinverleiher mit unterschiedlichen Anforderungen)
+  - Sollte Automatisierung von Ausleihe/Rückgabe unterschiedlich je nach Gegenstandstyp erfolgen? (z.B. Klavier vs. Buch)
+  - Account-Modell: Ein gemeinsamer Account pro Firma mit Mitarbeitern, oder separate Accounts? Wie funktioniert Permissions-Verwaltung?
+  - Müssen Wireframes in Format und Färbung einheitlicher werden?
 
 // Nur die wichtigsten Entscheidungen und Zielkonflikte aufnehmen.
 // Beispiele für Trade-off: schnellere Umsetzung vs. saubere Architektur oder besonders ausgefallene Features vs. solide Umsetzung von Basisfunktionen
 == Entscheidungen
 * Zentrale Entscheidung(en):
+  - *Kategorien:* Feste Kategorien implementieren (statt benutzerdefinierbar), um Filterung zu ermöglichen und gleichzeitig ausführliche Taxonomie zu haben
+  - *Automatisierung:* Für Prototyp manuell umsetzen, aber architektonisch vorbereiten für optionale Automatisierung je nach Gegenstandstyp
+  - *Hauptnavigation:* Rollen-basiert unterschiedliche Funktionen anzeigen (z.B. Uni: alle Features, Leiher: nur "Leihen" oder "Zurückgeben")
+  - *Geräte-Details:* Direkt in Detailseite navigieren statt alle Informationen auf Übersichtsseite zu zeigen; Inline-Bearbeitung im Inventar ermöglichen
+  - *Datumauswahl:* Vereinfachen und zusammenfassen; Zeitraumauswahl automatisieren wo sinnvoll
+  - *Statusanzeige:* Unterschiedliche Status-Ansichten für Ausleiher und Verleiher
 * Wichtige Trade-offs:
+  - Manuelle Ausleihe/Rückgabe in Prototyp vs. spätere Automatisierung (abhängig von Gegenstandswert)
+  - Feste Kategorien vs. Flexibilität (Trade-off: Usability vs. Customization)
 
 // Konkrete nächste Schritte notieren.
 // Fokus = worauf sich das Team im nächsten Sprint besonders konzentrieren will
 == Nächste Schritte
 * Folgeaktionen:
+  - Nutzer-Rollen und deren Berechtigungen klar definieren (Uni, Großverleiher, Kleinverleiher, Leiher)
+  - Kategorie-Hierarchie verbindlich festlegen
+  - UI/UX-Wireframes für unterschiedliche Rollen-Ansichten erstellen
+  - Python-Lösung für Internetzugriff evaluieren (Alternative?
 * Fokus für den nächsten Sprint:
+  - Nutzertyp- und rollenbasierte Navigation implementieren
+  - UI/UX für Geräte-Details und Inventar-Verwaltung ausarbeiten
+  - Datumauswahl und Zeitraumlogik vereinfachen
 
 // Was haben wir gelernt? 
 == Reflexion
-- Wichtigste Erkenntnis:  
-- Größte Überraschung:
+- Wichtigste Erkenntnis: Konkrete UI-Wireframes und Live-Designs fördern das Verständnis und die Validierung besser als theoretische Konzepte allein
+- Größte Überraschung: Die Komplexität der Statusverwaltung und Navigation je nach Nutzertyp war größer als erwartet
