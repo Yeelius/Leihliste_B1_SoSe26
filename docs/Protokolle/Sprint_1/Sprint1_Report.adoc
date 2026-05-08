@@ -71,12 +71,12 @@ Beziehen Sie sich bevorzugt auf Praktiken, die in den Hinweisen für Sprint 1 be
 
 | Wireframes oder Low-Fidelity-Prototypen erstellen
 | Stakeholder vorstellung, vision vorstellung, erste skizzen
-| Miro-Board Link
+| https://miro.com/app/board/uXjVHdvYs9k=/?moveToWidget=3458764670926154178&cot=14[Miro-Board]
 | 
 
 | Rollen, Zusammenarbeit oder Arbeitsvereinbarungen im Team klären
 | 
-| Protokoll Ringel + Commit Link Rollen Teamcharta
+| https://github.com/RicoHTWDD/Leihliste_B1_SoSe26/blob/main/docs/Protokolle/Sprint_1/2026-04-22_Treffen_Coach.adoc[Protokoll Ringel],  https://github.com/RicoHTWDD/Leihliste_B1_SoSe26/commit/10dbcb1edefd815f5396e84da069085804a2df8c[Rollenänderung Teamcharta]
 | Falsche vorstellung (vom Workload) der Rollenverteilung, erst nach Gespräch mit Ringel klar
 
 | Epics und User Stories ableiten
@@ -86,7 +86,7 @@ Beziehen Sie sich bevorzugt auf Praktiken, die in den Hinweisen für Sprint 1 be
 
 | Feedback zum Produktkonzept einholen
 | 
-| Protokoll Feedbackrunde Link
+| https://github.com/RicoHTWDD/Leihliste_B1_SoSe26/blob/main/docs/Protokolle/Sprint_1/Sprint_Review_Protokoll.adoc[Sprint Review Protokoll]
 | 
 |===
 
@@ -194,5 +194,5 @@ Organisation: Die Terminfindung in Meetings nahm zu viel Zeit in Anspruch. -> Te
 
 
 | Offene Frage für Sprint 2
-| Funktinieren die vereinabrten unsere Arbeits-Abläufe und -Absprachen für unser Team und wie genau stellen wir uns das Priodukt vor? 
+| Funktionieren die vereinabrten unsere Arbeits-Abläufe und -Absprachen für unser Team und wie genau stellen wir uns das Produkt vor? 
 |===
