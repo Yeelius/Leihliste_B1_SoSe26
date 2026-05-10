@@ -1,0 +1,117 @@
+= Sprint 2 Planning Protokoll: Validierung des technischen Ansatzes
+
+== Ziel Sprint 2
+Validierung des technischen Ansatzes durch Konsolidierung der fachlichen Anforderungen aus Sprint 1, Festlegung des Technologie-Stacks, Architekturentscheidungen und erste praktische Evidenz durch ein lauffähiges Walking Skeleton.
+
+== Zusammenfassung: Was wird in Sprint 2 geplant und umgesetzt?
+
+=== Woche 1: Basis schaffen & Problemraum klären (Fokus: POs)
+**Ziel:** Fachliche Fundamente und Architekturtreiber erarbeiten
+
+[cols="1,2,2,1"]
+|===
+| Aufgabe | Was | Wo | Wer
+
+| 1. Sprint-1-Ergebnisse konsolidieren
+| Qualitätsanforderungen anpassen, Produktannahmen klären, Tester-Feedback einarbeiten
+| `product_concept.adoc`, `ux_concept.adoc`
+| PO + Team
+
+| 2. Glossar & Domänenmodell
+| Zentrale fachliche Begriffe definieren; Diagramm der wesentlichen Entitäten und Beziehungen erstellen (kein Datenbankmodell!)
+| `domain_glossary.adoc`
+| PO
+
+| 3. Architekturtreiber ableiten
+| Kritische Anforderungen (Performance, Datenschutz) und Risiken priorisieren, die Technikwahl beeinflussen
+| `architecture.adoc` → Abschnitt "Architekturrelevante Anforderungen"
+| Dev Team (mit Input von POs)
+|===
+
+---
+
+=== Woche 2: Technologie-Entscheidungen & Struktur (Fokus: Devs)
+**Ziel:** Technologie-Stack festlegen, Architekturentscheidungen dokumentieren, interne Struktur entwerfen
+
+[cols="1,2,2,1"]
+|===
+| Aufgabe | Was | Wo | Wer
+
+| 4. Architekturansatz & Tech-Stack
+| Systemkontext-Diagramm zeichnen, Technologien für Frontend/Backend/DB wählen & begründen, Laufzeitstruktur skizzieren
+| `architecture.adoc` → Abschnitte "Systemkontext" & "Technologie-Stack"
+| Dev Team (mit C4-Diagramm-Vorbereitung auf Miro Board)
+
+| 5. Architekturentscheidungen (ADRs)
+| Wichtige Tech-Entscheidungen strukturiert dokumentieren (Kontext, Entscheidung, Alternativen, Konsequenzen)
+| `architecture.adoc` → Abschnitt "Architekturentscheidungen"
+| Dev Team
+
+| 6. Interne Struktur entwerfen
+| Schichtendiagramm und Komponentenübersicht erstellen (z.B. Controller, Services, Repositories)
+| `design.adoc`
+| Dev Team
+|===
+
+---
+
+=== Woche 3: Code & Experimente (Fokus: Devs)
+**Ziel:** Technische Machbarkeit nachweisen, lauffähiges Walking Skeleton bauen
+
+[cols="1,2,2,1"]
+|===
+| Aufgabe | Was | Wo | Wer
+
+| 7. Technische Erkenntnisse & Spikes
+| Ungelöste Tech-Fragen durch zeitlich begrenzte Code-Experimente ("Spikes") klären; Erkenntnisse in ADRs zurückfließen lassen
+| GitHub (Quellcode) + `architecture.adoc`
+| Dev Team
+
+| 8. Walking Skeleton bauen
+| Minimales, lauffähiges Code-Gerüst erstellen: Frontend ↔ Backend ↔ temporäre DB. Erste praktische Evidenz für Architekturansatz.
+| GitHub (Quellcode)
+| Dev Team
+
+| 9. Lokale Ausführbarkeit
+| Anleitung schreiben: Wie startet man das Walking Skeleton lokal (z.B. Docker Compose)?
+| `deployment.adoc`
+| Dev Team
+|===
+
+---
+
+=== Woche 4: Konsolidierung & Vorbereitung Sprint 3 (Alle)
+**Ziel:** Architektur finalisieren, technische Schulden dokumentieren, Sprint 3 vorbereiten
+
+[cols="1,2,2,1"]
+|===
+| Aufgabe | Was | Wo | Wer
+
+| 10. Architektur & Design konsolidieren
+| ADRs finalisieren, technische Risiken & Schulden dokumentieren, ggf. erstes Datenmodell dokumentieren
+| `architecture.adoc`, `design.adoc`
+| Dev Team
+
+| 11. Sprint 3 vorbereiten
+| User Stories für erstes nützliches Produktinkrement auswählen
+| GitHub Issues & Project Board
+| POs + Dev Team
+
+| 12. Definition of Done festlegen
+| Realistische DoD für Sprint 3 erarbeiten
+| `test_concept.adoc` oder Backlog
+| Scrum Master + gesamtes Team
+|===
+
+---
+
+== Kritische Deliverables (Ende Sprint 2)
+- Aktualisierte `product_concept.adoc` & `ux_concept.adoc` (mit Sprint-1-Feedback)
+- Kompletter `domain_glossary.adoc` mit Domänenmodell (PlantUML)
+- Gefüllte `architecture.adoc` (Anforderungen, Systemkontext, Tech-Stack, ADRs)
+- `design.adoc` mit Schichtenmodell und Komponenten
+- Lauffähiges **Walking Skeleton** (GitHub)
+- Start-Anleitung in `deployment.adoc`
+- Vorbereitung auf Sprint 3 (ausgewählte User Stories, DoD)
+
+---

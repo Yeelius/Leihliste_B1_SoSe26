@@ -27,12 +27,10 @@ Formulieren Sie Ihr Sprintziel in 1–2 Sätzen. Leitfragen:
 | Kriterium | Ihre Antwort
 
 | Sprintziel
-| Erstellung eines ersten Produktkonzepts, gemeinsame Vorstellung des Produkts zu gewinnen, Teambildung/findung
-
-Als Team zusammenfinden, Arbeits-Mittel samt -Abläufe erproben und eine gemeinsame Vorstellung des Produkts entwickeln.
+| Als Team zusammenfinden, Arbeits-Mittel samt -Abläufe erproben und eine gemeinsame Vorstellung des Produkts entwickeln.
 
 | Zentrale Unsicherheit / Annahme
-| Vetrauen in das Team, Teamfindung -> Gruppe von Fremden, welche Arbeitsmittel?(WahtsApp), eine Person die alles allein angibt(Diktator), wie wird der gemeinsame Umgang sein?
+| Zu Beginn des Sprints bestand Unsicherheit darüber, ob wir als neu zusammengewürfeltes Team schnell Vertrauen aufbauen, passende Arbeitsmittel und Arbeitsabläufe festlegen und einen gemeinsamen Umgang miteinander finden können. Außerdem war offen, ob die Produktidee für die Zielgruppe tatsächlich relevant ist.
 |===
 
 
@@ -65,29 +63,29 @@ Beziehen Sie sich bevorzugt auf Praktiken, die in den Hinweisen für Sprint 1 be
 | Nutzen, Erkenntnis oder Anpassung
 
 | Akzeptanzkriterien (AK) für ausgewählte User Stories formulieren
-| von 2 Entwickler*innen in Woche 4 für alle User-Stories mit Prioriät "Hoch" erste Entwürfe gemacht 
-| Miro-Board Link
-| einige User-Stories widersprechen sich noch: Unklarheiten über grundlegende Abläufe im Produkt aufgedeckt; meist >10 Vorschläge für AKs: pro User-Task mehrere User-Stories auswählen, in Reihenfolge bringen und dann Dopplungen der AKs rausstreichen
+| Zwei Entwickler*innen haben in Woche 4 für alle User Stories mit hoher Priorität erste Entwürfe für Akzeptanzkriterien erstellt.
+| https://miro.com/app/board/uXjVHdvYs9k=/?moveToWidget=3458764670267088697&cot=14[Miro-Board]
+| Unklarheiten bei grundlegenden Abläufen sichtbar gemacht; mehrere Vorschläge je Story verglichen und Dopplungen entfernt
 
 | Wireframes oder Low-Fidelity-Prototypen erstellen
-| Stakeholder vorstellung, vision vorstellung, erste skizzen
+| Wir haben Stakeholder, Vision und erste Skizzen gemeinsam im Team vorgestellt und in Miro festgehalten.
 | https://miro.com/app/board/uXjVHdvYs9k=/?moveToWidget=3458764670926154178&cot=14[Miro-Board]
-| 
+| Ideen wurden schneller greifbar und einfacher diskutierbar
 
 | Rollen, Zusammenarbeit oder Arbeitsvereinbarungen im Team klären
-| 
+| Wir haben in der Teamcharta, Zusammenarbeit und Verantwortlichkeiten festgelegt und diese im Gespräch mit Ringel nachgeschärft.
 | https://github.com/RicoHTWDD/Leihliste_B1_SoSe26/blob/main/docs/Protokolle/Sprint_1/2026-04-22_Treffen_Coach.adoc[Protokoll Ringel],  https://github.com/RicoHTWDD/Leihliste_B1_SoSe26/commit/10dbcb1edefd815f5396e84da069085804a2df8c[Rollenänderung Teamcharta]
-| Falsche vorstellung (vom Workload) der Rollenverteilung, erst nach Gespräch mit Ringel klar
+| Rollen und Workload wurden nach dem Gespräch mit Ringel klarer
 
 | Epics und User Stories ableiten
-| 
-| 
-| Komplett falscher weg, über hauptfunktion und nicht über pesonas. personas mussten darauf angepasst geschrieben werden
+| Wir haben das Backlog anhand der Wireframes strukturiert und erste Epics sowie User Stories daraus abgeleitet.
+| https://miro.com/app/board/uXjVHdvYs9k=/?moveToWidget=3458764670785337268&cot=14[Miro-Board]
+| Ausgangspunkt war zunächst zu technisch; Personas und Stories wurden danach besser auf das Produkt ausgerichtet
 
 | Feedback zum Produktkonzept einholen
-| 
+| Wir haben Feedback von Stakeholdern zum Produktkonzept eingeholt und im Team diskutiert.
 | https://github.com/RicoHTWDD/Leihliste_B1_SoSe26/blob/main/docs/Protokolle/Sprint_1/Sprint_Review_Protokoll.adoc[Sprint Review Protokoll]
-| 
+| Stakeholder setzten andere Schwerpunkte als das Team, vor allem bei Design und Produktfragen
 |===
 
 
@@ -107,10 +105,10 @@ Beschreiben Sie 2–3 zentrale Erkenntnisse aus Sprint 1. Leitfragen:
 | Das Produkt ist komplexer als es nach mehrmaligen (individuellem) Durchdenken erscheint und es braucht mehr gemeinsamen Austausch damit eine gemeinsame Vorstellung entsteht.
 
 | Erkenntnis 2
-| 
+| Das Zeitmanagement war deutlich aufwendiger als erwartet. Viele Aufgaben haben mehr Zeit beansprucht, weil Rückfragen und Konkretisierungen nötig waren.
 
 | Erkenntnis 3
-| 
+| Konkrete Wireframes und visuelle Prototypen halfen uns bei der Validierung des Produktkonzepts mehr als abstrakte Beschreibungen. Durch das Feedback wurden Diskussionen erleichtert und Schwachstellen schneller sichtbar.
 |===
  
 == 4. Änderungen am Produktkonzept
@@ -123,17 +121,17 @@ Beschreiben Sie konkret anhand von drei Beispielen, was sich durch Ihre Arbeit u
 | Neue Erkenntnis
 | Anpassung am Produktkonzept oder Backlog
 
-| 
-| 
-| 
+| Annahme, dass alle Stakeholder ähnliche Bedürfnisse haben
+| Die Nutzerrollen müssen klarer voneinander abgegrenzt werden. Verleiher, Leiher, Universität, Großverleiher und Kleinverleiher haben unterschiedliche Bedürfnisse, Berechtigungen und Perspektiven.
+| Die Navigation, das Account-Modell und die User Stories wurden entsprechend angepasst.
 
-| 
-| 
-| 
+| Annahme, dass alle unabhängig voneinander Wireframes erstellen können
+| Ein gemeinsames Template ist sinnvoller als viele unterschiedliche Ansätze.
+| Wir prüfen in einem GitHub Issue, wie ein einheitliches Template aussehen kann.
 
-| 
-| 
-| 
+| User Stories direkt aus der Hauptfunktion ableiten
+| Dabei entstanden Dopplungen und teils zu fachliche Stories.
+| Die Dopplungen wurden entfernt, die Stories verallgemeinert und an Epics geknüpft.
 |===
 
 
@@ -151,13 +149,13 @@ Beschreiben Sie kurz, welche nicht-funktionalen Anforderungen, Randbedingungen o
 | Kriterium | Ihre Antwort
 
 | Qualitätsanforderungen
-| 
+| Das Produkt soll ohne lange Einarbeitung nutzbar sein, schnell auf Nutzerinteraktionen reagieren und während der Betriebszeit zuverlässig verfügbar sein. Ausleihen sollen mit möglichst wenig Aufwand möglich sein.
 
 | Randbedingungen
-| 
+| Personenbezogene Daten dürfen nur gemäß DSGVO verarbeitet und gespeichert werden.
 
 | Ethische Aspekte / Risiken
-| 
+| Mögliche Risiken sind Datenklau, Betrug und Diebstahl von Ausleihprodukten.
 |===
 
 

@@ -92,8 +92,8 @@
 :id: meeting10052026
 
 *Datum:* 10.05.2026  
-*Dauer:* 
-*Teilnehmende:* 
+*Dauer:* 100 min
+*Teilnehmende:* Alle Mitglieder des Teams
 
 === Agenda
 
@@ -101,7 +101,6 @@
 . Report Sprint 1 (20 min)
 . Sonstiges (10 min)
 . Planung Sprint 2 (60-90 min)
-
 
 ==== Sonstiges (ist hier nur gesammelt und noch nicht an eine sinnvolle Stelle geschoben)
 
@@ -114,4 +113,21 @@
 * Rico: anscheinend gibt es in en ISSUE_TEMPLATES schon konkrete Vorlagen für verschiedene Aufgaben-Typen?
 
 ===== Personas
-* Von den Personas werden nur 2 aktiv genutzt (Nina Nutzerin und Hildegard Hochschule), wollen wir diese nochmal überarbeiten?
+* Von den Personas werden nur 2 aktiv genutzt (Nina Nutzerin und Hildegard Hochschule). Sollen diese zunaechst groesser ausgearbeitet und spaeter kompakter dargestellt werden?
+
+=== Beschluesse
+==== 1) Review-Dokumentation und Praesentation
+* Die Gestaltung von Review-Dokumentation und Praesentation wird mit dem Team besprochen, damit die Struktur und die inhaltlichen Schwerpunkte fuer alle nachvollziehbar sind.
+
+==== 2) Personas
+* Die Personas werden zunaechst ausfuehrlicher und detaillierter ausgearbeitet und anschliessend fuer die weitere Verwendung kompakter dargestellt.
+
+==== 3) Ueberfuehrung offener Punkte
+* Die offenen Punkte aus Review, Report und Planung werden in konkrete Aufgaben und Issues fuer Sprint 2 ueberfuehrt.
+
+==== 4) Planung Sprint 2
+* Die Planung von Sprint 2 wird demnächst hochgeladen und in Github Issues Tasks umgewandelt, damit die Umsetzung starten kann.
+
+=== Naechste Besprechung
+*Termin:* 17.05.2026, 15:00 Uhr 
+*Ziel:* Besprechung der ersten Lösungen und Fortschritte in Sprint 2

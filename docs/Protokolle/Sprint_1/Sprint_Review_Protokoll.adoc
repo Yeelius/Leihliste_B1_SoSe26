@@ -46,7 +46,7 @@ Datum:: 08.05.2026
   - *Datumauswahl:* Vereinfachen und zusammenfassen; Zeitraumauswahl automatisieren wo sinnvoll
   - *Statusanzeige:* Unterschiedliche Status-Ansichten für Ausleiher und Verleiher
 * Wichtige Trade-offs:
-  - Manuelle Ausleihe/Rückgabe in Prototyp vs. spätere Automatisierung (abhängig von Gegenstandswert)
+  - Manuelle Ausleihe/Rückgabe in Prototyp vs. spätere Automatisierung (abhängig von Gegenstandswert; freigabe einer Ausleihe)
   - Feste Kategorien vs. Flexibilität (Trade-off: Usability vs. Customization)
 
 // Konkrete nächste Schritte notieren.
