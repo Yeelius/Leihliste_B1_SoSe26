@@ -67,9 +67,9 @@ Beziehen Sie sich bevorzugt auf Praktiken, die in den Hinweisen für Sprint 1 be
 | Ideen wurden schneller greifbar und einfacher diskutierbar
 
 | Rollen, Zusammenarbeit oder Arbeitsvereinbarungen im Team klären
-| Wir haben in der Teamcharta, Zusammenarbeit und Verantwortlichkeiten festgelegt und diese im Gespräch mit Ringel nachgeschärft.
-| https://github.com/RicoHTWDD/Leihliste_B1_SoSe26/blob/main/docs/Protokolle/Sprint_1/2026-04-22_Treffen_Coach.adoc[Protokoll Ringel],  https://github.com/RicoHTWDD/Leihliste_B1_SoSe26/commit/10dbcb1edefd815f5396e84da069085804a2df8c[Rollenänderung Teamcharta]
-| Rollen und Workload wurden nach dem Gespräch mit Ringel klarer
+| Wir haben in der Teamcharta, Zusammenarbeit und Verantwortlichkeiten festgelegt und diese im Gespräch mit Herrn Ringel nachgeschärft.
+| https://github.com/RicoHTWDD/Leihliste_B1_SoSe26/blob/main/docs/Protokolle/Sprint_1/2026-04-22_Treffen_Coach.adoc[Protokoll Herr Ringel],  https://github.com/RicoHTWDD/Leihliste_B1_SoSe26/commit/10dbcb1edefd815f5396e84da069085804a2df8c[Rollenänderung Teamcharta]
+| Rollen und Workload wurden nach dem Gespräch mit Herrn Ringel klarer
 
 | Epics und User Stories ableiten
 | Wir haben das Backlog anhand der Wireframes strukturiert und erste Epics sowie User Stories daraus abgeleitet.
@@ -119,11 +119,11 @@ Beschreiben Sie konkret anhand von drei Beispielen, was sich durch Ihre Arbeit u
 | Die Nutzerrollen müssen klarer voneinander abgegrenzt werden. Verleiher, Leiher, Universität, Großverleiher und Kleinverleiher haben unterschiedliche Bedürfnisse, Berechtigungen und Perspektiven.
 | Die Navigation, das Account-Modell und die User Stories wurden entsprechend angepasst.
 
-| Annahme, dass alle unabhängig voneinander Wireframes erstellen können
+| Annahme, dass alle unabhängig voneinander Wireframes erstellen können.
 | Ein gemeinsames Template ist sinnvoller als viele unterschiedliche Ansätze.
 | Wir prüfen in einem GitHub Issue, wie ein einheitliches Template aussehen kann.
 
-| User Stories direkt aus der Hauptfunktion ableiten
+| User Stories direkt aus der Hauptfunktion ableiten.
 | Dabei entstanden Dopplungen und teils zu fachliche Stories.
 | Die Dopplungen wurden entfernt, die Stories verallgemeinert und an Epics geknüpft.
 |===
@@ -149,7 +149,7 @@ Beschreiben Sie kurz, welche nicht-funktionalen Anforderungen, Randbedingungen o
 | Personenbezogene Daten dürfen nur gemäß DSGVO verarbeitet und gespeichert werden.
 
 | Ethische Aspekte / Risiken
-| Mögliche Risiken sind Datenklau, Betrug und Diebstahl von Ausleihprodukten.
+| Mögliche Risiken sind Daten-Diebstahl, Betrug und Diebstahl von Ausleihprodukten.
 |===
 
 
