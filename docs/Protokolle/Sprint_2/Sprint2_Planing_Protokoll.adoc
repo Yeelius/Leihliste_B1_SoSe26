@@ -5,58 +5,38 @@ Validierung des technischen Ansatzes durch Konsolidierung der fachlichen Anforde
 
 == Zusammenfassung: Was wird in Sprint 2 geplant und umgesetzt?
 
-=== Woche 1: Basis schaffen & Problemraum klären (Fokus: POs)
-**Ziel:** Fachliche Fundamente und Architekturtreiber erarbeiten
+=== Woche 1
+**Ziel:** Fachliche Fundamente und erste Architekturoptionen erarbeiten
 
 [cols="1,2,2,1"]
 |===
 | Aufgabe | Was | Wo | Wer
 
-| 1. Sprint-1-Ergebnisse konsolidieren
-| Qualitätsanforderungen anpassen, Produktannahmen klären, Tester-Feedback einarbeiten
-| `product_concept.adoc`, `ux_concept.adoc`
-| PO + Team
-
-| 2. Glossar & Domänenmodell
-| Zentrale fachliche Begriffe definieren; Diagramm der wesentlichen Entitäten und Beziehungen erstellen (kein Datenbankmodell!)
+| Glossar & Domänenmodell
+| Zentrale fachliche Begriffe definieren; UML-Diagramm der wesentlichen Entitäten und Beziehungen erstellen
 | `domain_glossary.adoc`
+| Dev-Team(Rico)
+
+| logisches Datenmodell
+| UML-Diagramm des fachlichen Konzepts der Software erstellen
+| Miro
+| Dev-Team(Lidia)
+
+| initiales technische Konzept anfangen
+| Technologie-Stack erarbeiten; Architekturtreiber identifizieren; Architekturoptionen skizzieren; erste ADRs formulieren
+| `architecture.adoc` + Miro
+| Dev-Team(Julius, Jevan, Til)
+
+| User Stories ausarbeiten
+| User Stories an Feedback anpassen und Akzeptanzkriterien zuordnen
+| Product Backlog
 | PO
-
-| 3. Architekturtreiber ableiten
-| Kritische Anforderungen (Performance, Datenschutz) und Risiken priorisieren, die Technikwahl beeinflussen
-| `architecture.adoc` → Abschnitt "Architekturrelevante Anforderungen"
-| Dev Team (mit Input von POs)
 |===
 
 ---
 
-=== Woche 2: Technologie-Entscheidungen & Struktur (Fokus: Devs)
+=== Woche 2
 **Ziel:** Technologie-Stack festlegen, Architekturentscheidungen dokumentieren, interne Struktur entwerfen
-
-[cols="1,2,2,1"]
-|===
-| Aufgabe | Was | Wo | Wer
-
-| 4. Architekturansatz & Tech-Stack
-| Systemkontext-Diagramm zeichnen, Technologien für Frontend/Backend/DB wählen & begründen, Laufzeitstruktur skizzieren
-| `architecture.adoc` → Abschnitte "Systemkontext" & "Technologie-Stack"
-| Dev Team (mit C4-Diagramm-Vorbereitung auf Miro Board)
-
-| 5. Architekturentscheidungen (ADRs)
-| Wichtige Tech-Entscheidungen strukturiert dokumentieren (Kontext, Entscheidung, Alternativen, Konsequenzen)
-| `architecture.adoc` → Abschnitt "Architekturentscheidungen"
-| Dev Team
-
-| 6. Interne Struktur entwerfen
-| Schichtendiagramm und Komponentenübersicht erstellen (z.B. Controller, Services, Repositories)
-| `design.adoc`
-| Dev Team
-|===
-
----
-
-=== Woche 3: Code & Experimente (Fokus: Devs)
-**Ziel:** Technische Machbarkeit nachweisen, lauffähiges Walking Skeleton bauen
 
 [cols="1,2,2,1"]
 |===
@@ -66,6 +46,26 @@ Validierung des technischen Ansatzes durch Konsolidierung der fachlichen Anforde
 | Ungelöste Tech-Fragen durch zeitlich begrenzte Code-Experimente ("Spikes") klären; Erkenntnisse in ADRs zurückfließen lassen
 | GitHub (Quellcode) + `architecture.adoc`
 | Dev Team
+
+| 
+| 
+| 
+| 
+
+| 
+| 
+| 
+| 
+|===
+
+---
+
+=== Woche 3: Code & Experimente 
+**Ziel:** Technische Machbarkeit nachweisen, lauffähiges Walking Skeleton bauen
+
+[cols="1,2,2,1"]
+|===
+| Aufgabe | Was | Wo | Wer
 
 | 8. Walking Skeleton bauen
 | Minimales, lauffähiges Code-Gerüst erstellen: Frontend ↔ Backend ↔ temporäre DB. Erste praktische Evidenz für Architekturansatz.
@@ -80,7 +80,7 @@ Validierung des technischen Ansatzes durch Konsolidierung der fachlichen Anforde
 
 ---
 
-=== Woche 4: Konsolidierung & Vorbereitung Sprint 3 (Alle)
+=== Woche 4: Konsolidierung & Vorbereitung Sprint 3
 **Ziel:** Architektur finalisieren, technische Schulden dokumentieren, Sprint 3 vorbereiten
 
 [cols="1,2,2,1"]
