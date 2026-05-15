@@ -1,0 +1,58 @@
+@startuml
+
+class Nutzer {
+  Name
+  E-Mail
+  Passwort
+  Telefonnummer
+  Rolle
+}
+
+class Gegenstand {
+   Name
+  Kategorie
+  Standort
+  Zustand
+  Anzahl
+  Beschreibung
+  Bild
+}
+
+class Ausleihe {
+  Startdatum
+  Enddatum
+  Status
+  Übergabetermin
+}
+
+class AusleihHistorie {
+    Ausleihdatum
+  Rückgabedatum
+  ZustandVorher
+  ZustandNachher
+}
+
+class Standort {
+  Name
+  Beschreibung
+}
+
+class Kategorie {
+    Name
+  Beschreibung
+}
+
+class Nutzungsbedingungen {
+  Text
+  Version
+}
+
+Nutzer "1" --> "0..*" Ausleihe : tätigt
+Nutzer "1" --> "0..*" Gegenstand : verwaltet
+Gegenstand "1" --> "0..*" Ausleihe : wird ausgeliehen in
+Ausleihe "1" --> "1" AusleihHistorie : dokumentiert
+Gegenstand "0..*" --> "1" Kategorie : gehört zu
+Gegenstand "0..*" --> "1" Standort : befindet sich in
+Ausleihe "0..*" --> "1" Nutzungsbedingungen : akzeptiert
+
+@enduml

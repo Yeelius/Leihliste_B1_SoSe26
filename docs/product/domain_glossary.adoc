@@ -19,6 +19,72 @@ Technische Implementierungsdetails gehören nicht hierher!
 |===
 | Begriff / Abkürzung | Definition | Synonyme / Abgrenzungen
 
+| Admin
+| Ein Nutzer mit erweiterten Rechten, der das System verwaltet, Nutzerkonten anlegt, Kategorien und Standorte pflegt sowie Ausleihen überwacht.
+| Administrator; abzugrenzen von "Verleiher" und "Ausleiher"
+
+| Ausleihe
+| Der Vorgang, bei dem ein Gegenstand von einem Ausleiher für einen bestimmten Zeitraum entliehen wird. Eine Ausleihe hat einen definierten Status (z.B. "angefragt", "bestätigt", "aktiv", "überfällig", "abgeschlossen").
+| Leihvorgang, Verleih; nicht zu verwechseln mit "Reservierung" (vorläufige Vormerkung)
+
+| Ausleiher
+| Ein registrierter Nutzer, der Gegenstände ausleiht. Ausleiher können die Verfügbarkeit von Gegenständen prüfen, Ausleihen anfragen und den Status ihrer Ausleihen einsehen.
+| Entleiher, Nutzer; abzugrenzen von "Verleiher" und "Admin"
+
+| Ausleihhistorie
+| Eine chronologische Aufzeichnung aller Ausleihen eines Gegenstands oder Nutzers, inklusive Ausleihdatum, Rückgabedatum und Zustandsdokumentation.
+| Leihhistorie, Ausleihprotokoll
+
+| Check-in / Check-out
+| Der Prozess der Übergabe (Check-out) und Rückgabe (Check-in) eines Gegenstands, bei dem der Zustand dokumentiert wird.
+| Übergabeprozess, Rückgabeprozess
+
+| Gegenstand
+| Ein physischer Artikel, der im System inventarisiert und ausgeliehen werden kann. Jeder Gegenstand hat Attribute wie Name, Kategorie, Standort, Zustand und Anzahl.
+| Artikel, Objekt, Inventargegenstand
+
+| Kategorie
+| Eine Klassifizierung für Gegenstände, die ähnliche Eigenschaften oder Nutzungszwecke haben (z.B. "Bücher", "Elektronik", "Werkzeug").
+| Gegenstandsgruppe, Typ
+
+| Nutzungsbedingungen
+| Die rechtlichen und organisatorischen Regeln, die Nutzer akzeptieren müssen, um das System zu verwenden. Sie regeln z.B. Haftung, Rückgabefristen und Umgang mit Schäden.
+| AGB (Allgemeine Geschäftsbedingungen), Nutzungsrichtlinien
+
+| Nutzer
+| Eine Person, die das System verwendet. Nutzer können verschiedene Rollen haben (Admin, Verleiher, Ausleiher). 
+| Anwender, Benutzer
+
+| Reservierung
+| Eine vorläufige Vormerkung eines Gegenstands für einen zukünftigen Ausleihzeitraum. Eine Reservierung garantiert nicht die Verfügbarkeit, sondern dient der Planung.
+| Vormerkung; abzugrenzen von "Ausleihe" (verbindlicher Vorgang)
+
+| Rolle
+| Definiert die Berechtigungen eines Nutzers im System. Mögliche Rollen sind "Admin", "Verleiher" und "Ausleiher".
+| Nutzerrolle, Berechtigungsstufe
+
+| Standort
+| Der physische oder logische Ort, an dem sich ein Gegenstand befindet (z.B. "Bibliothek", "Labor A", "WG-Keller").
+| Lagerort, Aufbewahrungsort
+
+| Status (einer Ausleihe) 
+| Der aktuelle Zustand einer Ausleihe. Mögliche Status sind z.B. "angefragt", "bestätigt", "aktiv", "überfällig", "abgeschlossen".
+| Ausleihstatus
+
+| Verleiher
+| Ein registrierter Nutzer, der Gegenstände besitzt und diese zur Ausleihe anbietet. Verleiher können Ausleihanfragen bestätigen oder ablehnen und den Zustand von Gegenständen dokumentieren.
+| Eigentümer, Anbieter; abzugrenzen von "Ausleiher" und "Admin"
+
+| Verfügbarkeit
+| Der Zustand eines Gegenstands, der angibt, ob er aktuell ausgeliehen werden kann. Ein Gegenstand kann "verfügbar", "ausgeliehen", "reserviert" oder "defekt" sein.
+| Ausleihstatus eines Gegenstands
+
+| Zustand (eines Gegenstands)
+| Die physische oder funktionale Beschaffenheit eines Gegenstands (z.B. "neu", "gebraucht – gut", "gebraucht – beschädigt").
+| Beschaffenheit, Erhaltungszustand
+
+
+
 | Bestellung
 | Eine vom Nutzer ausgelöste Anforderung, ein oder mehrere Produkte zu erwerben.
   Eine Bestellung durchläuft verschiedene Status (offen, bezahlt, versendet, abgeschlossen).
@@ -29,18 +95,7 @@ Technische Implementierungsdetails gehören nicht hierher!
   sein, um Bestellungen aufzugeben.
 | Anwender, Benutzer; abzugrenzen von „Administrator"
 
-| Produkt
-| Ein im System angebotener Artikel, der bestellt werden kann. Ein Produkt hat eine
-  Bezeichnung, einen Preis und eine Verfügbarkeit.
-| Artikel, Ware
 
-| [Begriff]
-| [Präzise, fachliche Definition in 1–3 Sätzen]
-| [Synonyme oder Abgrenzungen zu ähnlichen Begriffen]
-
-| [Begriff]
-| [Präzise, fachliche Definition in 1–3 Sätzen]
-| [Synonyme oder Abgrenzungen zu ähnlichen Begriffen]
 |===
 
 
@@ -54,31 +109,14 @@ Es beschreibt die Realität des Problemraums, nicht die Datenbankstruktur._
 //Fügen Sie hier ein Diagramm ein — entweder als eingebettetes PlantUML oder als exportiertes Bild.
 
 [plantuml, domain-model, svg]
-....
-@startuml
-' Beispiel — bitte durch das echte Domänenmodell ersetzen
 
-entity Nutzer {
-  Name
-  E-Mail
-}
+// ----
+// include::diagrams/domaenenmodell1.puml[]
+// ----
 
-entity Bestellung {
-  Bestellnummer
-  Datum
-  Status
-}
 
-entity Produkt {
-  Bezeichnung
-  Preis
-}
+image::domaenenmodell1.svg[Domänenmodell, 800, align="center"]
 
-Nutzer "1" --> "0..*" Bestellung : gibt auf
-Bestellung "1" --> "1..*" Produkt : enthält
-
-@enduml
-....
 
 NOTE: Das Domänenmodell wird im Laufe des Projekts weiterentwickelt.
 Änderungen sollten immer gemeinsam im Team besprochen und hier nachgepflegt werden.
