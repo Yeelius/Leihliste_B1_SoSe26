@@ -177,27 +177,62 @@ diesen Anforderungen ergeben, und verweist auf die zugehörigen Entscheidungen.
 |===
 | Anforderung (aus Produktkonzept) | Technische Konsequenz | Entscheidung
 
+| Benutzbarkeit
+| intuitive, barrierefreie (einfache) Nutzeroberfläche; Skalierbarkeit der UI für verschiedene Inventargrößen; Individualisierbarkeit; Vorschlag Umsetzung mit React (JS-Framework); Web + Desktopansicht -> 3 Formate im Design für verschiedene Nutzungsszenarien; 
+| To-Do
+
+| Verfügbarkeit ≥ 99 % während Betriebszeiten
+| Server muss konstant laufen bzw erreichbar sein-> Inwiefern beeinflussen die HTW-Serverwartungen den Proxy-Server?; Fallback-Server? -> Macht das in unserem Rahmen Sinn?; verbreitete Programmiersprache verwenden um allgemeine Verfügbarkeit zu garantieren; Ausfälle und kleinere Fehler werden automatisch erkannt und behoben; fehlertolerante Verarbeitung; Grundfunktionalität bleibt dauerhaft erhalten; Statusüberwachung;
+| To-Do
+
 | Performanceziel: Seitenladezeit < 2 s
-| Server-Side Rendering für initiales Laden erforderlich;
-  statische Assets über CDN ausliefern
-| ADR-002
+| Python nicht das performanteste -> an Schnittstellen spezialisierte Bibliotheken einbeziehen; Ladezeiten von Daten aus Datenbank optimieren bspw. durch Verwendung von Maria-DB und man bräuchte performante Abfragen; keine vollständige Vorabladung großer Inventarlisten oder Bilder; serverseitige Suche/Filterung mit Pagination
+| To-Do
+
+| Max. 5 Interaktionen für Standardausleihe
+| Minimalistische Ausleihoberfläche (Effizienz); Eingaben können gespeichert werden und als Nutzer-Standard vorausgefüllt; möglichst wenige Masken; rollenabhängige UI - Wichtigste Kernfunktionen werden direkt angezeigt;
+| To-Do
 
 | DSGVO-Konformität
-| Keine personenbezogenen Daten in Logs; Datensparsamkeit im Datenbankmodell;
+| Keine personenbezogenen Daten in Logs (Anonymisierung); Datensparsamkeit im Datenbankmodell;
   Recht auf Löschung muss implementierbar sein
-| ADR-003, ADR-004
+| To-Do
 
 | Betrieb auf Hochschulinfrastruktur
 | Keine Cloud-only-Dienste; Containerisierung für Portabilität erforderlich
-| ADR-005
+| To-Do
 
-| Verfügbarkeit ≥ 99 % während Betriebszeiten
-| Statusüberwachung und automatischer Neustart über Container-Orchestrierung
-| ADR-005
+| Cybersecurity
+| sicherer Code -> Schutz vor Datenmanipulation, Diebstahl; Strikte Eingabeüberprüfung; Principle of Least Privilege;
+| To-Do
 
-| [Anforderung]
-| [Technische Konsequenz]
-| [ADR-Referenz oder —]
+| Infrastrukturvorgaben
+| Rücksprache mit Herr Ringel bzw. Zirkelbach bezüglich der Kompatibilität mit Server;
+| To-Do
+
+| Skalierbarkeit
+| Technologieauswahl muss Wachstum ohne grundlegenden Architekturwechsel ermöglichen;
+| To-Do
+
+| Datenkonsistenz
+| Statuszeile in Datenbank wo der Objektstatus dokumentiert und ausgelesen wird; Race Conditions (Speicherkonflikte) vermeiden;
+| To-Do
+
+| mobile Nutzbarkeit
+| touchfreundliche Bedienung; optimierte Darstellung bei variierender Bildschirmgröße; Nutzung von Browserfunktionen;
+| To-Do
+
+| Rollenmodell
+| Admin -> Alle Rechte; Verleiher -> Lese- und Bearbeitungsrechte an eigenen Ausleihobjekten sowie Genehmigung von Anfragen; Ausleiher -> Leserechte auf das Inventar und eingeschränkte Schreibrechte zur Erstellung eigener Buchungsanfragen;
+| To-Do
+
+| Nachvollziehbarkeit
+| Ausleihdaten auf eine eindeutige User-ID speichern in Datenbank; Lückenlose Verleihhistorie -> Transparenz in Schadenfällen;
+| To-Do
+
+| Nutzungskontexte
+| Unterscheidung bei Ausleiher und Verleiher über Abfrage was diese tun wollen -> Risiko dass sehr viele Nutzerkonten erstellt werden?; Module? Freundessystem? Lobbies?;
+| To-Do
 |===
 
 == Architekturentscheidungen
