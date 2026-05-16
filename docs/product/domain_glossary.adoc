@@ -20,81 +20,142 @@ Technische Implementierungsdetails gehören nicht hierher!
 | Begriff / Abkürzung | Definition | Synonyme / Abgrenzungen
 
 | Admin
-| Ein Nutzer mit erweiterten Rechten, der das System verwaltet, Nutzerkonten anlegt, Kategorien und Standorte pflegt sowie Ausleihen überwacht.
+| Ein Nutzer mit erweiterten Rechten, der das System verwaltet, Nutzerkonten anlegt, Kategorien und Standorte pflegt sowie Ausleihen überwacht. Admins können auch Organisationen verwalten und Systemeinstellungen vornehmen.
 | Administrator; abzugrenzen von "Verleiher" und "Ausleiher"
 
 | Ausleihe
-| Der Vorgang, bei dem ein Gegenstand von einem Ausleiher für einen bestimmten Zeitraum entliehen wird. Eine Ausleihe hat einen definierten Status (z.B. "angefragt", "bestätigt", "aktiv", "überfällig", "abgeschlossen").
-| Leihvorgang, Verleih; nicht zu verwechseln mit "Reservierung" (vorläufige Vormerkung)
+| Die praktische Umsetzung einer Reservierung, bei der ein Gegenstand tatsächlich an den Ausleiher übergeben wird. Eine Ausleihe hat einen definierten Status (z. B. "aktiv", "überfällig", "zurückgegeben").
+| Leihvorgang, Verleih; abzugrenzen von "Reservierung"
 
 | Ausleiher
-| Ein registrierter Nutzer, der Gegenstände ausleiht. Ausleiher können die Verfügbarkeit von Gegenständen prüfen, Ausleihen anfragen und den Status ihrer Ausleihen einsehen.
+| Ein registrierter Nutzer, der Gegenstände ausleiht. Ausleiher können die Verfügbarkeit von Gegenständen prüfen, Ausleihanfragen stellen und den Status ihrer Ausleihen einsehen.
 | Entleiher, Nutzer; abzugrenzen von "Verleiher" und "Admin"
 
+| Ausleihanfrage
+| Eine formelle Anfrage eines Nutzers, einen oder mehrere Gegenstände für einen bestimmten Zeitraum auszuleihen. Eine Ausleihanfrage kann zu einer Reservierung führen.
+| Leihanfrage; abzugrenzen von "Ausleihe" und "Reservierung"
+
 | Ausleihhistorie
-| Eine chronologische Aufzeichnung aller Ausleihen eines Gegenstands oder Nutzers, inklusive Ausleihdatum, Rückgabedatum und Zustandsdokumentation.
+| Eine chronologische Aufzeichnung aller Ausleihen und Reservierungen eines Gegenstands oder Nutzers, inklusive Ausleihdatum, Rückgabedatum, beteiligten Nutzern und Zustandsdokumentation.
 | Leihhistorie, Ausleihprotokoll
 
-| Check-in / Check-out
-| Der Prozess der Übergabe (Check-out) und Rückgabe (Check-in) eines Gegenstands, bei dem der Zustand dokumentiert wird.
-| Übergabeprozess, Rückgabeprozess
+| ?-> Authentifizierungstoken
+| Ein temporärer Schlüssel (z. B. per E-Mail versendet), der zur Verifizierung von Nutzeraktionen dient, z. B. für die E-Mail-Bestätigung oder das Zurücksetzen des Passworts.
+| Token, Verifizierungslink
 
-| Gegenstand
-| Ein physischer Artikel, der im System inventarisiert und ausgeliehen werden kann. Jeder Gegenstand hat Attribute wie Name, Kategorie, Standort, Zustand und Anzahl.
-| Artikel, Objekt, Inventargegenstand
+| Benachrichtigung
+| Eine automatisierte Nachricht an Nutzer, die über wichtige Ereignisse informiert (z. B. "Ausleihe bald fällig", "Anfrage genehmigt"). Benachrichtigungen werden per E-Mail versendet.
+| Erinnerung, Notification
+
+| Benutzerrolle 
+| Definiert die Berechtigungen eines Nutzers im System. Mögliche Rollen sind:
+    - Admin: Vollzugriff auf alle Funktionen.
+    - Verleiher: Kann Gegenstände verwalten und Ausleihanfragen bearbeiten.
+    - Ausleiher: Kann Gegenstände ausleihen und den Status einsehen.
+| Nutzerrolle, Berechtigungsstufe, Rollen
+
+| Buchungsbestätigung
+| Ein E-Mail, dies die Details einer bestätigten Ausleihe zusammenfasst und als Nachweis für beide Parteien dient. Enthält Informationen wie Gegenstand, Ausleiher, Zeitraum und akzeptierte Nutzungsbedingungen.
+| Ausleihbestätigung, Leihschein
+
+ | Check-in / Check-out
+ | Der Prozess der Übergabe (Check-out) und Rückgabe (Check-in) eines Gegenstands, bei dem der Zustand dokumentiert wird. Check-out erfolgt nach Bestätigung einer Ausleihanfrage, Check-in nach Rückgabe.
+ | Übergabeprozess, Rückgabeprozess
+
+| Gegenstandsexemplar
+| Ein konkretes physisches Exemplar eines Gegenstandstyps (z. B. "Mikroskop #42"). Jedes Exemplar hat eine eindeutige Inventarnummer, einen Zustandsstatus und einen Verfügbarkeitsstatus.
+| Inventarstück, Einzelstück; abzugrenzen von "Gegenstandstyp" (allgemeine Beschreibung)
+
+| Gegenstandstyp
+| Eine Kategorie von Gegenständen mit gemeinsamen Eigenschaften (z. B. "Mikroskop Leica DM500"). Ein Gegenstandstyp kann aus mehreren Gegenstandsexemplaren bestehen.
+| Artikelgruppe, Modell; abzugrenzen von "Gegenstandsexemplar" (konkretes Exemplar)
 
 | Kategorie
-| Eine Klassifizierung für Gegenstände, die ähnliche Eigenschaften oder Nutzungszwecke haben (z.B. "Bücher", "Elektronik", "Werkzeug").
+| Eine Klassifizierung für Gegenstände, die ähnliche Eigenschaften oder Nutzungszwecke haben (z. B. "Bücher", "Elektronik", "Werkzeug"). Kategorien werden zentral von Admins verwaltet.
 | Gegenstandsgruppe, Typ
 
+| Kontostatus
+| Der aktuelle Zustand eines Nutzerkontos. Mögliche Status sind:
+  - Verifizierung ausstehend: Konto wurde erstellt, aber E-Mail noch nicht bestätigt.
+  - Aktiv: Konto ist vollständig nutzbar.
+  - Gesperrt: Konto ist temporär deaktiviert (z. B. bei Regelverstößen).
+  - Gelöscht: Konto wurde dauerhaft entfernt.
+| Nutzerstatus
+
 | Nutzungsbedingungen
-| Die rechtlichen und organisatorischen Regeln, die Nutzer akzeptieren müssen, um das System zu verwenden. Sie regeln z.B. Haftung, Rückgabefristen und Umgang mit Schäden.
+| Die rechtlichen und organisatorischen Regeln, die Nutzer akzeptieren müssen, um das System zu verwenden. Sie regeln z. B. Haftung, Rückgabefristen und Umgang mit Schäden. Nutzer müssen die Bedingungen bei jeder Ausleihanfrage bestätigen.
 | AGB (Allgemeine Geschäftsbedingungen), Nutzungsrichtlinien
 
 | Nutzer
-| Eine Person, die das System verwendet. Nutzer können verschiedene Rollen haben (Admin, Verleiher, Ausleiher). 
+| Eine Person, die das System verwendet. Nutzer können verschiedene Benutzerrollen haben (Admin, Verleiher, Ausleiher).
 | Anwender, Benutzer
 
-| Reservierung
-| Eine vorläufige Vormerkung eines Gegenstands für einen zukünftigen Ausleihzeitraum. Eine Reservierung garantiert nicht die Verfügbarkeit, sondern dient der Planung.
-| Vormerkung; abzugrenzen von "Ausleihe" (verbindlicher Vorgang)
+| Organisation
+| Eine formelle oder informelle Gruppe (z. B. Hochschule, Verein, Unternehmen), die das System nutzt. Jede Organisation verwaltet eigene Gegenstände, Standorte und Nutzer.
+| Institution, Gruppe
 
-| Rolle
-| Definiert die Berechtigungen eines Nutzers im System. Mögliche Rollen sind "Admin", "Verleiher" und "Ausleiher".
-| Nutzerrolle, Berechtigungsstufe
+| Reservierung
+| Eine Vormerkung eines Gegenstandsexemplars für einen zukünftigen Ausleihzeitraum. Eine Reservierung entsteht aus einer genehmigten Ausleihanfrage und kann zu einer Ausleihe führen.
+| Vormerkung; abzugrenzen von "Ausleihe" und "Ausleihanfrage"
 
 | Standort
-| Der physische oder logische Ort, an dem sich ein Gegenstand befindet (z.B. "Bibliothek", "Labor A", "WG-Keller").
+| Der physische Ort, an dem sich ein Gegenstandsexemplar befindet (z. B. "Bibliothek", "Labor A", "WG-Keller"). Standorte werden zentral von Admins verwaltet.
 | Lagerort, Aufbewahrungsort
 
-| Status (einer Ausleihe) 
-| Der aktuelle Zustand einer Ausleihe. Mögliche Status sind z.B. "angefragt", "bestätigt", "aktiv", "überfällig", "abgeschlossen".
+| Status einer Ausleihe
+| Der aktuelle Zustand einer Ausleihe. Mögliche Status sind:
+  - Aktiv: Gegenstand ist ausgeliehen.
+  - Zurückgegeben: Gegenstand wurde zurückgegeben.
+  - Storniert: Ausleihe wurde vor der Übergabe abgebrochen.
 | Ausleihstatus
+
+| Status einer Ausleihanfrage 
+| Der aktuelle Zustand einer Ausleihanfrage. Mögliche Status sind:
+  - Eingereicht: Anfrage wurde abgesendet.
+  - Genehmigt: Anfrage wurde bestätigt.
+  - Abgelehnt: Anfrage wurde abgelehnt.
+  - Zurückgezogen: Ausleiher hat die Anfrage storniert.
+  - Abgelaufen: Anfrage wurde nicht rechtzeitig bearbeitet.
+| Anfragestatus
+
+| Verfügbarkeitsstatus
+| Der Zustand eines Gegenstandsexemplars, der angibt, ob es aktuell ausgeliehen werden kann. Mögliche Status sind:
+  - Verfügbar: Gegenstand kann ausgeliehen werden.
+  - Reserviert: Gegenstand ist für eine zukünftige Reservierung vorgemerkt.
+  - Ausgeliehen: Gegenstand ist aktuell in einer Ausleihe.
+  - Nicht verfügbar: Gegenstand kann nicht ausgeliehen werden (z. B. wegen Wartung, Verlust).
+| Ausleihstatus eines Gegenstands
+
+| Verifizierungsstatus
+| Der Zustand der Überprüfung eines Nutzerkontos durch einen Admin. Mögliche Status sind:
+  - Ausstehend: Konto wurde noch nicht geprüft.
+  - Genehmigt: Konto wurde freigeschaltet.
+  - Abgelehnt: Konto wurde gesperrt.
+| Prüfstatus
 
 | Verleiher
 | Ein registrierter Nutzer, der Gegenstände besitzt und diese zur Ausleihe anbietet. Verleiher können Ausleihanfragen bestätigen oder ablehnen und den Zustand von Gegenständen dokumentieren.
 | Eigentümer, Anbieter; abzugrenzen von "Ausleiher" und "Admin"
 
-| Verfügbarkeit
-| Der Zustand eines Gegenstands, der angibt, ob er aktuell ausgeliehen werden kann. Ein Gegenstand kann "verfügbar", "ausgeliehen", "reserviert" oder "defekt" sein.
-| Ausleihstatus eines Gegenstands
+| Verlängerungsstatus
+| Der Zustand einer Anfrage zur Verlängerung einer Ausleihe. Mögliche Status sind:
+  - Ausstehend: Anfrage wurde gestellt, aber noch nicht bearbeitet.
+  - Genehmigt: Verlängerung wurde bestätigt.
+  - Abgelehnt: Verlängerung wurde abgelehnt.
+  - Storniert: Anfrage wurde zurückgezogen.
+| Verlängerungsanfrage-Status
 
 | Zustand (eines Gegenstands)
-| Die physische oder funktionale Beschaffenheit eines Gegenstands (z.B. "neu", "gebraucht – gut", "gebraucht – beschädigt").
+| Die physische oder funktionale Beschaffenheit eines Gegenstandsexemplars. Mögliche Zustände sind:
+  - Gut: Keine Schäden.
+  - Beschädigt: Leichte Gebrauchsspuren.
+  - Defekt: Funktion beeinträchtigt.
+  - Verloren: Nicht auffindbar.
 | Beschaffenheit, Erhaltungszustand
 
-
-
-| Bestellung
-| Eine vom Nutzer ausgelöste Anforderung, ein oder mehrere Produkte zu erwerben.
-  Eine Bestellung durchläuft verschiedene Status (offen, bezahlt, versendet, abgeschlossen).
-| Auftrag; nicht zu verwechseln mit „Warenkorb" (noch nicht abgeschlossen)
-
-| Nutzer
-| Eine Person, die das System aktiv verwendet. Nutzer müssen registriert und eingeloggt
-  sein, um Bestellungen aufzugeben.
-| Anwender, Benutzer; abzugrenzen von „Administrator"
-
+| Zustandsprotokoll
+| Eine Dokumentation des Zustands eines Gegenstandsexemplars bei Übergabe (Check-out) oder Rückgabe (Check-in). Enthält Notizen, Fotos und den Zustandsstatus.
+| Übergabeprotokoll, Schadensprotokol
 
 |===
 
