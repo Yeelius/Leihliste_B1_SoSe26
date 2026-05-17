@@ -18,4 +18,6 @@
  - Architekturoptionen
  - Technologie-Stack
 
+. Frameworks nutzen? (5min)
+
 . Planung Woche 2 (15 min)
