@@ -11,4 +11,11 @@
 
 === Agenda
 . Ergebnisse Woche 1 zusammentragen (45 min)
+ - 1. Entwurf Domänenmodell
+ - 1. Entwurf Glossar
+ - 1. Entwurf Logisches Modell
+ - Architekturtreiber
+ - Architekturoptionen
+ - Technologie-Stack
+
 . Planung Woche 2 (15 min)
