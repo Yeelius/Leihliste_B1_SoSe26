@@ -48,10 +48,10 @@ Technische Implementierungsdetails gehören nicht hierher!
 | Erinnerung, Notification
 
 | Benutzerrolle 
-| Definiert die Berechtigungen eines Nutzers im System. Mögliche Rollen sind:
-    - Admin: Vollzugriff auf alle Funktionen.
-    - Verleiher: Kann Gegenstände verwalten und Ausleihanfragen bearbeiten.
-    - Ausleiher: Kann Gegenstände ausleihen und den Status einsehen.
+| Definiert die Berechtigungen eines Nutzers im System. Mögliche Rollen sind: +
+    - Admin: Vollzugriff auf alle Funktionen +
+    - Verleiher: Kann Gegenstände verwalten und Ausleihanfragen bearbeiten +
+    - Ausleiher: Kann Gegenstände ausleihen und den Status einsehen
 | Nutzerrolle, Berechtigungsstufe, Rollen
 
 | Buchungsbestätigung
@@ -75,11 +75,11 @@ Technische Implementierungsdetails gehören nicht hierher!
 | Gegenstandsgruppe, Typ
 
 | Kontostatus
-| Der aktuelle Zustand eines Nutzerkontos. Mögliche Status sind:
-  - Verifizierung ausstehend: Konto wurde erstellt, aber E-Mail noch nicht bestätigt.
-  - Aktiv: Konto ist vollständig nutzbar.
-  - Gesperrt: Konto ist temporär deaktiviert (z. B. bei Regelverstößen).
-  - Gelöscht: Konto wurde dauerhaft entfernt.
+| Der aktuelle Zustand eines Nutzerkontos. Mögliche Status sind: +
+  - Verifizierung ausstehend: Konto wurde erstellt, aber E-Mail noch nicht bestätigt +
+  - Aktiv: Konto ist vollständig nutzbar +
+  - Gesperrt: Konto ist temporär deaktiviert (z. B. bei Regelverstößen) +
+  - Gelöscht: Konto wurde dauerhaft entfernt
 | Nutzerstatus
 
 | Nutzungsbedingungen
@@ -103,34 +103,34 @@ Technische Implementierungsdetails gehören nicht hierher!
 | Lagerort, Aufbewahrungsort
 
 | Status einer Ausleihe
-| Der aktuelle Zustand einer Ausleihe. Mögliche Status sind:
-  - Aktiv: Gegenstand ist ausgeliehen.
-  - Zurückgegeben: Gegenstand wurde zurückgegeben.
-  - Storniert: Ausleihe wurde vor der Übergabe abgebrochen.
+| Der aktuelle Zustand einer Ausleihe. Mögliche Status sind: +
+  - Aktiv: Gegenstand ist ausgeliehen +
+  - Zurückgegeben: Gegenstand wurde zurückgegeben +
+  - Storniert: Ausleihe wurde vor der Übergabe abgebrochen +
 | Ausleihstatus
 
 | Status einer Ausleihanfrage 
-| Der aktuelle Zustand einer Ausleihanfrage. Mögliche Status sind:
-  - Eingereicht: Anfrage wurde abgesendet.
-  - Genehmigt: Anfrage wurde bestätigt.
-  - Abgelehnt: Anfrage wurde abgelehnt.
-  - Zurückgezogen: Ausleiher hat die Anfrage storniert.
-  - Abgelaufen: Anfrage wurde nicht rechtzeitig bearbeitet.
+| Der aktuelle Zustand einer Ausleihanfrage. Mögliche Status sind: +
+  - Eingereicht: Anfrage wurde abgesendet +
+  - Genehmigt: Anfrage wurde bestätigt +
+  - Abgelehnt: Anfrage wurde abgelehnt +
+  - Zurückgezogen: Ausleiher hat die Anfrage storniert +
+  - Abgelaufen: Anfrage wurde nicht rechtzeitig bearbeitet 
 | Anfragestatus
 
 | Verfügbarkeitsstatus
-| Der Zustand eines Gegenstandsexemplars, der angibt, ob es aktuell ausgeliehen werden kann. Mögliche Status sind:
-  - Verfügbar: Gegenstand kann ausgeliehen werden.
-  - Reserviert: Gegenstand ist für eine zukünftige Reservierung vorgemerkt.
-  - Ausgeliehen: Gegenstand ist aktuell in einer Ausleihe.
-  - Nicht verfügbar: Gegenstand kann nicht ausgeliehen werden (z. B. wegen Wartung, Verlust).
+| Der Zustand eines Gegenstandsexemplars, der angibt, ob es aktuell ausgeliehen werden kann. Mögliche Status sind: +
+  - Verfügbar: Gegenstand kann ausgeliehen werden +
+  - Reserviert: Gegenstand ist für eine zukünftige Reservierung vorgemerkt +
+  - Ausgeliehen: Gegenstand ist aktuell in einer Ausleihe +
+  - Nicht verfügbar: Gegenstand kann nicht ausgeliehen werden (z. B. wegen Wartung, Verlust)
 | Ausleihstatus eines Gegenstands
 
 | Verifizierungsstatus
-| Der Zustand der Überprüfung eines Nutzerkontos durch einen Admin. Mögliche Status sind:
-  - Ausstehend: Konto wurde noch nicht geprüft.
-  - Genehmigt: Konto wurde freigeschaltet.
-  - Abgelehnt: Konto wurde gesperrt.
+| Der Zustand der Überprüfung eines Nutzerkontos durch einen Admin. Mögliche Status sind: +
+  - Ausstehend: Konto wurde noch nicht geprüft +
+  - Genehmigt: Konto wurde freigeschaltet +
+  - Abgelehnt: Konto wurde gesperrt 
 | Prüfstatus
 
 | Verleiher
@@ -138,19 +138,19 @@ Technische Implementierungsdetails gehören nicht hierher!
 | Eigentümer, Anbieter; abzugrenzen von "Ausleiher" und "Admin"
 
 | Verlängerungsstatus
-| Der Zustand einer Anfrage zur Verlängerung einer Ausleihe. Mögliche Status sind:
-  - Ausstehend: Anfrage wurde gestellt, aber noch nicht bearbeitet.
-  - Genehmigt: Verlängerung wurde bestätigt.
-  - Abgelehnt: Verlängerung wurde abgelehnt.
-  - Storniert: Anfrage wurde zurückgezogen.
+| Der Zustand einer Anfrage zur Verlängerung einer Ausleihe. Mögliche Status sind: +
+  - Ausstehend: Anfrage wurde gestellt, aber noch nicht bearbeitet +
+  - Genehmigt: Verlängerung wurde bestätigt +
+  - Abgelehnt: Verlängerung wurde abgelehnt +
+  - Storniert: Anfrage wurde zurückgezogen
 | Verlängerungsanfrage-Status
 
 | Zustand (eines Gegenstands)
-| Die physische oder funktionale Beschaffenheit eines Gegenstandsexemplars. Mögliche Zustände sind:
-  - Gut: Keine Schäden.
-  - Beschädigt: Leichte Gebrauchsspuren.
-  - Defekt: Funktion beeinträchtigt.
-  - Verloren: Nicht auffindbar.
+| Die physische oder funktionale Beschaffenheit eines Gegenstandsexemplars. Mögliche Zustände sind: +
+  -  Gut: Keine Schäden +
+  - Beschädigt: Leichte Gebrauchsspuren +
+  - Defekt: Funktion beeinträchtigt +
+  - Verloren: Nicht auffindbar
 | Beschaffenheit, Erhaltungszustand
 
 | Zustandsprotokoll
