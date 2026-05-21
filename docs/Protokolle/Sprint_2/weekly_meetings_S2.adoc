@@ -42,3 +42,19 @@
 === Naechste Besprechung
 *Termin:* 24.05.2026, 15:00 Uhr 
 *Ziel:* Besprechung der ersten Lösungen und Fortschritte in Sprint 2
+
+
+== Meeting 24.05.2026
+:id: meeting24052026
+
+*Datum:* 24.05.2026  
+*Dauer:* 90 min.
+*Teilnehmende:* Alle Teammitglieder
+
+=== Agenda
+
+- Terminplanung: wir haben aktuell die Retrospektive für Sprint 2 am 10.06. geplant und die Sprint-Planung am 14.06.2026
+ - damit das mit den 4-wöchigen Sprints passt, müssten wir das aber eine Woche eher machen?
+ - für die Retrospektive hattn wir aber keinen früheren Präsenz-Termin gefunden, online?
+
+- ToDo: Treffen mit Herrn Zirkelbach um Server-Auswahl zu besprechen

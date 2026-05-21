@@ -70,6 +70,10 @@ Technische Implementierungsdetails gehören nicht hierher!
 | Eine Kategorie von Gegenständen *an einem Standort* mit gemeinsamen Eigenschaften (z. B. "Mikroskop Leica DM500"). Ein Gegenstandstyp kann aus mehreren Gegenstandsexemplaren bestehen. Verschiedene Standorte eines gleichen Typs sind verscheiedene Gegensandstypen.
 | Artikelgruppe, Modell; abzugrenzen von "Gegenstandsexemplar" (konkretes Exemplar)
 
+| Inventarnummer
+| Eine eindeutige Nummer für jedes Gegenstandsexemplar. Eine einmal vergebene Inventarnummer darf auch bei gelöschten Gegenstandsexemplaren nicht erneut vergeben werden. Die Inventarnummer muss so gestaltet sein, dass sie sowohl händisch als auch via Barcode/QR-Code eingebar ist.
+| Gegenstands-ID, QR-Code
+
 | Kategorie
 | Eine Klassifizierung für Gegenstände, die ähnliche Eigenschaften oder Nutzungszwecke haben (z. B. "Bücher", "Elektronik", "Werkzeug"). Kategorien werden zentral von Admins verwaltet.
 | Gegenstandsgruppe, Typ
