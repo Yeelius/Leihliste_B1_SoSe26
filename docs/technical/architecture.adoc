@@ -323,8 +323,6 @@ NOTE: ADRs werden nicht gelöscht oder überschrieben — sie werden als
 
 React ist weit verbreitet, besitzt eine große Community und bietet viele Vorlagen, Bibliotheken und Hilfsmittel für die Entwicklung moderner Webanwendungen. Außerdem lässt sich React gut mit responsiven Layouts und app-ähnlichen Weboberflächen kombinieren, wodurch die spätere mobile Nutzung von LeihListe unterstützt wird.
 
-React unterstützt das Qualitätsziel Benutzbarkeit durch sein deklaratives Komponentenmodell, das konsistente UI-Elemente ermöglicht. Zudem trägt es zum Performanceziel (Seitenladezeit < 2s) bei, da React effiziente DOM-Updates durchführt."
-
 | *Alternativen*
 | Eine Alternative wäre Vue.js. Vue bietet ebenfalls ein komponentenbasiertes Frontend-Modell und wäre für LeihListe grundsätzlich geeignet. Gegen Vue spricht, dass React weiter verbreitet ist, ein größeres Ökosystem besitzt und mehr Vorlagen, Bibliotheken und Hilfsmittel für moderne Webanwendungen bietet.
 
