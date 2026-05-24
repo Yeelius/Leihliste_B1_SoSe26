@@ -48,12 +48,12 @@
 :id: meeting24052026
 
 *Datum:* 24.05.2026  
-*Dauer:* 90 min.
+*Dauer:* 110 min.
 *Teilnehmende:* Alle Teammitglieder
 
 === Agenda
-. Absprachen -> siehe unter Punkt _Absprachen_ (15 min)
-. Ergebnisse Woche 2 zusammentragen (45 min)
+. Absprachen -> siehe unter Punkt _Absprachen_ (20 min)
+. Ergebnisse Woche 2 zusammentragen (90 min)
 
 ==== Abrasprachen
 - Terminplanung: wir haben aktuell die Retrospektive für Sprint 2 am 10.06. geplant und die Sprint-Planung am 14.06.2026
@@ -65,3 +65,24 @@
 - schon mal Terminumfrage für 2. Review-Termin für Woche ab 01.06. ausmachen?
 
 - Konsultationstermin Ringel
+
+=== Beschluesse
+==== 1) Terminplanung & Organisatorisches
+* Review-Termin: Es wurde eine Terminumfrage gestartet, um den Review-Termin für die Woche ab dem 01.06.2026 festzulegen.
+* Server-Auswahl: Es wird ein To-Do-Treffen mit Herrn Zirkelbach vereinbart, um die Server-Auswahl und weitere Fragen dazu final zu besprechen.
+* Konsultation: Ein Konsultationstermin mit Herrn Ringel wird eingeplant. (Umfrage gestartet)
+
+==== 2) Technologie-Stack & ADRs
+* Containerisierung: Das Team hat beschlossen, **Docker** für das Projekt zu nutzen.
+* ADR-Status: Die vorliegenden Architekturentscheidungen (ADRs) wurden größtenteils akzeptiert. Die Entscheidung für Docker wird als neues ADR hinzugefügt. Die genauen Sprachversionen und Details werden direkt in den jeweiligen ADR-Dokumenten festgehalten.
+
+==== 3) Rollenverteilung Walking Skeleton
+* Für die anstehende Programmierung des Prototyps (Walking Skeleton), bei dem die gewählten Frameworks das erste Mal zusammenspielen sollen, wurden die Verantwortlichkeiten im Dev-Team wie folgt aufgeteilt:
+* *Frontend-Backend-Interaktion:* Til
+* *Persistenz (Datenhaltung):* Julius
+* *Email-Broadcasting:* Rico
+* *Reverse Proxying & QR-Code:* Die genaue Aufteilung dieser beiden Tasks ist noch offen und wird zeitnah zwischen **Jevan** und **Lidiia** geklärt.
+
+=== Naechste Besprechung
+*Termin:* 31.05.2026, 15:00 Uhr  
+*Ziel:* Terminfestlegung und Besprechung der Lösungen und Fortschritte in Sprint 2
