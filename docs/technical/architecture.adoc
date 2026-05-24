@@ -629,10 +629,10 @@ schwierig: Datentransfer zwsichen Frontend und Backend und entsprechende Kodieru
 [cols="1,3"]
 |===
 | *Status*
-| Vorgeschlagen
+| Akzeptiert
 
 | *Datum*
-| 23.05.2026
+| 24.05.2026
 
 | *Kontext*
 | Das System benötigt eine stabile und sichere Schnittstelle zwischen dem Frontend (React) und Backend (Django), um: +
@@ -648,7 +648,7 @@ Ohne Reverse-Proxy müssten diese Aufgaben entweder vom Backend-Framework übern
 | Wir verwenden *nginx* als Reverse-Proxy, weil es: +
 - eine etablierte, performante und ressourcenschonende Lösung ist +
 - SSL/TLS-Terminierung nativ unterstützt (Vereinfachung der Zertifikatsverwaltung)
-- Statische Dateien direkt ausliefern kann (Reduktion der Backend-Last) *
+- Statische Dateien direkt ausliefern kann (Reduktion der Backend-Last) +
 - einfache Konfiguration für Routing, Caching und Load-Balancing bietet
 
 | *Alternativen*
@@ -683,10 +683,10 @@ Ohne Reverse-Proxy müssten diese Aufgaben entweder vom Backend-Framework übern
 [cols="1,3"]
 |===
 | *Status*
-| Vorgeschlagen
+| Akzeptiert
 
 | *Datum*
-| 23.05.2026
+| 24.05.2026
 
 | *Kontext*
 |Das System muss auf verschiedenen Endgeräten nutzbar sein (Qualitätsziel: Mobile Benutzbarkeit), insbesondere: +
@@ -738,8 +738,8 @@ Zudem soll die Nutzung ohne App-Store-Installation möglich sein (Einschränkung
 - Maßnahme: Klare Anleitung im Onboarding-Flow (z. B. "App zum Homescreen hinzufügen") 
 
 |===
-
 // Review Kommentar: Vorschlag akzeptiert, Alternativen gut beschrieben. Single Page Application (SPA) wäre eine weitere Alternative gewesen, aber die PWA-Features bieten klare Vorteile was Offline Anzeige und das Installieren auf Homepage angeht somit betriebssystemübergreifend. Ebenso ist Push-Benachrichtigungen ein Vorteil. Achtung KI: PWA soll auf iOS/Safari hat bekannte Einschränkungen haben. Inwieweit das stimmt, können wir im Meeting besprechen. Ansonsten wieder sehr solide.
+
 === ADR-012: [Titel der Entscheidung]
 
 [cols="1,3"]
