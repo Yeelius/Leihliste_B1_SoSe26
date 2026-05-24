@@ -676,6 +676,8 @@ Ohne Reverse-Proxy müssten diese Aufgaben entweder vom Backend-Framework übern
 
 |===
 
+// Review Kommentar: Alles sehr gut beschrieben, viele Aspekte betrachtet. Nur die Frage, ob nginx auf der Hochschulinfrastruktur betrieben werden kann, sollte geklärt werden. Ansonsten sehr solide.
+
 === ADR-011: Progressive Web App (PWA) als Client-Technologie
 
 [cols="1,3"]
@@ -737,6 +739,7 @@ Zudem soll die Nutzung ohne App-Store-Installation möglich sein (Einschränkung
 
 |===
 
+// Review Kommentar: Vorschlag akzeptiert, Alternativen gut beschrieben. Single Page Application (SPA) wäre eine weitere Alternative gewesen, aber die PWA-Features bieten klare Vorteile was Offline Anzeige und das Installieren auf Homepage angeht somit betriebssystemübergreifend. Ebenso ist Push-Benachrichtigungen ein Vorteil. Achtung KI: PWA soll auf iOS/Safari hat bekannte Einschränkungen haben. Inwieweit das stimmt, können wir im Meeting besprechen. Ansonsten wieder sehr solide.
 === ADR-012: [Titel der Entscheidung]
 
 [cols="1,3"]
