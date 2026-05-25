@@ -697,14 +697,13 @@ Zudem soll die Nutzung ohne App-Store-Installation möglich sein (Einschränkung
 
 *Offene Frage*: Sollen Offline-Funktionalitäten und Push-Benachrichtigungen unterstützt werden? (Falls ja sind auskommentierte Ergänzungen vorhanden.)
 
-
-// Gleichzeitig sollen Offline-Funktionalitäten (z. B. Anzeige der eigenen Ausleihen) und Push-Benachrichtigungen unterstützt werden.
+ Gleichzeitig sollen Offline-Funktionalitäten (z. B. Anzeige des Katalogs?) unterstützt werden.
 
 | *Entscheidung*
 | Wir implementieren das Frontend als Progressive Web App (PWA), weil es: +
 - plattformunabhängig läuft (Browser-basiert, keine native App-Entwicklung nötig) +
 - wie eine native App installierbar ist (z. B. auf dem Homescreen) +
-// - Offline-Funktionalitäten unterstützt (z. B. Caching von Inventardaten) +
+- Offline-Funktionalitäten unterstützt (z. B. Caching von Inventardaten) +
 // - Push-Benachrichtigungen ermöglicht (z. B. für Rückgabeerinnerungen) +
 - keine App-Store-Veröffentlichung erfordert (geringerer Aufwand) +
 - auf React aufbaut
@@ -718,7 +717,7 @@ Zudem soll die Nutzung ohne App-Store-Installation möglich sein (Einschränkung
 | *Positiv:* +
 - Geringerer Entwicklungsaufwand im Vergleich zu nativen Apps (ein Codebase für alle Plattformen) +
 - Nutzende können die App direkt aus dem Browser installieren (kein App-Store nötig) +
-// - Offline-Zugriff auf häufig genutzte Daten (z. B. eigene Ausleihen) verbessert die Benutzerfreundlichkeit +
+- Offline-Zugriff verbessert die Benutzerfreundlichkeit +
 - Push-Benachrichtigungen erhöhen die Zuverlässigkeit (z. B. Rückgabeerinnerungen) +
 - geringere Wartungskosten (keine separaten App-Versionen) +
 
@@ -728,9 +727,9 @@ Zudem soll die Nutzung ohne App-Store-Installation möglich sein (Einschränkung
 - Browser-Kompatibilität muss getestet werden (z. B. Safari vs. Chrome) +
 
 *Risiken:* +
-// - Offline-Funktionalitäten erfordern komplexes Caching (z. B. Service Worker) +
-// - Maßnahme: Priorisierung der wichtigsten Offline-Features (z. B. Anzeige der eigenen Ausleihen) und schrittweise Implementierung +
-//
+- Offline-Funktionalitäten erfordern komplexes Caching (z. B. Service Worker) +
+- Maßnahme: Priorisierung der wichtigsten Offline-Features (z. B. Anzeige der eigenen Ausleihen) und schrittweise Implementierung +
+
 // - Push-Benachrichtigungen funktionieren nicht in allen Browsern +
 // - Maßnahme: Fallback auf  E-Mail-Benachrichtigungen für nicunht unterstützte Browser
 //
