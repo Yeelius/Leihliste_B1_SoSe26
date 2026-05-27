@@ -5,16 +5,14 @@
 // zurückkommenden QR-Code als Bild an.
 
 import { useState } from "react";
-// useState = React Hook um Variablen zu speichern
-// die sich ändern können (z.B. Eingabefeld, QR-Bild)
 
 function App() {
 
-  // Zustandsvariablen (State)
-  // name         = was der Nutzer ins Eingabefeld tippt
-  // qrCode       = Base64 String des QR-Bildes vom Backend
-  // loading      = true während auf Backend gewartet wird
-  // fehler       = Fehlermeldung falls etwas schiefgeht
+  // Zustandsvariablen
+  // name     = was der Nutzer ins Eingabefeld tippt
+  // qrCode   = Base64 String des QR-Bildes vom Backend
+  // loading  = true während auf Backend gewartet wird
+  // fehler   = Fehlermeldung falls etwas schiefgeht
   const [name, setName] = useState('');
   const [qrCode, setQrCode] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -30,10 +28,10 @@ function App() {
       return;
     }
 
-    // Ladezustand starten — zeigt "Lädt..." im Browser
+    // Ladezustand starten
     setLoading(true);
-    setFehler(null);   // Alte Fehlermeldungen löschen
-    setQrCode(null);   // Alten QR-Code löschen
+    setFehler(null);
+    setQrCode(null);
 
     try {
       // HTTP POST Request ans Django Backend schicken
@@ -41,11 +39,11 @@ function App() {
       const antwort = await fetch('http://localhost:8000/api/qr/', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'  // Sagt Backend: ich schicke JSON
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name: name })
         // JSON.stringify wandelt JavaScript Objekt → JSON Text
         // { name: "Laptop-001" } → '{"name":"Laptop-001"}'
+        body: JSON.stringify({ name: name })
       });
 
       // Prüfe ob Backend erfolgreich geantwortet hat
@@ -54,17 +52,17 @@ function App() {
       }
 
       // JSON Antwort vom Backend lesen
-      // Antwortformat: {"qr_code": "iVBORw0KGgo...", "name": "Laptop-001"}
+      // Format: {"qr_code": "iVBORw0KGgo...", "name": "Laptop-001"}
       const daten = await antwort.json();
 
-      // Base64 QR-Code in State speichern → löst Neuanzeige aus
+      // Base64 QR-Code in State speichern
       setQrCode(daten.qr_code);
 
     } catch (fehler) {
       // Fehlerbehandlung — z.B. Backend nicht erreichbar
-      setFehler('Fehler beim Generieren des QR-Codes: ' + fehler.message);
+      setFehler('Fehler: ' + fehler.message);
     } finally {
-      // Ladezustand beenden — egal ob Erfolg oder Fehler
+      // Ladezustand beenden
       setLoading(false);
     }
   };
@@ -79,13 +77,12 @@ function App() {
         placeholder="Gegenstandsname z.B. Laptop-001"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        // onChange speichert jeden Tastendruck in name State
       />
 
       {/* Button zum Auslösen der QR Generierung */}
       <button
         onClick={qrCodeAnfordern}
-        disabled={loading}  // Button deaktiviert während geladen wird
+        disabled={loading}
       >
         {loading ? 'Generiere...' : 'QR-Code generieren'}
       </button>
@@ -100,7 +97,6 @@ function App() {
           {/*
             Base64 Bild direkt in img src einbetten
             Format: data:image/png;base64,[Base64 String]
-            Browser versteht das direkt — kein extra Request nötig
           */}
           <img
             src={`data:image/png;base64,${qrCode}`}
@@ -113,5 +109,3 @@ function App() {
 }
 
 export default App;
-// export default macht App für andere Dateien nutzbar
-// index.js importiert App und rendert sie im Browser

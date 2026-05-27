@@ -8,5 +8,5 @@ from . import views
 
 urlpatterns = [
     # /api/qr/ → ruft generate_qr_code() in views.py auf
-    path('api/qr/', views.generate_qr_code, name='generate_qr_code'),
+    path('qr/', views.generate_qr_code, name='generate_qr_code'),
 ]
