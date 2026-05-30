@@ -105,6 +105,7 @@
  - Walking Skeleton Frontend-Backend-Interaktion
  - Walking Skeleton Persistenz
 . Planung Woche 4 (15 min)
+
 ==== Walking Skeleton für Mailversand
 * unter src/Walking_Skeleton/Mailversand liegt der Walking Skeleton, welcher 3 verschiedene Benachrichtigungstypen an eine eigegebene Mailadresse über den SMTP-Server von gmx.net sendet (zugehöriger Mailaacount: leihliste.b1@gmx.de)
 * in der readme.md steht, wie der Test reproduziert werden kann, dazu benötigt ihr die Datei ".env" mit den Zugangsdaten (steht im Dev-Chat)
