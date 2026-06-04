@@ -5,3 +5,19 @@
 *~
 .vscode
 .env
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Django / local dev
+db.sqlite3
+*.log
+
+# IDE
+.vscode/
