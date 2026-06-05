@@ -798,6 +798,172 @@ Wir definieren Gründe, warum eine Löschung noch ausgesetzt wird: +
 - Re-Identifizierung anonymisierter Daten, also nicht nur Nutzer-ID hochzählen, sodass rekonstruiert werden kann, wer Nutzer 1 war
 |===
 
+=== ADR-014: Client-Server Webanwendung als grundlegender Architekturstil
+
+[cols="1,3"]
+|===
+| *Kontext*
+| Unser Projekt soll eine Plattform zur Verwaltung und Nachverfolgung 
+von Ausleihen für Hochschulen und private Nutzergruppen bereitstellen.
+Bei der grundlegenden Architekturentscheidung stellt sich die Frage, ob das 
+System als native Desktop-Software, als mobile App oder als Client-Server 
+Webanwendung realisiert werden soll.
+
+Die Anforderungen aus dem Produktkonzept sind eindeutig:
+- Betrieb auf Hochschulinfrastruktur (kein App-Store, keine lokale Installation)
+- Plattformunabhängigkeit (Windows, macOS, Linux, Android, iOS)
+- Mehrere Nutzerrollen (Admin, Verleiher, Ausleiher) mit zentraler Datenhaltung
+- Mobile Nutzung für schnelle Ausleihe vor Ort (z. B. mit Smartphone)
+- Zentrale Inventarverwaltung die für alle Nutzer gleichzeitig aktuell ist
+
+Eine lokale Desktop-Anwendung kann diese Anforderungen strukturell nicht 
+erfüllen, da sie keine zentrale Datenhaltung und keinen plattformübergreifenden 
+Zugriff ermöglicht.
+
+| *Entscheidung*
+| Wir bauen LeihListe als **Client-Server Webanwendung**, weil sie:
+
+- **Plattformunabhängig** ist — jedes Gerät mit Browser kann das System 
+  nutzen ohne Installation
+- **Zentrale Datenhaltung** ermöglicht — alle Nutzer sehen denselben 
+  aktuellen Inventarstand
+- **Rollenbasierter Zugriff** einfach umsetzbar ist — Authentifizierung 
+  und Autorisierung erfolgen serverseitig
+- **Auf Hochschulinfrastruktur** betreibbar ist — nur ein Server nötig, 
+  kein App-Store, keine Verteilung
+- **Mobile Nutzung** Browser auf Smartphone reicht aus (PWA)
+- **Wartung zentralisiert** ist — Updates werden einmal auf dem Server 
+  eingespielt, alle Nutzer profitieren sofort
+
+| *Alternativen*
+| Eine Alternative wäre eine **native Desktop-Anwendung** (z.B. mit Java 
+Swing oder Electron). Dies wurde verworfen, weil:
+- Jeder Nutzer die Software manuell installieren und aktualisieren müsste
+- Keine zentrale Datenhaltung ohne zusätzlichen Server möglich ist
+- Plattformspezifische Builds für Windows, macOS und Linux nötig wären
+Mobile Nutzung vor Ort nicht möglich wäre
+| Eine weitere Alternative wäre **App Store Applikation oder Play Store Applikation*
+ (z.B. mit Kotlin für Andorid oder Swift für Apple/MacOS)
+Dies wurde verworfen, weil:
+- Separate Entwicklung für Android und iOS den Projektrahmen sprengt
+- Veröffentlichung im App-Store mit hohen Hürden und Kosten verbunden ist
+- Das Team keine nativen App-Entwicklungskenntnisse (Swift, Kotlin) besitzt
+
+| *Konsequenzen*
+| *Positiv:*
+- Jeder Nutzer kann das System sofort über den Browser nutzen — keine 
+  Installation, kein Update-Aufwand
+- Zentrale Datenhaltung garantiert konsistenten Inventarstand für alle 
+  Nutzer gleichzeitig — Race Conditions werden serverseitig behandelt
+- Ein einziger Deployment-Prozess auf dem Hochschulserver reicht für 
+  alle Plattformen
+- PWA ermöglicht Installation auf dem Homescreen ohne App-Store
+- Rollenbasierter Zugriff (Admin, Verleiher, Ausleiher) ist serverseitig 
+  sauber trennbar
+
+*Negativ/Schwierig:*
+- Internetverbindung ist Voraussetzung — Offline-Nutzung nur eingeschränkt 
+  möglich (Gegenmaßnahme: PWA-Caching für Kernfunktionen, offline-Ansicht, siehe ADR-011)
+- Serverseitige Sicherheit muss sorgfältig implementiert werden — 
+  Eingabevalidierung, Authentifizierung, HTTPS zwingend erforderlich
+- Seitenladezeit < 2s muss aktiv optimiert werden.
+
+*Risiken:*
+- Bei Serverausfall ist das System für alle Nutzer gleichzeitig nicht 
+  erreichbar (Gegenmaßnahme: Verfügbarkeitsziel ≥ 99% durch stabile 
+  Hochschulinfrastruktur, siehe Produktkonzept)
+- Browser-Kompatibilität muss aktiv getestet werden, insbesondere 
+  Safari auf iOS (Gegenmaßnahme: Cross-Browser-Tests ab Sprint 3, 
+  siehe ADR-011)
+|===
+
+=== ADR-015: Monolithische Backend-Struktur statt Microservices
+
+[cols="1,3"]
+|===
+| *Kontext*
+| Das Backend von unserem Projekt muss mehrere fachliche Domänen abdecken:
+Nutzerverwaltung, Inventarverwaltung, Ausleihprozess, Benachrichtigungen 
+und QR-Code Generierung.
+
+Bei der Strukturentscheidung des Backends stellt sich die Frage, ob diese 
+Domänen als einzelne unabhängige Microservices oder als ein zusammenhängender 
+Monolith realisiert werden sollen.
+
+Die Rahmenbedingungen des Projekts sind:
+- Hochschulprojekt mit begrenzter Projektlaufzeit (6 Sprints über zwei Semester)
+- Entwicklerteam 7 Personen ohne Microservices-Erfahrung
+- Betrieb auf Hochschulinfrastruktur mit begrenzten Serverressourcen
+- Überschaubare Nutzerzahl (Hochschule + private Nutzergruppen)
+
+Eine Microservices-Architektur würde bedeuten, dass z.B. 
+Nutzerverwaltung, Ausleihservice und Benachrichtigungsservice als 
+separate deploybare Einheiten mit eigener Datenbank und eigenem 
+Container betrieben werden müssten.
+
+| *Entscheidung*
+| Wir verwenden eine **monolithische Backend-Struktur** mit Django, 
+weil sie:
+
+- **Entwicklungskomplexität reduziert** — ein Codebase, ein Deployment, 
+  eine Datenbank statt verteilte Systeme
+- **Zum Projektrahmen passt** — Hochschulprojekt mit begrenzter Zeit und 
+  Ressource sowie kleine Teamgröße mit bescheidenen Programmiererfahrung
+  würde das höchstwahrscheinlich nicht schaffen
+- **Intern modular strukturiert** ist — fachliche Domänen werden als 
+  Module (Dateien) getrennt, ohne verteilte Komplexität
+- **Auf Hochschulinfrastruktur** problemlos betreibbar ist — ein 
+  einziger Backend-Container reicht
+- **Datenkonsistenz vereinfacht** — alle Domänen teilen eine Datenbank, 
+  keine verteilten Transaktionen nötig
+- **Spätere Migration ermöglicht** — bei Bedarf können einzelne Module 
+  später zu Microservices extrahiert werden
+
+| *Alternativen*
+| Eine Alternative wäre eine **Microservices-Architektur** mit separaten 
+Services pro Domäne (z. B. Auth-Service, Inventory-Service, 
+Notification-Service). Dies wurde verworfen, weil:
+- Der operative Aufwand (Service Discovery, API Gateway, verteiltes 
+  Logging, Inter-Service-Kommunikation) den Projektrahmen bei weitem 
+  überschreitet
+- Das Team keine Erfahrung mit verteilten Systemen hat — 
+  Einarbeitungsaufwand zu hoch
+- Datenkonsistenz zwischen Services (verteilte Transaktionen, 
+  Eventual Consistency) für ein Ausleihsystem kritisch und komplex ist
+- Für üns zur Verfügung gestellter Server könnte diese Architekur einfach
+viel zu schwer sein, so dass auch das Programm beim Benutzen nicht flüssig ist.
+
+| *Konsequenzen*
+| *Positiv:*
+- Ein einziger `python manage.py runserver` Befehl startet das gesamte 
+  Backend — kein verteiltes Setup nötig
+- Datenbankzugriffe über Django ORM sind direkt und konsistent — 
+  keine verteilten Transaktionen
+- Neue Teammitglieder verstehen die gesamte Backend-Logik in einem 
+  Codebase ohne verteilte Systemkenntnisse
+- Deployment auf Hochschulserver ist ein einziger Container 
+  (siehe ADR-004 Docker)
+- Fachliche Trennung bleibt erhalten durch Django Apps als Module:
+  'users', 'Inventar', 'Ausleihe', 'Benachrichtigungen', 'QR-Code'
+
+*Negativ/Schwierig:*
+- Bei starkem Wachstum der Nutzerzahl kann das gesamte Backend zum 
+  Flaschenhals werden — einzelne Domänen können nicht unabhängig 
+  skaliert werden
+- Fehler in einer Domäne können potenziell das gesamte Backend 
+  beeinflussen — sorgfältige Fehlerbehandlung nötig
+- Codebase wächst mit der Zeit — Modulgrenzen müssen diszipliniert 
+  eingehalten werden
+
+*Risiken:*
+- Unklare Modulgrenzen können später zu Problemen führen — 
+  unkontrolliertes Verwachsen der Domänen. Als Gegenmaßnahme: Klare
+   Django App Struktur von Beginn an
+- Datenbankschema wächst mit allen Domänen gemeinsam — 
+  Migrationen müssen sorgfältig koordiniert werden +
+  (Gegenmaßnahme: Jede Django App verwaltet eigene Migrationen)
+|===
+
 === ADR-016: Hosting-Strategie – On-Premise auf Hochschulserver
 
 [cols="1,3"]
