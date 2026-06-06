@@ -964,6 +964,8 @@ viel zu schwer sein, so dass auch das Programm beim Benutzen nicht flüssig ist.
   (Gegenmaßnahme: Jede Django App verwaltet eigene Migrationen)
 |===
 
+
+
 === ADR-016: Hosting-Strategie – On-Premise auf Hochschulserver
 
 [cols="1,3"]
@@ -1077,6 +1079,135 @@ viel zu schwer sein, so dass auch das Programm beim Benutzen nicht flüssig ist.
 | *Konsequenzen*
 | [Was wird durch diese Entscheidung einfacher? Was wird schwieriger oder teurer?
   Welche neuen Risiken entstehen?]
+|===
+
+=== ADR-018: Datenkonsistenz und Vermeidung von Race Conditions 
+beim Ausleihprozess
+
+[cols="1,3"]
+|===
+| *Kontext*
+| unsere LeihListe verwaltet einen zentralen Inventarbestand, auf den mehrere 
+Nutzer gleichzeitig zugreifen können. Eine kritische Situation entsteht 
+wenn zwei oder mehr Nutzer denselben Gegenstand zeitgleich ausleihen 
+wollen.
+
+*Beispielszenario:*
+
+Zeitpunkt 1: Nutzer A prüft → Laptop-1 ist verfügbar 
+Zeitpunkt 1: Nutzer B prüft → Laptop-1 ist verfügbar 
+Zeitpunkt 2: Nutzer A leiht aus → Laptop-1 wird reserviert
+Zeitpunkt 2: Nutzer B leiht aus → Laptop-1 wird nochmal reserviert 
+Ergebnis: Laptop-1 ist doppelt verliehen — Datenkonsistenz verletzt
+
+Dieses Problem wird als **Race Condition** bezeichnet — zwei parallele 
+Prozesse lesen denselben Zustand und schreiben ihn gleichzeitig zurück 
+ohne voneinander zu wissen.
+
+Die Anforderungen aus dem Produktkonzept sind:
+- Datenkonsistenz — jeder Gegenstand hat einen eindeutigen Status in 
+  der Datenbank, der für alle Nutzer verbindlich gilt
+- Keine Race Conditions — das System muss technisch ausschließen, 
+  dass derselbe Gegenstand doppelt verliehen wird
+- Nachvollziehbarkeit — jede Statusänderung wird mit Zeitstempel und 
+  Nutzerreferenz gespeichert, um Schadensfälle lückenlos klären zu können
+
+| *Entscheidung*
+| Wir verhindern Race Conditions durch eine Kombination aus drei Maßnahmen:
+
+**1. Optimistic Locking** +
+Jeder Gegenstand trägt eine Versionsnummer in der Datenbank. 
+Beim Ausleihvorgang wird geprüft ob die Version zum Zeitpunkt 
+des Speicherns noch mit der Version übereinstimmt die der Nutzer 
+beim Öffnen gesehen hat:
+- Stimmt die Version überein → Ausleihe wird durchgeführt, 
+  Versionsnummer wird erhöht
+- Stimmt die Version nicht mehr überein → ein anderer Nutzer 
+  hat den Gegenstand zwischenzeitlich ausgeliehen → 
+  der Nutzer erhält eine Fehlermeldung und kann es erneut versuchen
+
+**2. Atomare Datenbankoperationen** +
+Django sperrt die betroffene Datenbankzeile für die Dauer der 
+Transaktion — kein anderer Prozess kann sie gleichzeitig ändern. 
+Erst nach Abschluss der Transaktion wird die Sperre freigegeben.
+
+**3. Serverseitige Statusverwaltung** +
+Jeder Gegenstand durchläuft einen klar definierten Statusfluss 
+in der Datenbank:
+verfügbar → ausgeliehen → zurückgegeben
+
+Statusänderungen dürfen ausschließlich durch kontrollierte 
+Backend-Logik ausgelöst werden. Das Frontend zeigt den aktuellen 
+Status nur an — eine direkte Manipulation des Status durch den 
+Client ist technisch nicht möglich. So wird sichergestellt dass 
+kein Statuswechsel an der Geschäftslogik vorbei stattfinden kann.
+
+Wir verwenden diese Kombination weil sie:
+- Datenkonsistenz auf Datenbankebene garantiert — unabhängig 
+  von der Anzahl gleichzeitiger Nutzer
+- Mit Django ORM direkt umsetzbar ist — keine zusätzlichen 
+  Bibliotheken nötig
+- Performance nicht stark beeinträchtigt — Sperren bestehen nur für 
+  kurze Transaktionsdauer
+- Nachvollziehbarkeit ermöglicht — jeder Statuswechsel wird 
+  mit Zeitstempel und Nutzer-ID in der Historie gespeichert
+
+| *Alternativen*
+| Eine Alternative wäre **kein Locking** — einfach zuerst speichern 
+gewinnt. Dies wurde verworfen, weil:
+- Race Conditions nicht verhindert werden — doppelte Ausleihe möglich, der 
+Ausleiher, der nicht ausleihen konnte, ist dann frustriert
+- Das Vertrauen der Nutzer in das System leiden würde
+- Datenkonsistenz nicht garantiert ist
+
+Eine weitere Alternative wäre **Pessimistic Locking** — der Gegenstand 
+wird bereits beim Anzeigen gesperrt. Dies wurde verworfen, weil:
+- Nutzer A schaut sich Laptop-1 an → Laptop-1 ist für alle anderen 
+  gesperrt — schlechte User Experience
+
+Eine weitere Alternative wäre eine **Redis-basierte Sperrverwaltung** 
+(Distributed Lock). Dies wurde verworfen, weil:
+- Ein zusätzlicher Redis-Server nötig wäre — erhöht Deployment-Komplexität
+- Die Lösung für die erwartete Nutzerzahl überdimensioniert ist
+- Djangos eingebaute Mechanismen für unsere Skalierung ausreichen
+
+Eine weitere Alternative wäre eine **Queue-basierte Verarbeitung** — 
+Ausleiheanfragen werden nacheinander in einer Warteschlange abgearbeitet. 
+Dies wurde verworfen, weil:
+- Zusätzliche Message-Queue Infrastruktur (z. B. Celery Bibliothek was Redis
+braucht, was wiederum einen eigenen Server braucht) nötig wäre
+- Die Latenz für Nutzer steigt — Anfragen müssen in der Queue warten
+- Der Ansatz für ein Hochschulprojekt überdimensioniert ist
+
+| *Konsequenzen*
+| *Positiv:*
+- Race Conditions auf Datenbankebene vollständig verhindert — 
+  doppelte Ausleihe desselben Gegenstands ist technisch unmöglich
+- Lückenlose Historie aller Statuswechsel — Transparenz in 
+  Schadensfällen gewährleistet (Anforderung aus Produktkonzept)
+- Direkt mit Django ORM umsetzbar — kein zusätzlicher Infrastrukturaufwand
+- Nutzer bekommt sofortiges Feedback wenn ein Gegenstand bereits 
+  vergeben ist
+
+*Negativ/Schwierig:*
+- Atomare Sperren funktionieren nur mit Datenbanken die Row-Level 
+  Locking unterstützen — MariaDB unterstützt dies ✅ (siehe ADR-003)
+- Bei sehr hoher gleichzeitiger Last können kurze Wartezeiten entstehen 
+  während eine Zeile gesperrt ist
+- Optimistic Locking erfordert saubere Fehlerbehandlung im Frontend — 
+  Nutzer muss informiert werden wenn die Ausleihe fehlschlägt
+
+*Risiken:*
+- Deadlocks können entstehen wenn eine Transaktion mehrere Sperren 
+  gleichzeitig hält und zwei Transaktionen gegenseitig aufeinander 
+  warten — keine kann weitermachen +
+  (Gegenmaßnahme: Transaktionen so kurz und fokussiert wie möglich 
+  halten, nie mehr als eine Sperre pro Transaktion)
+- Erhält ein Nutzer eine Fehlermeldung, ist die natürliche Reaktion 
+  mehrfach zu klicken — das sendet mehrere identische Anfragen ans 
+  Backend und erhöht die Last unnötig +
+  (Gegenmaßnahme: Button nach dem ersten Klick sofort deaktivieren 
+  bis das Backend geantwortet hat — Umsetzung durch das Frontend-Team)
 |===
 
 
