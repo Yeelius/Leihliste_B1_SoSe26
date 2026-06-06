@@ -809,7 +809,7 @@ Bei der grundlegenden Architekturentscheidung stellt sich die Frage, ob das
 System als native Desktop-Software, als mobile App oder als Client-Server 
 Webanwendung realisiert werden soll.
 
-Die Anforderungen aus dem Produktkonzept sind eindeutig:
+Die Anforderungen aus dem Produktkonzept sind eindeutig: +
 - Betrieb auf Hochschulinfrastruktur (kein App-Store, keine lokale Installation)
 - Plattformunabhängigkeit (Windows, macOS, Linux, Android, iOS)
 - Mehrere Nutzerrollen (Admin, Verleiher, Ausleiher) mit zentraler Datenhaltung
@@ -882,86 +882,51 @@ Dies wurde verworfen, weil:
 [cols="1,3"]
 |===
 | *Kontext*
-| Das Backend von unserem Projekt muss mehrere fachliche Domänen abdecken:
-Nutzerverwaltung, Inventarverwaltung, Ausleihprozess, Benachrichtigungen 
-und QR-Code Generierung.
+| Das Backend von unserem Projekt muss mehrere fachliche Domänen abdecken: Nutzerverwaltung, Inventarverwaltung, Ausleihprozess, Benachrichtigungen und QR-Code-Generierung.
 
-Bei der Strukturentscheidung des Backends stellt sich die Frage, ob diese 
-Domänen als einzelne unabhängige Microservices oder als ein zusammenhängender 
-Monolith realisiert werden sollen.
+Bei der Strukturentscheidung des Backends stellt sich die Frage, ob diese  Domänen als einzelne unabhängige Microservices oder als ein zusammenhängender  Monolith realisiert werden sollen.
 
-Die Rahmenbedingungen des Projekts sind:
-- Hochschulprojekt mit begrenzter Projektlaufzeit (6 Sprints über zwei Semester)
-- Entwicklerteam 7 Personen ohne Microservices-Erfahrung
-- Betrieb auf Hochschulinfrastruktur mit begrenzten Serverressourcen
+Die Rahmenbedingungen des Projekts sind: +
+- Hochschulprojekt mit begrenzter Projektlaufzeit (6 Sprints über zwei Semester) +
+- Entwicklerteam 7 Personen ohne Microservices-Erfahrung +
+- Betrieb auf Hochschulinfrastruktur mit begrenzten Serverressourcen +
 - Überschaubare Nutzerzahl (Hochschule + private Nutzergruppen)
 
-Eine Microservices-Architektur würde bedeuten, dass z.B. 
-Nutzerverwaltung, Ausleihservice und Benachrichtigungsservice als 
-separate deploybare Einheiten mit eigener Datenbank und eigenem 
-Container betrieben werden müssten.
+Eine Microservices-Architektur würde bedeuten, dass z.B. Nutzerverwaltung, Ausleihservice und Benachrichtigungsservice als separate deploybare Einheiten mit eigener Datenbank und eigenem Container betrieben werden müssten.
 
 | *Entscheidung*
-| Wir verwenden eine **monolithische Backend-Struktur** mit Django, 
-weil sie:
+| Wir verwenden eine *monolithische Backend-Struktur* mit Django, weil sie:
 
-- **Entwicklungskomplexität reduziert** — ein Codebase, ein Deployment, 
-  eine Datenbank statt verteilte Systeme
-- **Zum Projektrahmen passt** — Hochschulprojekt mit begrenzter Zeit und 
-  Ressource sowie kleine Teamgröße mit bescheidenen Programmiererfahrung
-  würde das höchstwahrscheinlich nicht schaffen
-- **Intern modular strukturiert** ist — fachliche Domänen werden als 
-  Module (Dateien) getrennt, ohne verteilte Komplexität
-- **Auf Hochschulinfrastruktur** problemlos betreibbar ist — ein 
-  einziger Backend-Container reicht
-- **Datenkonsistenz vereinfacht** — alle Domänen teilen eine Datenbank, 
-  keine verteilten Transaktionen nötig
-- **Spätere Migration ermöglicht** — bei Bedarf können einzelne Module 
-  später zu Microservices extrahiert werden
+- *Entwicklungskomplexität reduziert*: ein Codebase, ein Deployment,  eine Datenbank statt verteilte Systeme +
+- *zum Projektrahmen passt*: Hochschulprojekt mit begrenzter Zeit und Ressource sowie kleine Teamgröße mit bescheidenen Programmiererfahrung würde das wahrscheinlich nicht schaffen +
+- *intern modular strukturiert ist*: fachliche Domänen werden als Module (Dateien) getrennt, ohne verteilte Komplexität
+- *auf Hochschulinfrastruktur* problemlos betreibbar ist: ein einziger Backend-Container reicht +
+- *Datenkonsistenz vereinfacht*: alle Domänen teilen eine Datenbank,keine verteilten Transaktionen nötig +
+- *spätere Migration ermöglicht*: bei Bedarf können einzelne Module später zu Microservices extrahiert werden
 
 | *Alternativen*
-| Eine Alternative wäre eine **Microservices-Architektur** mit separaten 
-Services pro Domäne (z. B. Auth-Service, Inventory-Service, 
-Notification-Service). Dies wurde verworfen, weil:
-- Der operative Aufwand (Service Discovery, API Gateway, verteiltes 
-  Logging, Inter-Service-Kommunikation) den Projektrahmen bei weitem 
-  überschreitet
-- Das Team keine Erfahrung mit verteilten Systemen hat — 
-  Einarbeitungsaufwand zu hoch
-- Datenkonsistenz zwischen Services (verteilte Transaktionen, 
-  Eventual Consistency) für ein Ausleihsystem kritisch und komplex ist
-- Für üns zur Verfügung gestellter Server könnte diese Architekur einfach
-viel zu schwer sein, so dass auch das Programm beim Benutzen nicht flüssig ist.
+| Eine Alternative wäre eine *Microservices-Architektur* mit separaten Services pro Domäne (z. B. Auth-Service, Inventory-Service, Notification-Service). Dies wurde verworfen, weil: +
+- der operative Aufwand (Service Discovery, API Gateway, verteiltes Logging, Inter-Service-Kommunikation) den Projektrahmen bei weitem überschreitet +
+- das Team keine Erfahrung mit verteilten Systemen hat: Einarbeitungsaufwand zu hoch +
+- Datenkonsistenz zwischen Services (verteilte Transaktionen, Eventual Consistency) für ein Ausleihsystem kritisch und komplex ist +
+- für den uns zur Verfügung gestellten Server könnte diese Architekur einfach viel zu schwer sein, so dass auch das Programm beim Benutzen nicht flüssig läuft
 
 | *Konsequenzen*
-| *Positiv:*
-- Ein einziger `python manage.py runserver` Befehl startet das gesamte 
-  Backend — kein verteiltes Setup nötig
-- Datenbankzugriffe über Django ORM sind direkt und konsistent — 
-  keine verteilten Transaktionen
-- Neue Teammitglieder verstehen die gesamte Backend-Logik in einem 
-  Codebase ohne verteilte Systemkenntnisse
-- Deployment auf Hochschulserver ist ein einziger Container 
-  (siehe ADR-004 Docker)
-- Fachliche Trennung bleibt erhalten durch Django Apps als Module:
-  'users', 'Inventar', 'Ausleihe', 'Benachrichtigungen', 'QR-Code'
+| *Positiv:* +
+- ein einziger `python manage.py runserver` Befehl startet das gesamte Backend — kein verteiltes Setup nötig
+- Datenbankzugriffe über Django ORM sind direkt und konsistent: keine verteilten Transaktionen +
+- neue Teammitglieder verstehen die gesamte Backend-Logik in einem Codebase ohne verteilte Systemkenntnisse +
+- Deployment auf Hochschulserver ist ein einziger Container (siehe ADR-004 Docker) +
+- Fachliche Trennung bleibt erhalten durch Django Apps als Module: 'users', 'Inventar', 'Ausleihe', 'Benachrichtigungen', 'QR-Code'
 
-*Negativ/Schwierig:*
-- Bei starkem Wachstum der Nutzerzahl kann das gesamte Backend zum 
-  Flaschenhals werden — einzelne Domänen können nicht unabhängig 
-  skaliert werden
-- Fehler in einer Domäne können potenziell das gesamte Backend 
-  beeinflussen — sorgfältige Fehlerbehandlung nötig
-- Codebase wächst mit der Zeit — Modulgrenzen müssen diszipliniert 
-  eingehalten werden
+*Negativ/Schwierig:* +
+- bei starkem Wachstum der Nutzerzahl kann das gesamte Backend zum Flaschenhals werden: einzelne Domänen können nicht unabhängig skaliert werden +
+- Fehler in einer Domäne können potenziell das gesamte Backend beeinflussen: sorgfältige Fehlerbehandlung nötig +
+- Codebase wächst mit der Zeit: Modulgrenzen müssen diszipliniert eingehalten werden
 
-*Risiken:*
-- Unklare Modulgrenzen können später zu Problemen führen — 
-  unkontrolliertes Verwachsen der Domänen. Als Gegenmaßnahme: Klare
-   Django App Struktur von Beginn an
-- Datenbankschema wächst mit allen Domänen gemeinsam — 
-  Migrationen müssen sorgfältig koordiniert werden +
-  (Gegenmaßnahme: Jede Django App verwaltet eigene Migrationen)
+*Risiken:* +
+- Unklare Modulgrenzen können später zu Problemen führen: unkontrolliertes Verwachsen der Domänen. Als Gegenmaßnahme: klare Django App Struktur von Beginn an +
+- Datenbankschema wächst mit allen Domänen gemeinsam: Migrationen müssen sorgfältig koordiniert werden (Gegenmaßnahme: Jede Django App verwaltet eigene Migrationen)
 |===
 
 
