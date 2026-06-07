@@ -1,0 +1,32 @@
+= Spike: Backend (Datenbank) – Status & Verfügbarkeit
+
+== Leitfrage
+Wie modellieren und berechnen wir den Verfügbarkeitsstatus und das "voraussichtliche Rückgabedatum" in der MariaDB effizient, damit die Filterung im Backend bei vielen Gegenständen nicht zu langsam wird?
+
+== Hintergrund & Motivation
+
+Um Ninas Bedürfnis zu erfüllen, schnell ausleihbare Objekte zu finden, müssen wir klären, wie die Datenbankabfrage funktioniert. Wird der Status bei jedem Aufruf dynamisch aus allen "Ausleihanfragen" berechnet, oder speichern wir den aktuellen Status direkt am Gegenstandsobjekt zwischen (Denormalisierung)?
+
+Blockierte Story / Entscheidung:
+Blockiert die User Stories:
+
+    "Als Nina Nutzerin möchte ich den Verfügbarkeitsstatus von Gegenständen sehen und nach Verfügbarkeit filtern können..."
+    "... auf der Übersichts- und Detailansicht eines Gegenstands dessen Verfügbarkeitsstatus, Standort und voraussichtliches Rückgabedatum sehen..."
+
+
+
+== Vorgehensweise
+Zwei alternative SQL-Ansätze (bzw. Django ORM Queries) skizzieren: Live-Berechnung vs. Caching am Item.
+
+Django-Dokumentation zu annotate und Subqueries lesen.
+
+Kurz bewerten, welcher Ansatz fehleranfälliger für Race-Conditions bei zeitgleichen Anfragen ist.
+
+== Erwartetes Ergebnis
+
+    Klare Antwort auf die Leitfrage (dokumentiert im Abschnitt „Ergebnis" unten)
+    Empfehlung oder Entscheidung für das weitere Vorgehen
+    ADR in architecture.adoc erstellt (Entscheidung zur Status-Berechnung)
+    UX-Konzept oder Persona aktualisiert
+    Proof-of-Concept-Code in Branch spike/status-query verfügbar
+    Folgeaufgaben als neue Issues erstellt (Datenbankmodell finalisieren)
