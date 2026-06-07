@@ -46,14 +46,14 @@ Person(admin, "Administrator:in", "Verwaltet und konfiguriert das System")
 
 System(system, "[Leihliste]", "Kernfunktionalitäten des Systems")
 
-System_Ext(ext1, "Externer Dienst\n[z.B. Cloud-Speicher]", "NextCloud, HTW-Dateisystem - speichert Dokumente und Bilder")
-System_Ext(ext2, "Externer Dienst\n[z. B. E-Mail-Server]", "Brevo, MailJet - Versand von Benachrichtigungen")
+/'System_Ext(ext1, "Externer Dienst\n[z.B. Cloud-Speicher]", "NextCloud, HTW-Dateisystem - speichert Dokumente und Bilder")'/
+System_Ext(ext2, "Externer Dienst\n[z. B. E-Mail-Server]", "Versand von Benachrichtigungen")
 /'System_Ext(ext3, "Externer Dienst\n[z.B. Kalender-API]", "Google-Kalender - Reservierungen/Ausleihen in Nutzer-Kalender exportieren")'/
 /'System_Ext(ext, "Externer Dienst\n[z. B. LDAP / SSO]", "über Hochschule - Authentifizierung und Identitätsverwaltung")'/
 
 Rel(user, system, "nutzt", "Web / Mobile")
 Rel(admin, system, "verwaltet")
-Rel(system, ext1, "lädt Fotos & Dokumente hoch/herunter", "WebDAV / HTTPS / S3-API")
+/'Rel(system, ext1, "lädt Fotos & Dokumente hoch/herunter", "WebDAV / HTTPS / S3-API")'/
 Rel(system, ext2, "sendet Benachrichtigungen über", "SMTP")
 'Rel(api, ext3, "exportiert Termine/Buchungen", "iCal/RestAPI")
 
@@ -122,11 +122,11 @@ Person(admin, "Administrator:in", "Verwaltet und konfiguriert das System")
 rectangle "Leihliste\n<<System>>" as system {
   Container(web, "Web-Frontend", "React - UI für Suche, Reservierung, Ausleihe")
   Container(api, "Backend API", "Domänenmodule")
-  ContainerDb(db, "Datenbank", "MariaDB, MySQL - Persistente Datenhaltung des Systems")
+  ContainerDb(db, "Datenbank", "MariaDB - Persistente Datenhaltung des Systems")
   }
 
-System_Ext(ext1, "Externer Dienst\n[z.B. Cloud-Speicher]", "NextCloud, HTW-Dateisystem - speichert Dokumente und Bilder")
-System_Ext(ext2, "Externer Dienst\n[z. B. E-Mail-Server]", "Brevo, MailJet - Versand von Benachrichtigungen")
+/'System_Ext(ext1, "Externer Dienst\n[z.B. Cloud-Speicher]", "NextCloud, HTW-Dateisystem - speichert Dokumente und Bilder")'/
+System_Ext(ext2, "Externer Dienst\n[z. B. E-Mail-Server]", "SMTP-Mailserver - Versand von Benachrichtigungen")
 /'System_Ext(ext3, "Externer Dienst\n[z.B. Kalender-API]", "Google-Kalender - Reservierungen/Ausleihen in Nutzer-Kalender exportieren")'/
 /'System_Ext(ext, "Externer Dienst\n[z. B. LDAP / SSO]", "über Hochschule - Authentifizierung und Identitätsverwaltung")'/
 
@@ -134,14 +134,14 @@ Rel(user, web, "nutzt", "Web / Mobile")
 Rel(admin, web, "verwaltet")
 Rel(web, api, "ruft auf", "JSON/HTTPS")
 Rel(api, db, "liest/schreibt", "SQL")
-Rel(api, ext1, "lädt Fotos & Dokumente hoch/herunter", "WebDAV / HTTPS")
+/'Rel(api, ext1, "lädt Fotos & Dokumente hoch/herunter", "WebDAV / HTTPS")'/
 Rel(api, ext2, "sendet Benachrichtigungen über", "SMTP")
 'Rel(api, ext3, "exportiert Termine/Buchungen", "iCal/RestAPI")
 
 @enduml
 ....
 
-=== Verteilungsdiagramm (Deployment Diagramm)
+//=== Verteilungsdiagramm (Deployment Diagramm)
 //Beschreibt die physischen Knoten (Rechner) des Systems und Komponenten, die in diesen Knoten ausgeführt werden.
 
 
@@ -376,7 +376,7 @@ Gleichzeitig entsteht eine gewisse Abhängigkeit vom Django-Ökosystem. Außerde
 [cols="1,3"]
 |===
 | *Status*
-| Akzeptiert (Funktioniert MariaDB auf Hochschulebene?)
+| Akzeptiert
 
 | *Datum*
 | 24.05.2026
@@ -540,7 +540,7 @@ Schlecht gepflegte UI-Tests können instabil werden. Daher sollen robuste Selekt
 [cols="1,3"]
 |===
 | *Status*
-| Akzeptiert (noch nicht auf Anbieter festgelegt)
+| Akzeptiert
 
 | *Datum*
 | 24.05.2026
@@ -758,7 +758,7 @@ Zudem soll die Nutzung ohne App-Store-Installation möglich sein (Einschränkung
 [cols="1,3"]
 |===
 | *Status*
-| Vorgeschlagen
+| Vorgeschlagen -> verschoben
 
 | *Datum*
 | 04.06.2026
@@ -812,7 +812,7 @@ Wir definieren Gründe, warum eine Löschung noch ausgesetzt wird: +
 [cols="1,3"]
 |===
 | *Status*
-| Vorgeschlagen
+| Akzeptiert
 
 | *Datum*
 | 07.06.2026
@@ -870,10 +870,10 @@ a| *Positiv:*
 [cols="1,3"]
 |===
 | *Status*
-| Vorgeschlagen
+| Akzeptiert
 
 | *Datum*
-| 04.06.2026
+| 07.06.2026
 
 | *Kontext*
 a| Unser Projekt soll eine Plattform zur Verwaltung und Nachverfolgung 
@@ -962,19 +962,17 @@ a| *Positiv:*
 [cols="1,3"]
 |===
 | *Status*
-| Vorgeschlagen
+| Akzeptiert
 
 | *Datum*
-| 04.06.2026
+| 07.06.2026
 
 | *Kontext*
 | Das Backend von unserem Projekt muss mehrere fachliche Domänen abdecken:
 Nutzerverwaltung, Inventarverwaltung, Ausleihprozess, Benachrichtigungen 
 und QR-Code Generierung.
 
-Bei der Strukturentscheidung des Backends stellt sich die Frage, ob diese 
-Domänen als einzelne unabhängige Microservices oder als ein zusammenhängender 
-Monolith realisiert werden sollen.
+Bei der Strukturentscheidung des Backends stellt sich die Frage, ob diese  Domänen als einzelne unabhängige Microservices oder als ein zusammenhängender  Monolith realisiert werden sollen.
 
 Die Rahmenbedingungen des Projekts sind:
 - Hochschulprojekt mit begrenzter Projektlaufzeit (6 Sprints über zwei Semester)
@@ -989,19 +987,16 @@ Containern betrieben werden müssten.
 
 | *Entscheidung*
 | Wir verwenden eine **monolithische Backend-Struktur** mit Django, 
-weil sie:
-
+weil sie: +
 - **Entwicklungskomplexität reduziert** — ein Codebase, ein Deployment, 
-  eine Datenbank statt verteilte Systeme
-- **Zum Projektrahmen passt** — Hochschulprojekt mit begrenzter Zeit und 
-  Ressourcen sowie kleine Teamgröße mit bescheidener Programmiererfahrung
-  würde das höchstwahrscheinlich nicht schaffen
+  eine Datenbank statt verteilte Systeme +
+- **Zum Projektrahmen passt** — Hochschulprojekt mit begrenzter Zeit und  Ressourcen sowie kleine Teamgröße mit bescheidener Programmiererfahrung würde das höchstwahrscheinlich nicht schaffen +
 - **Intern modular strukturiert** ist — fachliche Domänen werden als 
-  Module (Dateien) getrennt, ohne verteilte Komplexität
+  Module (Dateien) getrennt, ohne verteilte Komplexität +
 - **Auf Hochschulinfrastruktur** problemlos betreibbar ist — ein 
-  einziger Backend-Container reicht
+  einziger Backend-Container reicht +
 - **Datenkonsistenz vereinfacht** — alle Domänen teilen eine Datenbank, 
-  keine verteilten Transaktionen nötig
+  keine verteilten Transaktionen nötig +
 - **Spätere Migration ermöglicht** — bei Bedarf können einzelne Module 
   später zu Microservices extrahiert werden
 
@@ -1061,10 +1056,10 @@ Hinweis: `runserver` wird für die lokale Ausführung, für die Entwicklung und 
 [cols="1,3"]
 |===
 | *Status*
-| Vorgeschlagen
+| Akzeptiert
 
 | *Datum*
-| 04.06.2026
+| 07.06.2026
 
 | *Kontext*
 |  Unser System muss auf einer stabilen, sicheren und kostengünstigen Infrastruktur betrieben werden. Dabei haben wir folgende Rahmenbedingungen identifiziert: +
@@ -1077,7 +1072,7 @@ Hinweis: `runserver` wird für die lokale Ausführung, für die Entwicklung und 
 - kostenfrei +
 - Daten bleiben innerhalb der EU und unter Kontrolle der Hochschule +
 - das Kernsystem (Backend, Datenbank, Proxy) On-Premise auf der Hochschulinfrastruktur läuft +
-- nötigenfalls technischer Support für Server und Netzwerk durch Hochschule 
+- nötigenfalls technischer Support für Server und Netzwerk durch Hochschule +
 - Hardware der Hochschule reicht für die initiale Nutzerzahl aus und durch Containerisierung ist Umzug auf andere Hardware später möglich
 
 | *Alternativen*
@@ -1108,16 +1103,16 @@ Hinweis: `runserver` wird für die lokale Ausführung, für die Entwicklung und 
 [cols="1,3"]
 |===
 | *Status*
-| Vorgeschlagen
+| Akzeptiert
 
 | *Datum*
-| 04.06.2026
+| 07.06.2026
 
 | *Kontext*
 | Bei der Entwicklung eines Software-Projektes stellt sich die Frage, ob wir das System selbst entwickeln (Make) oder bestehende Dienste (Buy) nutzen und anpassen sollten. 
 
 | *Entscheidung*
-| Wir entwickeln das gesamte Verleih-System selbst (Make). Wir entwickeln die fachliche Kernanwendung selbst. Für technische Basisfunktionen nutzen wir etablierte Frameworks und Dienste. Eigenentwicklung ist sinnvoll, weil sie: +
+| Wir entwickeln das Verleih-System selbst (Make). Wir entwickeln die fachliche Kernanwendung selbst. Für technische Basisfunktionen nutzen wir etablierte Frameworks und Dienste. Eigenentwicklung ist sinnvoll, weil sie: +
 - ermöglicht eine einfache, nutzerfreundliche Oberfläche, die genau auf die Anforderungen der Aufgabenstellung zugeschnitten ist +
 - garantiert volle Kontrolle über die Datenverarbeitung (DSGVO-Konformität: ADR-012) +
 - ist kostenlos +
@@ -1144,22 +1139,18 @@ Hinweis: `runserver` wird für die lokale Ausführung, für die Entwicklung und 
 
 |===
 
-=== ADR-018: Datenkonsistenz und Vermeidung von Race Conditions 
-beim Ausleihprozess
+=== ADR-018: Datenkonsistenz und Vermeidung von Race Conditions beim Ausleihprozess
 
 [cols="1,3"]
 |===
 | *Status*
-| Vorgeschlagen
+| Akzeptiert
 
 | *Datum*
-| 06.06.2026
+| 07.06.2026
 
 | *Kontext*
-| unsere LeihListe verwaltet einen zentralen Inventarbestand, auf den mehrere 
-Nutzer gleichzeitig zugreifen können. Eine kritische Situation entsteht 
-wenn zwei oder mehr Nutzer denselben Gegenstand zeitgleich ausleihen 
-wollen.
+| unsere LeihListe verwaltet einen zentralen Inventarbestand, auf den mehrere  Nutzer gleichzeitig zugreifen können. Eine kritische Situation entsteht  wenn zwei oder mehr Nutzer denselben Gegenstand zeitgleich ausleihen wollen.
 
 *Beispielszenario:*
 
@@ -1173,13 +1164,10 @@ Dieses Problem wird als **Race Condition** bezeichnet — zwei parallele
 Prozesse lesen denselben Zustand und schreiben ihn gleichzeitig zurück 
 ohne voneinander zu wissen.
 
-Die Anforderungen aus dem Produktkonzept sind:
-- Datenkonsistenz — jeder Gegenstand hat einen eindeutigen Status in 
-  der Datenbank, der für alle Nutzer verbindlich gilt
-- Keine Race Conditions — das System muss technisch ausschließen, 
-  dass derselbe Gegenstand doppelt verliehen wird
-- Nachvollziehbarkeit — jede Statusänderung wird mit Zeitstempel und 
-  Nutzerreferenz gespeichert, um Schadensfälle lückenlos klären zu können
+Die Anforderungen aus dem Produktkonzept sind: +
+- Datenkonsistenz — jeder Gegenstand hat einen eindeutigen Status in  der Datenbank, der für alle Nutzer verbindlich gilt +
+- Keine Race Conditions — das System muss technisch ausschließen, dass derselbe Gegenstand doppelt verliehen wird +
+- Nachvollziehbarkeit — jede Statusänderung wird mit Zeitstempel und  Nutzerreferenz gespeichert, um Schadensfälle lückenlos klären zu können
 
 | *Entscheidung*
 | Wir verhindern Race Conditions durch eine Kombination aus drei Maßnahmen:
@@ -1188,45 +1176,32 @@ Die Anforderungen aus dem Produktkonzept sind:
 Jeder Gegenstand trägt eine Versionsnummer in der Datenbank. 
 Beim Ausleihvorgang wird geprüft ob die Version zum Zeitpunkt 
 des Speicherns noch mit der Version übereinstimmt die der Nutzer 
-beim Öffnen gesehen hat:
+beim Öffnen gesehen hat: +
 - Stimmt die Version überein → Ausleihe wird durchgeführt, 
-  Versionsnummer wird erhöht
+  Versionsnummer wird erhöht +
 - Stimmt die Version nicht mehr überein → ein anderer Nutzer 
   hat den Gegenstand zwischenzeitlich ausgeliehen → 
   der Nutzer erhält eine Fehlermeldung und kann es erneut versuchen
 
 **2. Atomare Datenbankoperationen** +
-Django sperrt die betroffene Datenbankzeile für die Dauer der 
-Transaktion — kein anderer Prozess kann sie gleichzeitig ändern. 
+Django sperrt die betroffene Datenbankzeile für die Dauer der Transaktion — kein anderer Prozess kann sie gleichzeitig ändern. 
 Erst nach Abschluss der Transaktion wird die Sperre freigegeben.
 
 **3. Serverseitige Statusverwaltung** +
-Jeder Gegenstand durchläuft einen klar definierten Statusfluss 
-in der Datenbank:
-verfügbar → ausgeliehen → zurückgegeben
+Jeder Gegenstand durchläuft einen klar definierten Statusfluss in der Datenbank: verfügbar → ausgeliehen → zurückgegeben
 
-Statusänderungen dürfen ausschließlich durch kontrollierte 
-Backend-Logik ausgelöst werden. Das Frontend zeigt den aktuellen 
-Status nur an — eine direkte Manipulation des Status durch den 
-Client ist technisch nicht möglich. So wird sichergestellt dass 
-kein Statuswechsel an der Geschäftslogik vorbei stattfinden kann.
+Statusänderungen dürfen ausschließlich durch kontrollierte Backend-Logik ausgelöst werden. Das Frontend zeigt den aktuellen Status nur an — eine direkte Manipulation des Status durch den Client ist technisch nicht möglich. So wird sichergestellt dass kein Statuswechsel an der Geschäftslogik vorbei stattfinden kann.
 
-Wir verwenden diese Kombination weil sie:
-- Datenkonsistenz auf Datenbankebene garantiert — unabhängig 
-  von der Anzahl gleichzeitiger Nutzer
-- Mit Django ORM direkt umsetzbar ist — keine zusätzlichen 
-  Bibliotheken nötig
-- Performance nicht stark beeinträchtigt — Sperren bestehen nur für 
-  kurze Transaktionsdauer
-- Nachvollziehbarkeit ermöglicht — jeder Statuswechsel wird 
-  mit Zeitstempel und Nutzer-ID in der Historie gespeichert
+Wir verwenden diese Kombination weil sie: +
+- Datenkonsistenz auf Datenbankebene garantiert — unabhängig  von der Anzahl gleichzeitiger Nutzer +
+- Mit Django ORM direkt umsetzbar ist — keine zusätzlichen   Bibliotheken nötig +
+- Performance nicht stark beeinträchtigt — Sperren bestehen nur für  kurze Transaktionsdauer +
+- Nachvollziehbarkeit ermöglicht — jeder Statuswechsel wird mit Zeitstempel und Nutzer-ID in der Historie gespeichert
 
 | *Alternativen*
-| Eine Alternative wäre **kein Locking** — einfach zuerst speichern 
-gewinnt. Dies wurde verworfen, weil:
-- Race Conditions nicht verhindert werden — doppelte Ausleihe möglich, der 
-Ausleiher, der nicht ausleihen konnte, ist dann frustriert
-- Das Vertrauen der Nutzer in das System leiden würde
+| Eine Alternative wäre **kein Locking** — einfach zuerst speichern gewinnt. Dies wurde verworfen, weil:
+- Race Conditions nicht verhindert werden — doppelte Ausleihe möglich, der Ausleiher, der nicht ausleihen konnte, ist dann frustriert +
+- Das Vertrauen der Nutzer in das System leiden würde +
 - Datenkonsistenz nicht garantiert ist
 
 Eine weitere Alternative wäre **Pessimistic Locking** — der Gegenstand 
@@ -1235,45 +1210,39 @@ wird bereits beim Anzeigen gesperrt. Dies wurde verworfen, weil:
   gesperrt — schlechte User Experience
 
 Eine weitere Alternative wäre eine **Redis-basierte Sperrverwaltung** 
-(Distributed Lock). Dies wurde verworfen, weil:
-- Ein zusätzlicher Redis-Server nötig wäre — erhöht Deployment-Komplexität
-- Die Lösung für die erwartete Nutzerzahl überdimensioniert ist
+(Distributed Lock). Dies wurde verworfen, weil: +
+- Ein zusätzlicher Redis-Server nötig wäre — erhöht Deployment-Komplexität +
+- Die Lösung für die erwartete Nutzerzahl überdimensioniert ist +
 - Djangos eingebaute Mechanismen für unsere Skalierung ausreichen
 
 Eine weitere Alternative wäre eine **Queue-basierte Verarbeitung** — 
 Ausleiheanfragen werden nacheinander in einer Warteschlange abgearbeitet. 
-Dies wurde verworfen, weil:
-- Zusätzliche Message-Queue Infrastruktur (z. B. Celery Bibliothek was Redis
-braucht, was wiederum einen eigenen Server braucht) nötig wäre
-- Die Latenz für Nutzer steigt — Anfragen müssen in der Queue warten
+Dies wurde verworfen, weil: +
+- Zusätzliche Message-Queue Infrastruktur (z. B. Celery Bibliothek was Redis braucht, was wiederum einen eigenen Server braucht) nötig wäre +
+- Die Latenz für Nutzer steigt — Anfragen müssen in der Queue warten +
 - Der Ansatz für ein Hochschulprojekt überdimensioniert ist
 
 | *Konsequenzen*
-| *Positiv:*
-- Race Conditions auf Datenbankebene vollständig verhindert — 
-  doppelte Ausleihe desselben Gegenstands ist technisch unmöglich
-- Lückenlose Historie aller Statuswechsel — Transparenz in 
-  Schadensfällen gewährleistet (Anforderung aus Produktkonzept)
-- Direkt mit Django ORM umsetzbar — kein zusätzlicher Infrastrukturaufwand
-- Nutzer bekommt sofortiges Feedback wenn ein Gegenstand bereits 
-  vergeben ist
+| *Positiv:* +
+- Race Conditions auf Datenbankebene vollständig verhindert —  doppelte Ausleihe desselben Gegenstands ist technisch unmöglich +
+- Lückenlose Historie aller Statuswechsel — Transparenz in  Schadensfällen gewährleistet (Anforderung aus Produktkonzept) +
+- Direkt mit Django ORM umsetzbar — kein zusätzlicher Infrastrukturaufwand +
+- Nutzer bekommt sofortiges Feedback wenn ein Gegenstand bereits   vergeben ist
 
-*Negativ/Schwierig:*
-
+*Negativ/Schwierig:* +
 - Atomare Sperren funktionieren nur mit Datenbanken die Row-Level 
-  Locking unterstützen — MariaDB unterstützt dies (siehe ADR-003)
+  Locking unterstützen — MariaDB unterstützt dies (siehe ADR-003) +
 - Bei sehr hoher gleichzeitiger Last können kurze Wartezeiten entstehen 
-  während eine Zeile gesperrt ist
+  während eine Zeile gesperrt ist +
 - Optimistic Locking erfordert saubere Fehlerbehandlung im Frontend — 
   Nutzer muss informiert werden wenn die Ausleihe fehlschlägt
 
 *Risiken:*
-
 - Deadlocks können entstehen wenn eine Transaktion mehrere Sperren 
   gleichzeitig hält und zwei Transaktionen gegenseitig aufeinander 
   warten — keine kann weitermachen +
   (Gegenmaßnahme: Transaktionen so kurz und fokussiert wie möglich 
-  halten, nie mehr als eine Sperre pro Transaktion)
+  halten, nie mehr als eine Sperre pro Transaktion) +
 - Erhält ein Nutzer eine Fehlermeldung, ist die natürliche Reaktion 
   mehrfach zu klicken — das sendet mehrere identische Anfragen ans 
   Backend und erhöht die Last unnötig +
