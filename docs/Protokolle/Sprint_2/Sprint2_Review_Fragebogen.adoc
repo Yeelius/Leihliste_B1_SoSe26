@@ -27,7 +27,6 @@ Alle getätigten Ausleihen werden in einer *Ausleihhistorie* gespeichert. Dazu k
 - Ist diese Ablauf für dich schlüssig? +
 - Siehst du Widersprüche in dem Konzept oder Vereinfachungs-Potential? 
 
-
 == 2. Architektur-Entscheidungen
 
 
@@ -96,3 +95,79 @@ Rel(api, ext2, "sendet Benachrichtigungen über", "SMTP")
 
 - Sind diese Komponenten und Werkzeuge für dich schlüssig? +
 - Siehst du Widersprüche in dem Konzept oder Vereinfachungs-Potential? 
+
+== 3. Architekturtreiber
+
+[cols="2,3", options="header"]
+|===
+| Anforderung | Technische Konsequenz
+
+| Benutzbarkeit
+| - intuitive, barrierefreie (einfache) Nutzeroberfläche; Skalierbarkeit der UI für verschiedene Inventargrößen; +
+ - Individualisierbarkeit; +
+ - Web + Desktopansicht -> 3 Formate im Design für verschiedene Nutzungsszenarien 
+
+| Verfügbarkeit ≥ 99 % während Betriebszeiten
+| - Server muss konstant laufen bzw. erreichbar sein -> Inwiefern beeinflussen die HTW-Serverwartungen den Proxy-Server?; +
+- Fallback-Server? -> Macht das in unserem Rahmen Sinn?; +
+- verbreitete Programmiersprache verwenden um allgemeine Verfügbarkeit zu garantieren; +
+- Ausfälle und kleinere Fehler werden automatisch erkannt und behoben; +
+- fehlertolerante Verarbeitung; +
+- Grundfunktionalität bleibt dauerhaft erhalten; +
+- Statusüberwachung
+
+| Performanceziel: Seitenladezeit < 2 s
+| - Python nicht das performanteste -> an Schnittstellen spezialisierte Bibliotheken einbeziehen; +
+- Ladezeiten von Daten aus Datenbank optimieren bspw. durch Verwendung von Maria-DB und man bräuchte performante Abfragen;
+- keine vollständige Vorabladung großer Inventarlisten oder Bilder; +
+- serverseitige Suche/Filterung mit Pagination
+
+| Max. 5 Interaktionen für Standardausleihe
+| - Minimalistische Ausleihoberfläche (Effizienz); +
+- Eingaben können gespeichert werden und als Nutzer-Standard vorausgefüllt; +
+- möglichst wenige Masken; +
+- rollenabhängige UI - Wichtigste Kernfunktionen werden direkt angezeigt;
+
+| DSGVO-Konformität
+| - Keine personenbezogenen Daten in Logs (Anonymisierung); +
+- Datensparsamkeit im Datenbankmodell; +
+- Recht auf Löschung muss implementierbar sein
+
+| Betrieb auf Hochschulinfrastruktur
+| - Keine Cloud-only-Dienste; +
+- Containerisierung für Portabilität erforderlich
+
+| Cybersecurity
+| - sicherer Code -> Schutz vor Datenmanipulation, Diebstahl; +
+- Strikte Eingabeüberprüfung; +
+- Principle of Least Privilege;
+
+| Skalierbarkeit
+| - Technologieauswahl muss Wachstum ohne grundlegenden Architekturwechsel ermöglichen;
+
+| Datenkonsistenz
+| - Statuszeile in Datenbank wo der Objektstatus dokumentiert und ausgelesen wird; +
+- Race Conditions (Speicherkonflikte) vermeiden;
+
+| mobile Nutzbarkeit
+| - touchfreundliche Bedienung; +
+- optimierte Darstellung bei variierender Bildschirmgröße; +
+- Nutzung von Browserfunktionen;
+
+| Rollenmodell
+| - Admin -> Alle Rechte; +
+- Verleiher -> Lese- und Bearbeitungsrechte an eigenen Ausleihobjekten sowie Genehmigung von Anfragen; +
+- Ausleiher -> Leserechte auf das Inventar und eingeschränkte Schreibrechte zur Erstellung eigener Buchungsanfragen;
+
+| Nachvollziehbarkeit
+| - Ausleihdaten auf eine eindeutige User-ID speichern in Datenbank; +
+- Lückenlose Verleihhistorie -> Transparenz in Schadenfällen;
+
+| Nutzungskontexte
+| - Unterscheidung bei Ausleiher und Verleiher über Abfrage was diese tun wollen -> Risiko dass sehr viele Nutzerkonten erstellt werden?; 
+|===
+
+=== Fragen
+
+- Sind diese Architekturtreiber für dich schlüssig? +
+- Gibt es fehlende Architekturtreiber? 
