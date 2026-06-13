@@ -25,13 +25,13 @@ Der Browser behandelt diese Adressen als unterschiedliche Origins. Deshalb muss 
 
 Zusätzlich muss festgelegt werden, in welchem Format React die Ausleihdaten überträgt, damit Django REST Framework die Daten validieren und später in der Datenbank speichern kann.
 
----
 
 Blockierte Story / Entscheidung:
 
+____
 Als Nina Nutzerin möchte ich eine Ausleihanfrage für einen Gegenstand mit allen relevanten Angaben erstellen können...
+____
 
----
 
 Für den Spike bedeutet das konkret:
 
@@ -75,7 +75,166 @@ Es enthält bereits:
 
 Der vorhandene Endpunkt ändert bisher nur den Status eines Gegenstands von `available` auf `requested`.
 
-Ein Startdatum und ein Enddatum werden aktuell noch nicht übertragen.
+Im unveränderten Ausgangszustand wurden Startdatum und Enddatum noch nicht übertragen. Diese Übertragung wurde im Rahmen des Spikes ergänzt.
+
+== CORS im Projektkontext
+
+Das React-Frontend läuft unter `http://localhost:5173`, das Django-Backend unter `http://127.0.0.1:8000`. Da sich Host und Port unterscheiden, behandelt der Browser beide Anwendungen als unterschiedliche Origins.
+
+Damit das Frontend auf das Backend zugreifen darf, wird das Paket `django-cors-headers` verwendet.
+
+Die Installation des Pakets allein reicht jedoch nicht aus. Die CORS-Funktion muss zusätzlich in Django aktiviert und konfiguriert werden:
+
+* In `requirements.txt` wird das Paket `django-cors-headers` installiert.
+* In `INSTALLED_APPS` wird `corsheaders` aktiviert.
+* In `MIDDLEWARE` wird `corsheaders.middleware.CorsMiddleware` eingetragen.
+* In `CORS_ALLOWED_ORIGINS` wird festgelegt, welche Frontend-Adressen zugreifen dürfen.
+
+Für das lokale React-Frontend ist folgende Adresse freigegeben:
+
+`http://localhost:5173`
+
+Die eigentliche CORS-Konfiguration erfolgt somit in `backend/leihliste_api/settings.py`. Das installierte Paket stellt lediglich die benötigte Funktionalität bereit.
+
+Die korrekte Funktion wurde im Browser durch folgenden Response-Header bestätigt:
+
+`Access-Control-Allow-Origin: http://localhost:5173`
+
+=== Wie funktioniert CORS technisch?
+
+CORS steht für *Cross-Origin Resource Sharing*. Es ist ein Sicherheitsmechanismus des Browsers.
+
+Eine Origin besteht aus:
+
+* Protokoll,
+* Hostname,
+* Port.
+
+Im Walking Skeleton werden zwei verschiedene Origins verwendet:
+
+* Frontend: `http://localhost:5173`
+* Backend: `http://127.0.0.1:8000`
+
+Da Hostname und Port unterschiedlich sind, betrachtet der Browser Frontend und Backend als getrennte Origins.
+
+Bei einem einfachen Cross-Origin-Request kann der Browser die Anfrage senden, stellt die Antwort ohne passende CORS-Header aber nicht dem React-Code zur Verfügung. Bei einem preflight-pflichtigen Request kann der Browser den eigentlichen Request bereits vor dem Senden blockieren.
+
+CORS wird daher hauptsächlich vom Browser kontrolliert. Das Django-Backend teilt dem Browser über HTTP-Header mit, welche Origins zugreifen dürfen.
+
+==== Installation des Pakets
+
+In `requirements.txt` steht:
+
+`django-cors-headers`
+
+Dadurch wird die Bibliothek installiert. Sie stellt die Funktionen bereit, mit denen Django CORS-Header erzeugen und CORS-Anfragen verarbeiten kann.
+
+Die Installation allein aktiviert CORS jedoch noch nicht.
+
+==== Eintrag in `INSTALLED_APPS`
+
+In `settings.py` steht:
+
+[source,python]
+----
+INSTALLED_APPS = [
+    ...
+    "corsheaders",
+]
+----
+
+Damit wird die Django-Anwendung des Pakets registriert.
+
+Django weiß dadurch, dass `corsheaders` zum Projekt gehört und seine bereitgestellten Komponenten verwendet werden können.
+
+Der Eintrag allein bearbeitet aber noch keine eingehenden Requests. Dafür wird zusätzlich die Middleware benötigt.
+
+==== Eintrag in `MIDDLEWARE`
+
+In `settings.py` steht:
+
+[source,python]
+----
+MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
+    ...
+    "django.middleware.common.CommonMiddleware",
+]
+----
+
+Middleware ist eine Verarbeitungsschicht zwischen dem Browser und der eigentlichen Django-View.
+
+Ein Request läuft vereinfacht durch folgende Schritte:
+
+`Browser -> Middleware -> Django-View -> Middleware -> Browser`
+
+Die `CorsMiddleware` prüft beim Eingang eines Requests unter anderem dessen `Origin`-Header.
+
+Beispiel:
+
+`Origin: http://localhost:5173`
+
+Beim Zurücksenden der Antwort ergänzt die Middleware den passenden CORS-Header:
+
+`Access-Control-Allow-Origin: http://localhost:5173`
+
+Der Browser erkennt dadurch, dass das Frontend die Antwort verwenden darf.
+
+Die `CorsMiddleware` muss möglichst weit oben und insbesondere vor der `CommonMiddleware` stehen. So kann sie auch Antworten bearbeiten, die bereits von einer anderen Middleware erzeugt wurden.
+
+==== Erlaubte Origins
+
+In `settings.py` wird festgelegt, welche Frontend-Adressen zugreifen dürfen:
+
+[source,python]
+----
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+]
+----
+
+Diese Liste ist eine gezielte Freigabe.
+
+Nur Requests mit einer passenden Origin erhalten den benötigten CORS-Header. Eine andere Adresse, beispielsweise `http://localhost:3000`, wäre nicht automatisch erlaubt.
+
+Protokoll, Hostname und Port müssen exakt übereinstimmen.
+
+==== Preflight-Anfrage bei JSON
+
+Der neue Ausleih-Request verwendet:
+
+`Content-Type: application/json`
+
+Bei einem Cross-Origin-Request mit `Content-Type: application/json` führt der Browser vor dem eigentlichen POST eine sogenannte Preflight-Anfrage aus.
+
+Der Ablauf lautet dann:
+
+. Der Browser sendet eine `OPTIONS`-Anfrage an Django.
+. Der Browser fragt damit, ob der eigentliche JSON-POST erlaubt ist.
+. Die `CorsMiddleware` beantwortet diese Prüfung mit den erlaubten Origins, Methoden und Headern.
+. Erst danach sendet der Browser den eigentlichen `POST`-Request.
+
+Vereinfacht:
+
+`React -> OPTIONS-Prüfung -> Django -> POST mit JSON -> Django-Antwort -> React`
+
+Im Test wurden deshalb zwei Requests zum Endpunkt angezeigt:
+
+* `OPTIONS` für die CORS-Prüfung,
+* `POST` für die eigentliche Ausleihanfrage.
+
+==== Bedeutung für den Spike
+
+Das Paket `django-cors-headers` übernimmt nicht die fachliche Verarbeitung der Ausleihanfrage.
+
+Es sorgt nur dafür, dass der Browser die Kommunikation zwischen React und Django erlaubt.
+
+Die Aufgaben sind damit getrennt:
+
+* `django-cors-headers` regelt den Zugriff zwischen den Origins.
+* React erstellt und sendet das JSON-Payload.
+* Django REST Framework liest und validiert das JSON-Payload.
+* Die Django-View verarbeitet die Ausleihanfrage.
 
 == Abgrenzung
 
@@ -103,14 +262,14 @@ Nicht Bestandteil des Spikes sind:
 
 Für den Proof of Concept wird folgendes Payload verwendet:
 
-## [source,json]
-
+[source,json]
+----
 {
-"item_id": 2,
-"start_date": "2026-06-20",
-"end_date": "2026-06-25"
+  "item_id": 2,
+  "start_date": "2026-06-20",
+  "end_date": "2026-06-25"
 }
--
+----
 
 Die Datumswerte werden im ISO-Format `YYYY-MM-DD` übertragen. Dieses Format kann Django REST Framework mit `DateField` direkt validieren.
 
@@ -147,20 +306,58 @@ Die Antwort enthielt den Header:
 
 Damit ist bestätigt, dass das Django-Backend Requests des lokalen React-Frontends erlaubt. Auch der spätere JSON-POST wurde nicht durch CORS blockiert.
 
+==== Verwendete CORS-Konfiguration
+
+Das Paket `django-cors-headers` war im Walking Skeleton bereits installiert und wurde für den Spike überprüft.
+
+In `settings.py` ist `corsheaders` als Anwendung eingetragen. Die `CorsMiddleware` steht vor der Django-`CommonMiddleware`.
+
+Die lokale Frontend-Adresse wird gezielt freigegeben:
+
+[source,python]
+----
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+]
+----
+
+Eine globale Freigabe über `CORS_ALLOW_ALL_ORIGINS = True` wird nicht verwendet.
+
+==== CORS-Preflight-Test
+
+Da der Ausleih-Request mit `Content-Type: application/json` gesendet wird, führte der Browser vor dem eigentlichen POST-Request eine CORS-Preflight-Anfrage aus.
+
+Die Preflight-Anfrage verwendete die HTTP-Methode `OPTIONS` und wurde vom Django-Backend mit `200 OK` beantwortet.
+
+Der Browser übermittelte dabei unter anderem:
+
+* `Origin: http://localhost:5173`
+* `Access-Control-Request-Method: POST`
+* `Access-Control-Request-Headers: content-type`
+
+Das Backend bestätigte:
+
+* die Freigabe der Origin `http://localhost:5173`,
+* die Freigabe der Methode `POST`,
+* die Freigabe des Headers `Content-Type`.
+
+Damit ist nachgewiesen, dass die CORS-Konfiguration auch für den JSON-POST-Request korrekt funktioniert.
+
+
 === Test 3: Gültiges JSON-Payload
 
 Status: erfolgreich
 
 Verwendetes Payload:
 
-## [source,json]
-
+[source,json]
+----
 {
-"item_id": 2,
-"start_date": "2026-06-20",
-"end_date": "2026-06-25"
+  "item_id": 2,
+  "start_date": "2026-06-20",
+  "end_date": "2026-06-25"
 }
--
+----
 
 React sendete den Request mit `Content-Type: application/json`.
 
@@ -170,73 +367,146 @@ Django REST Framework akzeptierte Start- und Enddatum im ISO-Format `YYYY-MM-DD`
 
 === Test 4: Ungültiger Zeitraum
 
-Status: offen
+Status: erfolgreich
 
-Für diesen Test wird ein Enddatum verwendet, das vor dem Startdatum liegt:
+Für diesen Test wurde ein Enddatum verwendet, das vor dem Startdatum liegt:
 
-## [source,json]
-
+[source,json]
+----
 {
-"item_id": 2,
-"start_date": "2026-06-25",
-"end_date": "2026-06-20"
+  "item_id": 1,
+  "start_date": "2026-06-25",
+  "end_date": "2026-06-20"
 }
--
+----
 
-Erwartetes Ergebnis:
+Das React-Frontend übertrug das JSON-Payload vollständig an das Django-Backend.
 
-Das Backend lehnt die Anfrage mit `400 Bad Request` ab und gibt eine verständliche Fehlermeldung zurück.
+Das Backend lehnte die Anfrage wie erwartet mit dem HTTP-Status `400 Bad Request` ab.
 
-Beobachtung:
+Die Antwort enthielt folgende Fehlermeldung:
 
-[Nach dem Test ausfüllen]
+[source,json]
+----
+{
+  "end_date": [
+    "Das Enddatum darf nicht vor dem Startdatum liegen."
+  ]
+}
+----
+
+Die Fehlermeldung wurde auch im React-Frontend angezeigt.
+
+Die Antwort enthielt weiterhin den CORS-Header:
+
+`Access-Control-Allow-Origin: http://localhost:5173`
+
+Damit ist bestätigt, dass ein unlogischer Ausleihzeitraum vom Backend erkannt und nicht verarbeitet wird.
+
+
 
 === Test 5: Ungültiges Datumsformat
 
-Status: offen
+Status: erfolgreich
 
-Für diesen Test wird ein deutsches Datumsformat verwendet:
+Für diesen Test wurden die Datumswerte im deutschen Format `DD.MM.YYYY` übertragen:
 
-## [source,json]
-
+[source,json]
+----
 {
-"item_id": 2,
-"start_date": "20.06.2026",
-"end_date": "25.06.2026"
+  "item_id": 1,
+  "start_date": "20.06.2026",
+  "end_date": "25.06.2026"
 }
--
+----
 
-Erwartetes Ergebnis:
+Das Django-Backend lehnte die Anfrage erwartungsgemäß mit dem HTTP-Status `400 Bad Request` ab.
 
-Das Backend lehnt das Format mit `400 Bad Request` ab. Für die API wird ausschließlich das ISO-Format `YYYY-MM-DD` verwendet.
+Die Antwort enthielt für beide Datumsfelder eine Fehlermeldung:
 
-Beobachtung:
+[source,json]
+----
+{
+  "start_date": [
+    "Date has wrong format. Use one of these formats instead: YYYY-MM-DD."
+  ],
+  "end_date": [
+    "Date has wrong format. Use one of these formats instead: YYYY-MM-DD."
+  ]
+}
+----
 
-[Nach dem Test ausfüllen]
+Die Fehlermeldung wurde auch im React-Frontend angezeigt.
 
-== Bisherige Erkenntnisse
+Die Fehlerantwort enthielt weiterhin den CORS-Header:
+
+`Access-Control-Allow-Origin: http://localhost:5173`
+
+Damit ist bestätigt, dass Django REST Framework ungültige Datumsformate erkennt und ablehnt. Für die REST-API wird deshalb das ISO-Format `YYYY-MM-DD` verwendet.
+
+
+== Erkenntnisse
 
 * Die Kommunikation zwischen React und Django funktioniert.
-* CORS ist für `http://localhost:5173` korrekt eingerichtet.
-* React kann ein JSON-Payload mit Gegenstands-ID, Startdatum und Enddatum senden.
-* Django REST Framework kann die Datumswerte im Format `YYYY-MM-DD` validieren.
-* Der Zeitraum wird im Proof of Concept bisher nur validiert und zurückgegeben, aber noch nicht dauerhaft als eigene Ausleihanfrage gespeichert.
+* CORS ist für das React-Frontend unter `http://localhost:5173` korrekt eingerichtet.
+* React kann eine Ausleihanfrage als JSON mit Gegenstands-ID, Startdatum und Enddatum senden.
+* Django REST Framework akzeptiert Datumswerte im ISO-Format `YYYY-MM-DD`.
+* Ein Enddatum vor dem Startdatum wird mit `400 Bad Request` abgelehnt.
+* Datumswerte im Format `DD.MM.YYYY` werden ebenfalls mit `400 Bad Request` abgelehnt.
+* Die CORS-Header sind auch bei Fehlerantworten vorhanden.
+* Der Ausleihzeitraum wird im Proof of Concept validiert und zurückgegeben, aber noch nicht dauerhaft als eigene Ausleihanfrage gespeichert.
 
 == Ergebnis
 
 === Antwort auf die Leitfrage
 
-[Nach Abschluss der beiden Negativtests ausfüllen]
+CORS wird im Django-Backend mit `django-cors-headers` konfiguriert. Das lokale React-Frontend wird über die erlaubte Origin `http://localhost:5173` freigegeben.
+
+React sendet die Ausleihanfrage als JSON per POST an den REST-Endpunkt:
+
+`POST /api/items/{item_id}/request-loan/`
+
+Das verwendete Payload hat folgende Struktur:
+
+[source,json]
+----
+{
+  "item_id": 2,
+  "start_date": "2026-06-20",
+  "end_date": "2026-06-25"
+}
+----
+
+Der Request wird mit `Content-Type: application/json` gesendet.
+
+Startdatum und Enddatum werden im ISO-Format `YYYY-MM-DD` übertragen. Django REST Framework kann dieses Format mit `DateField` direkt einlesen und validieren.
+
+Damit kann eine Ausleihanfrage inklusive Ausleihzeitraum unter den getesteten lokalen Bedingungen fehlerfrei vom React-Frontend an das Django-Backend übertragen werden.
 
 === Empfehlung und Entscheidung
 
-[Nach Abschluss der beiden Negativtests ausfüllen]
+Für zukünftige Ausleihanfragen wird ein JSON-Payload mit den Feldern `item_id`, `start_date` und `end_date` verwendet.
+
+Für Datumswerte wird verbindlich das ISO-Format `YYYY-MM-DD` festgelegt.
+
+Die Validierung erfolgt im Django-Backend mit einem Serializer. Dabei wird geprüft:
+
+* ob alle Pflichtfelder vorhanden sind,
+* ob die Datumswerte das richtige Format besitzen,
+* ob das Enddatum nicht vor dem Startdatum liegt,
+* ob die Gegenstands-ID im Payload zur ID des aufgerufenen Endpunkts passt.
+
+CORS soll nur für die tatsächlich benötigten Frontend-Adressen freigegeben werden. Eine globale Freigabe aller Origins wird nicht empfohlen.
 
 === Einschränkungen
 
 Das Walking Skeleton verwendet aktuell SQLite als lokale Entwicklungsdatenbank.
 
-Der Spike weist die Übertragung und Validierung durch React, Django REST Framework und das Django-ORM nach. Eine Speicherung in MariaDB ist erst dann vollständig nachgewiesen, wenn derselbe Ablauf zusätzlich mit einer MariaDB-Verbindung getestet wurde.
+Der Spike weist die Übertragung und Validierung durch React und Django REST Framework nach. Zusätzlich wird der Status des Gegenstands über das Django-ORM in SQLite gespeichert.
+
+Der Ausleihzeitraum wird jedoch noch nicht dauerhaft als eigene Ausleihanfrage gespeichert.
+
+Eine Speicherung in MariaDB ist erst vollständig nachgewiesen, wenn ein eigenes Ausleihanfrage-Modell erstellt und derselbe Ablauf mit der vorgesehenen MariaDB-Verbindung getestet wurde.
 
 == Proof of Concept
 
@@ -254,12 +524,22 @@ Geprüfte Konfiguration:
 
 Nachgewiesener Ablauf:
 
-`React -> JSON-POST -> CORS-Prüfung -> Django REST Framework -> Validierung -> Antwort an React`
+`React -> CORS-Preflight -> JSON-POST -> Django REST Framework -> Validierung -> Antwort an React`
 
-== Vorläufige Folgeaufgaben
+Erfolgreich getestete Fälle:
+
+* gültiges JSON-Payload,
+* Enddatum liegt vor dem Startdatum,
+* ungültiges Datumsformat,
+* CORS bei erfolgreichen und fehlerhaften Antworten.
+
+== Folgeaufgaben
 
 * Eigenes Datenmodell für Ausleihanfragen ergänzen.
-* Ausleihanfragen dauerhaft in der vorgesehenen MariaDB speichern.
+* Ausleihzeitraum dauerhaft speichern.
+* Speicherung mit der vorgesehenen MariaDB testen.
 * Frontend-Formular mit Start- und Enddatum erstellen.
-* Automatisierte Tests für gültige und ungültige Ausleihanfragen ergänzen.
+* Automatisierte Backend-Tests für gültige und ungültige Ausleihanfragen ergänzen.
+* API-Route und Fehlerbehandlung für die vollständige Ausleihfunktion umsetzen.
+
 

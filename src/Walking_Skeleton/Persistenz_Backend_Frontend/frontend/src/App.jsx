@@ -39,9 +39,9 @@ function requestLoan(itemId) {
   setItemsError("");
 
   const loanRequest = {
-    item_id: itemId,
-    start_date: "2026-06-20",
-    end_date: "2026-06-25",
+  item_id: itemId,
+  start_date: "2026-06-20",
+  end_date: "2026-06-25",
   };
 
   fetch(`${API_URL}/items/${itemId}/request-loan/`, {
