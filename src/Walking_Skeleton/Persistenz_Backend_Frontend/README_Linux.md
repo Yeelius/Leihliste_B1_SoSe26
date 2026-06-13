@@ -30,7 +30,7 @@ Damit ist der vertikale Durchstich zwischen Frontend, Backend und Persistenzschi
 ## Projektstruktur
 
 ```txt
-Backend_Frontend/
+Persistenz_Backend_Frontend/
 ├── backend/
 │   ├── inventory/
 │   ├── persistence/
@@ -49,35 +49,44 @@ Backend_Frontend/
 
 Für die lokale Ausführung müssen auf dem Rechner installiert sein:
 
-- Python, damit die virtuelle Backend-Umgebung erstellt werden kann
+- Python 3, damit die virtuelle Backend-Umgebung erstellt werden kann
+- python3-venv, damit `.venv` erstellt werden kann
+- pip, damit die Python-Abhängigkeiten installiert werden können
 - Node.js inklusive npm, damit das React/Vite-Frontend installiert und gestartet werden kann
 - Git, um das Repository zu klonen
 - VS Code oder ein anderer Editor
 
 Prüfen kann man das im Terminal mit:
 
-```powershell
-py --version
+```bash
+python3 --version
 node --version
 npm --version
 git --version
+```
+
+Falls Python, venv, pip oder Git fehlen:
+
+```bash
+sudo apt update
+sudo apt install python3 python3-venv python3-pip git
+```
+
+Falls Node.js und npm fehlen:
+
+```bash
+sudo apt install nodejs npm
 ```
 
 Django, Django REST Framework und weitere Python-Pakete müssen nicht global installiert werden. Sie werden lokal in der virtuellen Umgebung `.venv` installiert.
 
 React/Vite-Abhängigkeiten müssen ebenfalls nicht global installiert werden. Sie werden lokal im Frontend-Ordner über `npm install` installiert.
 
-
+Hinweis: Falls `npm install` oder `npm run dev` wegen einer zu alten Node.js-Version fehlschlägt, muss eine aktuellere Node.js-Version installiert werden.
 
 ## Hinweis zur Nutzung
 
-Die Terminals können am besten direkt in VS Code geöffnet werden.
-
-Tastenkombination:
-
-```txt
-Strg + Shift + Ö
-```
+Die Terminals können am besten direkt in VS Code oder über die normale Ubuntu-Terminal-App geöffnet werden.
 
 Laufende Prozesse können im Terminal mit folgender Tastenkombination beendet werden:
 
@@ -85,20 +94,26 @@ Laufende Prozesse können im Terminal mit folgender Tastenkombination beendet we
 Strg + C
 ```
 
-Wenn PowerShell Skripte blockiert, kann für das aktuell geöffnete Terminal temporär folgende Freigabe gesetzt werden:
+Wichtig: Linux unterscheidet zwischen Groß- und Kleinschreibung. Deshalb müssen Ordnernamen exakt so geschrieben werden, wie sie im Repository stehen.
 
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+Beispiel:
+
+```txt
+backend
 ```
 
-Diese Einstellung gilt nur für das aktuelle Terminalfenster.
+ist unter Linux nicht dasselbe wie:
+
+```txt
+Backend
+```
 
 ## Nach dem Klonen des Repositories
 
 Nach dem Klonen muss zuerst in den Walking-Skeleton-Ordner gewechselt werden:
 
-```powershell
-cd src\Walking_Skeleton\Backend_Frontend
+```bash
+cd src/Walking_Skeleton/Persistenz_Backend_Frontend
 ```
 
 Alle folgenden Befehle gehen davon aus, dass man sich in diesem Ordner befindet.
@@ -107,24 +122,34 @@ Alle folgenden Befehle gehen davon aus, dass man sich in diesem Ordner befindet.
 
 Im ersten Terminal:
 
-```powershell
+```bash
 cd backend
-py -m venv .venv
-.\.venv\Scripts\Activate.ps1
+python3 -m venv .venv
+source .venv/bin/activate
 python -m pip install -r requirements.txt
 python manage.py migrate
 ```
 
-Falls PowerShell die Aktivierung der virtuellen Umgebung blockiert:
+Falls `python3 -m venv .venv` nicht funktioniert, fehlt wahrscheinlich `python3-venv`.
 
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-.\.venv\Scripts\Activate.ps1
+Dann installieren:
+
+```bash
+sudo apt install python3-venv
+```
+
+Danach erneut ausführen:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python manage.py migrate
 ```
 
 Falls `pip` nicht direkt erkannt wird, stattdessen immer diese Variante verwenden:
 
-```powershell
+```bash
 python -m pip install -r requirements.txt
 ```
 
@@ -132,8 +157,8 @@ python -m pip install -r requirements.txt
 
 Im ersten Terminal im Ordner `backend`:
 
-```powershell
-.\.venv\Scripts\Activate.ps1
+```bash
+source .venv/bin/activate
 python manage.py runserver
 ```
 
@@ -181,20 +206,13 @@ Danach muss man weiterhin im Ordner `backend` sein. Die virtuelle Umgebung sollt
 
 Falls die virtuelle Umgebung nicht aktiv ist:
 
-```powershell
-.\.venv\Scripts\Activate.ps1
-```
-
-Falls PowerShell die Aktivierung blockiert:
-
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-.\.venv\Scripts\Activate.ps1
+```bash
+source .venv/bin/activate
 ```
 
 Dann den Admin-Account erstellen:
 
-```powershell
+```bash
 python manage.py createsuperuser
 ```
 
@@ -204,7 +222,7 @@ Wichtig: Keine Passwörter, `.env`-Dateien oder lokale Datenbanken ins Repositor
 
 Nach dem Erstellen des Admin-Accounts kann der Backend-Server wieder gestartet werden:
 
-```powershell
+```bash
 python manage.py runserver
 ```
 
@@ -240,49 +258,38 @@ Status: available
 
 In einem zweiten Terminal wieder in den Walking-Skeleton-Ordner wechseln:
 
-```powershell
-cd src\Walking_Skeleton\Backend_Frontend
+```bash
+cd src/Walking_Skeleton/Persistenz_Backend_Frontend
 ```
 
 Dann in den Frontend-Ordner wechseln und Abhängigkeiten installieren:
 
-```powershell
+```bash
 cd frontend
 npm install
 ```
 
-Falls PowerShell `npm.ps1` blockiert:
+Falls `npm install` wegen Berechtigungen fehlschlägt, nicht direkt mit `sudo npm install` arbeiten.
 
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-npm install
+Erst prüfen, ob man im richtigen Ordner ist:
+
+```bash
+pwd
 ```
 
-Alternativ kann auch `npm.cmd` verwendet werden:
+Dann prüfen, ob Node.js und npm verfügbar sind:
 
-```powershell
-npm.cmd install
+```bash
+node --version
+npm --version
 ```
 
 ## Frontend starten
 
 Im zweiten Terminal im Ordner `frontend`:
 
-```powershell
+```bash
 npm run dev
-```
-
-Falls PowerShell `npm.ps1` blockiert:
-
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-npm run dev
-```
-
-Alternativ:
-
-```powershell
-npm.cmd run dev
 ```
 
 Wenn alles funktioniert, läuft das Frontend unter:
@@ -323,12 +330,12 @@ http://localhost:5173
 8. Backend mit `Strg + C` stoppen.
 9. Backend erneut starten:
 
-```powershell
+```bash
 python manage.py runserver
 ```
 
-9. Browser neu laden.
-10. Die Notiz ist weiterhin sichtbar.
+10. Browser neu laden.
+11. Die Notiz ist weiterhin sichtbar.
 
 Damit ist gezeigt, dass Daten über die Persistenzschicht dauerhaft in der lokalen SQLite-Datenbank gespeichert werden.
 
@@ -336,7 +343,7 @@ Damit ist gezeigt, dass Daten über die Persistenzschicht dauerhaft in der lokal
 
 Die lokale SQLite-Datenbank wird durch diesen Befehl erzeugt:
 
-```powershell
+```bash
 python manage.py migrate
 ```
 
@@ -347,6 +354,16 @@ backend/db.sqlite3
 ```
 
 Diese Datei wird nicht ins Repository hochgeladen, weil sie lokale Testdaten, Admin-Accounts und andere lokale Entwicklungsdaten enthalten kann.
+
+## Lokaler JSON-Export der Persistenzdaten
+
+Beim Speichern einer Notiz wird zusätzlich eine lokale JSON-Datei erzeugt oder aktualisiert:
+
+```txt
+backend/data/notes.json
+```
+
+Diese Datei dient nur als lokaler Exportnachweis und wird nicht ins Repository hochgeladen.
 
 ## Wichtige Dateien, die nicht ins Repository gehören
 
@@ -375,4 +392,5 @@ Dieses kombinierte Walking Skeleton zeigt:
 - Ausleihanfragen verändern Daten im Backend
 - Persistenz-App ist integriert
 - Notizen werden gespeichert und nach einem Backend-Neustart wieder geladen
+- Beim Speichern von Notizen wird zusätzlich eine lokale JSON-Exportdatei erzeugt
 - Frontend, Backend und Persistenzschicht arbeiten zusammen
