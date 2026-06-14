@@ -7,7 +7,7 @@ Wie modellieren und berechnen wir den Verfügbarkeitsstatus und das "voraussicht
 
 Um Ninas Bedürfnis zu erfüllen, schnell ausleihbare Objekte zu finden, müssen wir klären, wie die Datenbankabfrage funktioniert. Wird der Status bei jedem Aufruf dynamisch aus allen "Ausleihanfragen" berechnet, oder speichern wir den aktuellen Status direkt am Gegenstandsobjekt zwischen (Denormalisierung)?
 
-Blockiert die User Stories:
+Blockiert diese User Stories:
 
     "Als Nina Nutzerin möchte ich den Verfügbarkeitsstatus von Gegenständen sehen und nach Verfügbarkeit filtern können..."
 
@@ -212,23 +212,14 @@ def invalidate_availability_cache(sender, instance, **kwargs):
 
 
 == Ergebnis
-- Type-Fehler-Suche ist sehr anstrengend und gerade bei Datenbankanbidung häufiger, daher Vorschlag ADR-019: Nutzung von Mypy für statische Typprüfung in Python
+- Type-Fehler-Suche ist sehr anstrengend und gerade bei Datenbankanbidung häufiger, daher Vorschlag ADR-019: Nutzung von Mypy für statische Typprüfung in Python.
 
-*-> Änderung der Definition Verfügbarkeitsstatus in Domain-Glossar in 2 Zustände: "ausleihbar" und "nicht ausleihbar". Bei "nicht ausleihbar" sind weitere Differnezierung möglich (z.B. defekt, Verlust), aber für diesen Spike nicht relevant.*
+- Änderung der Definition Verfügbarkeitsstatus in Domain-Glossar in 2 Zustände: "ausleihbar" und "nicht ausleihbar". Bei "nicht ausleihbar" sind weitere Differentzierung möglich (z.B. defekt, Verlust), aber für diesen Spike nicht relevant.
 
-- "Berechnung voraussichtliche Rückgabedatum" ist nicht notwendig, da jede Ausleihe bzw. jede Reservierung einen Ausleihzeitraum hat, also ein Start- und ein End-Datum.
+- "Berechnung voraussichtliche Rückgabedatum" ist nicht notwendig, da jede Ausleihe bzw. jede Reservierung einen Ausleihzeitraum hat, also ein festes Start- und ein End-Datum.
 
-- Intelligentes Caching auf Zeitraum-Ebene umsetzten:  *Erstberechnung mit Caching* und *Wiederverwendung des Caches für Detailansichten*
+- Intelligentes Caching auf Zeitraum-Ebene umsetzten: *Erstberechnung mit Caching* und *Wiederverwendung des Caches für Detailansichten*.
 
+- Abspeichern der Caching-Liste im Cache vom User (Browser / PWA), wahrscheinlich als JSON-Datei.
 
-////
-- 
-
-    Klare Antwort auf die Leitfrage (dokumentiert im Abschnitt „Ergebnis" unten)
-    Empfehlung oder Entscheidung für das weitere Vorgehen
-    ADR in architecture.adoc erstellt (Entscheidung zur Status-Berechnung)
-    UX-Konzept oder Persona aktualisiert
-    Proof-of-Concept-Code in Branch spike/status-query verfügbar
-    Folgeaufgaben als neue Issues erstellt (Datenbankmodell finalisieren)
-
-////
+- Prüfung der Umsetzbarkeit mit Issue #118 und #128.
