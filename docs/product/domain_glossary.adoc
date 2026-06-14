@@ -124,11 +124,8 @@ Technische Implementierungsdetails gehören nicht hierher!
 
 | Verfügbarkeitsstatus
 | Der Zustand eines Gegenstandsexemplars, der angibt, ob es aktuell ausgeliehen werden kann. Mögliche Status sind: +
-  - Verfügbar: Gegenstand kann ausgeliehen werden +
-  - Reserviert: Gegenstand ist für eine zukünftige Reservierung vorgemerkt +
-  - Ausgeliehen: Gegenstand ist aktuell in einer Ausleihe +
-  - Nicht verfügbar: Gegenstand kann nicht ausgeliehen werden (z. B. wegen Wartung, Verlust)
-| Ausleihstatus eines Gegenstands
+  - verfügbar: Gegenstandsexemplar kann ausgeliehen werden +
+  - nicht verfügbar: Gegenstandsexemplar kann nicht reserviert oder ausgeliehen werden (weitere Differentzierung möglich z.B. defekt, Verlust)
 
 | Verifizierungsstatus
 | Der Zustand der Überprüfung eines Nutzerkontos durch einen Admin. Mögliche Status sind: +
