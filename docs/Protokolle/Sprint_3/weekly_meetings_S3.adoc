@@ -10,4 +10,6 @@
 *Teilnehmende:* 
 
 === Agenda
-. Woche 2 planen (30 min)
+. Spikes auswerten (10 min)
+. Rollenzuweisung  (10 min)
+. Woche 2 planen   (15 min)
