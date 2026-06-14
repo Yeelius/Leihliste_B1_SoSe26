@@ -1,6 +1,6 @@
 :toc: left
 
-= Weekly Meetings - Sprint 2
+= Weekly Meetings - Sprint 3
 
 == Meeting 15.06.2026
 :id: meeting15062026
