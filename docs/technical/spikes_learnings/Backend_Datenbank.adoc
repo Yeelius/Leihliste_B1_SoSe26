@@ -3,26 +3,226 @@
 == Leitfrage
 Wie modellieren und berechnen wir den Verfügbarkeitsstatus und das "voraussichtliche Rückgabedatum" in der MariaDB effizient, damit die Filterung im Backend bei vielen Gegenständen nicht zu langsam wird?
 
-== Hintergrund & Motivation
+=== Hintergrund & Motivation
 
 Um Ninas Bedürfnis zu erfüllen, schnell ausleihbare Objekte zu finden, müssen wir klären, wie die Datenbankabfrage funktioniert. Wird der Status bei jedem Aufruf dynamisch aus allen "Ausleihanfragen" berechnet, oder speichern wir den aktuellen Status direkt am Gegenstandsobjekt zwischen (Denormalisierung)?
 
-Blockierte Story / Entscheidung:
 Blockiert die User Stories:
 
     "Als Nina Nutzerin möchte ich den Verfügbarkeitsstatus von Gegenständen sehen und nach Verfügbarkeit filtern können..."
+
     "... auf der Übersichts- und Detailansicht eines Gegenstands dessen Verfügbarkeitsstatus, Standort und voraussichtliches Rückgabedatum sehen..."
 
+=== Differenzierung des Problems
+
+==== Übersicht der generell ausleihbaren Objekte (ohne konkreten Zeitraum)
+. Die Übersicht der ausleihbaren Objekte ist nur abhängig vom *Verfügbarkeitsstatus*.
+. Angezeigt werden alle *Kategorien*, die mindestens einen *Gegenstandstypen* enthalten, die mindestens ein *Gegenstandsexemplar* enthalten, das den Verfügbarkeitsstatus "ausleihbar" hat.
+
+==== Übersicht der ausleihbaren Objekte für einen konkreten Zeitraum
+. Die Übersicht der ausleihbaren Objekte ist abhängig vom *Verfügbarkeitsstatus* und dem *angegebenen Zeitraum*.
+. Angezeigt werden alle *Kategorien*, die mindestens einen *Gegenstandstypen* enthalten, die mindestens ein *Gegenstandsexemplar* enthalten, das den Verfügbarkeitsstatus "ausleihbar" hat und in dem angegebenem Zeitraum *keine Reservierung* und *keine Ausleihe* hat.
+. *Probelmstellung für diesen Spike:* effiziente Filterung nach diesen 2 Zeitraum-bezogenen Kriterien
+
+==== Übersicht der ausleihbaren Gegenstandsexemplare eines Gegenstandstyps für einen konkreten Zeitraum
+. Die Übersicht der ausleihbaren Gegenstandsexemplare eines Gegenstandstyps ist abhängig vom *Verfügbarkeitsstatus* und dem *angegebenen Zeitraum*.
+. Angezeigt werden wird der *Gegenstandstyp*, wenn dieser mindestens ein *Gegenstandsexemplar* enthalten, das den Verfügbarkeitsstatus "ausleihbar" hat und in dem angegebenem Zeitraum *keine Reservierung* und *keine Ausleihe* hat.
+. *Probelmstellung für diesen Spike:* effiziente Filterung nach diesen 2 Zeitraum-bezogenen Kriterien
 
 
-== Vorgehensweise
-Zwei alternative SQL-Ansätze (bzw. Django ORM Queries) skizzieren: Live-Berechnung vs. Caching am Item.
+=== Vorgehensweise
+==== ursprünglicher Vorschlag
+Zwei alternative SQL-Ansätze (bzw. Django ORM Queries) skizzieren: Live-Berechnung vs. Caching am Item. +
+- Live-Berechnung meint, die Verfügbarkeit in einem bestimmten Zeitraum  wird bei jeder Abfrage neu berechnet und trägt das Risiko für Wartezeiten +
+- Caching meint, die Verfügbarkeit in einem bestimmten Zeitraum zwischenzuspeichern; wegen variabler Zeiträume nicht sinnvoll direkt in Item-Tabelle +
+-> klingt vielversprechend für temporäre Hilfs-Tabelle nach erfolgreicher Live-Berechnung
 
-Django-Dokumentation zu annotate und Subqueries lesen.
+Django-Dokumentation zu annotate und Subqueries lesen. +
+- annotate() erstellt temporäre berechnete Felder für jede Zeile im QuerySet, ohne die Datenbank zu verändern, um aggregierte Werte (z.B. Verfügbarkeit im ausgewählten Zeitraum) zu QuerySets hinzufügen +
+-> klingt nach sinnvollem Ansatz, um nach erfolgreicher "Übersicht der ausleihbaren Objekte für einen konkreten Zeitraum" keine komplette Neuberechnung für "Übersicht der ausleihbaren Gegenstandsexemplare eines Gegenstandstyps" machen zu müssen +
+- Subqueries, also Unterabfragen, sind SQL-Abfragen innerhalb einer Abfrage, die es ermöglichen, Daten aus einer Tabelle basierend auf Werten aus einer anderen Tabelle zu filtern bzw. zu berechnen +
+-> klingt nach sinnvollem Ansatz für unser Problem, da wir Gegenstandsexemplar-Tabelle mit Reservierungs- und Ausleih-Tabelle abfragen müssen
 
-Kurz bewerten, welcher Ansatz fehleranfälliger für Race-Conditions bei zeitgleichen Anfragen ist.
+Kurz bewerten, welcher Ansatz fehleranfälliger für Race-Conditions bei zeitgleichen Anfragen ist. +
+- Race-Conditions werden für zeitgleiche (Anzeige-)Anfragen keine Rolle spielen, da diese erst bei kollidierenden Reservierungsanfragen (und deren Bestätigung) relevant sind, hier aber nur Einträge für Reservierungen (also bereits bestätigte Ausleihanfragen) und Ausleihen betrachtet werden müssen +
+-> keine Anwendbarkeit für unser Problem erkannt
 
-== Erwartetes Ergebnis
+==== angepasster Vorschlag
+- Kernidee: Intelligentes Caching auf Zeitraum-Ebene +
+- Um die Performance der Verfügbarkeitsabfragen zu optimieren, schlage ich ein zweistufiges Caching-System vor, das die typischen Nutzerpfade berücksichtigt: +
+- *Erstberechnung mit Caching* +
+. Wenn ein Nutzer nach ausleihbaren Objekten für einen konkreten Zeitraum sucht (z. B. "Verfügbar vom 01.07. bis 10.07.2024"), wird die Verfügbarkeit einmalig für alle Gegenständsexemplare berechnet und das Ergebnis im Cache gespeichert
+. Der Cache-Key setzt sich aus dem Zeitraum zusammen (z. B. available_items_2024-07-01_2024-07-10).
+- *Wiederverwendung des Caches für Detailansichten* +
+. Klickt der Nutzer anschließend auf eine Kategorie oder einen Gegenstandstyp (z. B. "Alle verfügbaren Laptops"), wird derselbe Cache-Eintrag genutzt. +
+. Da die meisten Nutzer von der Übersichtsseite zur Detailansicht navigieren, entfällt die Neuberechnung in diesen Fällen.
+
+*Technische Umsetzung:* 
+
+- Neuberechnung (wenn kein Cache-Eintrag existiert) +
+. Für jeden Gegenstand wird geprüft, ob er im gewünschten Zeitraum keine aktiven Ausleihen oder Reservierungen hat.
+. Die Abfrage nutzt Subqueries, um Konflikte mit bestehenden Ausleihen oder Resevierungen zu erkennen, und annotate(), um das Ergebnis pro Gegenstand zu speichern.
+. Das Ergebnis wird im Cache abgelegt (z.B. für 1 Stunde oder bis zur nächsten Änderung des konkreten Zeitraums).
+- Cache-Nutzung (wenn ein Eintrag existiert):
+. Die Abfrage greift direkt auf den vorberechneten Cache zu, ohne die Datenbank zu belasten.
+. Für Detailansichten (z. B. "Alle Laptops im Zeitraum") wird der Cache gefiltert, statt neu berechnet.
+
+////
+LLM-Vorschlag zur Implementierung 
+
+Lösungsvorschlag: Zeitfenster-basiertes Caching mit Django ORM
+1. Datenmodell-Erweiterung
+
+# models.py
+from django.db import models
+from django.core.cache import cache
+
+class Item(models.Model):
+    name = models.CharField(max_length=255)
+    status = models.CharField(
+        max_length=20,
+        choices=[
+            ('available', 'Verfügbar'),
+            ('requested', 'Angefragt'),
+            ('loaned', 'Ausgeliehen'),
+            ('maintenance', 'In Wartung'),
+        ],
+        default='available'
+    )
+    expected_return_date = models.DateField(null=True, blank=True)
+
+    # Cache für zeitraumbezogene Verfügbarkeit
+    @classmethod
+    def get_available_in_period(cls, start_date, end_date):
+        cache_key = f"available_items_{start_date}_{end_date}"
+        cached = cache.get(cache_key)
+        if cached is not None:
+            return cached
+
+        # Neuberechnung (siehe Query unten)
+        available_items = cls._calculate_available_in_period(start_date, end_date)
+        cache.set(cache_key, available_items, timeout=3600)  # Cache für 1 Stunde
+        return available_items
+
+    @classmethod
+    def _calculate_available_in_period(cls, start_date, end_date):
+        from django.db.models import Q, OuterRef, Subquery, Count
+
+        conflicting_loans = Loan.objects.filter(
+            item_id=OuterRef('pk'),
+            status__in=['active', 'requested'],
+            start_date__lte=end_date,
+            end_date__gte=start_date
+        )
+
+        return cls.objects.annotate(
+            has_conflict=Count(Subquery(conflicting_loans.values('id')))
+        ).filter(
+            Q(status='available') | Q(status='loaned', expected_return_date__lte=start_date),
+            has_conflict=0
+        )
+
+2. Caching-Strategie für die beiden Abfragen
+A) Übersicht der ausleihbaren Objekte für einen konkreten Zeitraum
+
+# views.py
+from django.shortcuts import render
+from .models import Item
+
+def available_items_view(request):
+    start_date = request.GET.get('start_date', '2024-07-01')
+    end_date = request.GET.get('end_date', '2024-07-10')
+
+    # Cache-Key basierend auf Zeitraum
+    cache_key = f"available_items_{start_date}_{end_date}"
+    available_items = cache.get(cache_key)
+
+    if available_items is None:
+        # Neuberechnung + Caching
+        available_items = Item.get_available_in_period(start_date, end_date)
+        cache.set(cache_key, available_items, timeout=3600)
+
+    # Gruppierung nach Kategorie/Gegenstandstyp
+    categories = {}
+    for item in available_items:
+        category = item.category
+        if category not in categories:
+            categories[category] = []
+        categories[category].append(item)
+
+    return render(request, 'available_items.html', {'categories': categories})
+
+B) Übersicht der ausleihbaren Gegenstandsexemplare eines Gegenstandstyps
+
+# views.py
+def available_items_of_type_view(request, item_type_id):
+    start_date = request.GET.get('start_date', '2024-07-01')
+    end_date = request.GET.get('end_date', '2024-07-10')
+
+    # Cache-Key für alle Items im Zeitraum (wird von Abfrage A gesetzt)
+    cache_key = f"available_items_{start_date}_{end_date}"
+    all_available_items = cache.get(cache_key)
+
+    if all_available_items is None:
+        # Falls Cache leer: Neuberechnung (selten, da Nutzer von Abfrage A kommt)
+        all_available_items = Item.get_available_in_period(start_date, end_date)
+
+    # Filterung nach Gegenstandstyp
+    items_of_type = all_available_items.filter(item_type_id=item_type_id)
+    return render(request, 'items_of_type.html', {'items': items_of_type})
+
+3. SQL-Optimierung für die Neuberechnung
+
+-- Indizes für schnelle Abfragen
+CREATE INDEX idx_loans_item_status_dates ON loans(item_id, status, start_date, end_date);
+CREATE INDEX idx_items_status_return_date ON items(status, expected_return_date);
+
+Django ORM Query für die Neuberechnung:
+
+from django.db.models import Q, OuterRef, Subquery, Count
+
+def _calculate_available_in_period(start_date, end_date):
+    conflicting_loans = Loan.objects.filter(
+        item_id=OuterRef('pk'),
+        status__in=['active', 'requested'],
+        start_date__lte=end_date,
+        end_date__gte=start_date
+    )
+
+    return Item.objects.annotate(
+        has_conflict=Count(Subquery(conflicting_loans.values('id')))
+    ).filter(
+        Q(status='available') | Q(status='loaned', expected_return_date__lte=start_date),
+        has_conflict=0
+    ).select_related('item_type', 'category')  # Reduziert Folge-Queries
+
+4. Cache-Invalidierung
+
+# signals.py
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.core.cache import cache
+
+@receiver(post_save, sender=Loan)
+def invalidate_availability_cache(sender, instance, **kwargs):
+    # Alle Cache-Keys für Verfügbarkeitsabfragen löschen
+    cache.delete_pattern("available_items_*")
+
+////
+
+
+== Ergebnis
+- Type-Fehler-Suche ist sehr anstrengend und gerade bei Datenbankanbidung häufiger, daher Vorschlag ADR-019: Nutzung von Mypy für statische Typprüfung in Python
+
+*-> Änderung der Definition Verfügbarkeitsstatus in Domain-Glossar in 2 Zustände: "ausleihbar" und "nicht ausleihbar". Bei "nicht ausleihbar" sind weitere Differnezierung möglich (z.B. defekt, Verlust), aber für diesen Spike nicht relevant.*
+
+- "Berechnung voraussichtliche Rückgabedatum" ist nicht notwendig, da jede Ausleihe bzw. jede Reservierung einen Ausleihzeitraum hat, also ein Start- und ein End-Datum.
+
+- Intelligentes Caching auf Zeitraum-Ebene umsetzten:  *Erstberechnung mit Caching* und *Wiederverwendung des Caches für Detailansichten*
+
+
+////
+- 
 
     Klare Antwort auf die Leitfrage (dokumentiert im Abschnitt „Ergebnis" unten)
     Empfehlung oder Entscheidung für das weitere Vorgehen
@@ -30,3 +230,5 @@ Kurz bewerten, welcher Ansatz fehleranfälliger für Race-Conditions bei zeitgle
     UX-Konzept oder Persona aktualisiert
     Proof-of-Concept-Code in Branch spike/status-query verfügbar
     Folgeaufgaben als neue Issues erstellt (Datenbankmodell finalisieren)
+
+////
