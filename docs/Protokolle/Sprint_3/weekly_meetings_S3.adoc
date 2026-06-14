@@ -14,5 +14,6 @@
 . Vorschlag ADR-012 beschließen: DSGVO-konformes Datenmanagement durch Anonymisierung und Datensparsamkeit
 . Vorschlag ADR-019 beschließen: Nutzung von Mypy für statische Typprüfung in Python
 . Spikes auswerten (10 min)
+. Feedback Tasks   (10 min)
 . Rollenzuweisung  (10 min)
 . Woche 2 planen   (15 min)
