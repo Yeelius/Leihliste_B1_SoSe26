@@ -16,12 +16,13 @@ class Organisation {
 class Gegenstandstyp {
   Name
   Kategorie
+  Standort
   Beschreibung
 }
 
 class Gegenstandsexemplar {
   Inventarnummer
-  Standort
+  Beschreibung
   Zustand
   Verfügbarkeitsstatus
 }

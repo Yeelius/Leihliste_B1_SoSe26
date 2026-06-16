@@ -202,7 +202,7 @@ Kurze Erläuterung zu den im Modell enthaltenen Entitäten.
 | Eine Kategorie von Gegenständen mit gemeinsamen Eigenschaften (z. B. "Mikroskop Leica DM500") an *einem gemeinsamen Standort*. Ein Gegenstandstyp kann aus mehreren konkreten Exemplaren bestehen.
 
 | Gegenstandsexemplar
-| Ein konkretes physisches Exemplar eines Gegenstandstyps (z. B. "Mikroskop #42"). Jedes Exemplar hat eine eindeutige Inventarnummer, einen Standort, einen Zustand und einen Verfügbarkeitsstatus.
+| Ein konkretes physisches Exemplar eines Gegenstandstyps (z. B. "Mikroskop #42"). Jedes Exemplar hat eine eindeutige Inventarnummer, eine Beschreibung, einen Zustand und einen Verfügbarkeitsstatus.
 
 | Ausleihanfrage
 | Eine formelle Anfrage eines Nutzers, einen oder mehrere Gegenstände *eines Gegenstandstypen* für einen bestimmten Zeitraum auszuleihen. Eine Ausleihanfrage durchläuft verschiedene Status (z. B. "offen", "genehmigt" und "abgelehnt") und kann zu einer Reservierung führen.
