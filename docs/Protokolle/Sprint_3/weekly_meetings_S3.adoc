@@ -54,3 +54,13 @@
 === Naechste Besprechung
 *Termin:* 21.06.2026, 14:00 Uhr 
 *Ziel:* Weekly Meeting & Überprüfung der Sprint-Fortschritte
+
+== Meeting 21.06.2026
+:id: meeting21062026
+
+*Datum:* 21.06.2026  
+*Dauer:* 
+*Teilnehmende:* 
+
+=== Agenda
+. Kurzen Stand prüfen (10 min)
