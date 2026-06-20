@@ -1,0 +1,134 @@
+== Spike: Docker Compose Seed-Data
+
+=== Antwort auf die Leitfrage
+
+Das eigentliche Problem ist, dass wenn die Teammitglieder Docker Compose
+ausführen, dann startet zwar alles, aber die Datenbank ist leer. Daher kann
+die Persona Nina die Startseite nicht öffnen. Auch für uns als Entwickler
+wird es bisschen schwer beim Entwickeln und Testen später.
+
+Daher ist unser Ziel, dass wenn einer vom Entwicklerteam Docker Compose
+ausführt, dass da alles wie gewöhnlich ausgeführt wird und auch die
+Datenbank mit den Testdaten sofort befüllt ist. So kann Nina die App
+öffnen, Gegenstände sehen und filtern.
+
+Es gibt aber zwei Bedingungen: Die Seed-Data, also diese Testdaten, müssen
+immer eingefügt werden, und diese Testdaten sollen die echten Daten nicht
+überschreiben. Damit wir das verwirklichen können, sollten wir jeden
+Gegenstand mit einem Kennzeichen in der Datenbank versehen, und zwar
+`is_seed=True` oder `is_seed=False`. Bei `is_seed=True` bedeutet das, es
+ist ein Testdatum, es darf gelöscht und ersetzt werden. Bei `is_seed=False`
+ist es ein echtes Datum und es darf nie angefasst werden.
+
+Der komplette Ablauf beim Start ist folgendermaßen: Man führt
+`docker compose up` aus, MariaDB startet, dann laufen die Django Migrations
+mit `python manage.py migrate`. Dieser Befehl wandelt den Python-Code in
+SQL für MariaDB, damit MariaDB die entsprechenden Tabellen erstellen kann.
+Dann läuft der Seed-Befehl `python manage.py seed_data`. Es werden die
+alten Seed-Daten gelöscht — bei `is_seed=True` werden diese sofort
+gelöscht, bei `is_seed=False`, also bei echten Daten, werden diese nicht
+angefasst, die bleiben. Dann werden die neuen Seed-Daten eingefügt. Die App
+läuft dann auf Localhost, höchstwahrscheinlich auf Port 8000. Nina sieht
+die Testgegenstände und kann auch filtern.
+
+Immer wenn wir einen Ordner in Python bzw. Django als Paket kennzeichnen
+wollen, damit wir die Dateien aus diesem Ordner von einem anderen Ort
+importieren können, muss die Datei `+__init__.py+` erstellt sein, also
+einfach existieren. Sie ist meistens leer, sie dient einfach dazu, den
+Ordner als Python-Paket zu kennzeichnen.
+
+Außerdem soll die Datei `docker-compose.yml` angepasst werden. Die
+`seed_data.py` löscht alte Seed-Daten und fügt die neuen ein. In der
+`docker-compose.yml` sind alle Befehle definiert, die jedes Mal bei
+`docker compose up` ausgeführt werden.
+
+Der Ablauf im Detail: `docker compose up` wird ausgeführt, Docker liest die
+`docker-compose.yml` und startet alle Container in der richtigen
+Reihenfolge — zuerst der MariaDB-Container, dann der Django-Container.
+Warum diese Reihenfolge? Weil Django die Datenbank braucht, um sich zu
+verbinden. Die Datenbank muss zuerst laufen, sonst gibt Django den Fehler
+„Datenbank nicht erreichbar" aus.
+
+Dann startet MariaDB, erstellt eine leere Datenbank und wartet auf
+Verbindungen von Django. Django führt `python manage.py migrate` aus —
+dieser Befehl schaut in alle `models.py` Dateien und erstellt daraus
+Tabellen in der Datenbank. Es verwandelt Python-Code in SQL für MariaDB,
+weil MariaDB nur SQL versteht.
+
+Dann läuft der Seed-Command `python manage.py seed_data`. Da passieren
+einige Sachen: Zuerst werden die alten Seed-Daten gelöscht, also alle
+Gegenstände, bei denen das Attribut `is_seed=True` ist. Das passiert aus
+dem einfachen Grund, damit dieselben Daten nicht zweimal in der Datenbank
+gespeichert sind, also dass wenn man das System zweimal gestartet hat,
+nicht derselbe Gegenstand zweimal existiert. Dann werden die echten Daten
+nicht angefasst, und danach werden die neuen Seed-Daten eingefügt. Dann
+kann jeder im Team sofort die Testdaten sehen, Nina kann die Gegenstände
+sehen und filtern. Die App läuft auf Localhost, höchstwahrscheinlich auf
+Port 8000, das Frontend kann die API aufrufen und Nina kann die App
+öffnen.
+
+=== Empfehlung / Entscheidung
+
+Ich empfehle den Einsatz eines Django Management Commands
+(`python manage.py seed_data`) als Lösung für das automatische Befüllen
+der Datenbank beim Start. Dieser Ansatz wird direkt über die
+`docker-compose.yml` ausgelöst, sodass kein manueller Eingriff nötig ist.
+
+Jeder Gegenstand bekommt das Kennzeichen `is_seed` in der Datenbank. Damit
+ist klar geregelt, welche Daten Testdaten sind und welche echte Daten
+sind. Bei jedem `docker compose up` werden ausschließlich die Testdaten
+(`is_seed=True`) gelöscht und neu eingefügt — echte Daten (`is_seed=False`)
+werden nie angefasst.
+
+Diese Entscheidung löst zwei Probleme gleichzeitig: Die Datenbank ist bei
+jedem Start sofort befüllt und das Entwicklerteam sowie die Persona Nina
+können die App direkt nutzen, ohne manuell Daten eingeben zu müssen.
+Gleichzeitig sind echte Daten zu jeder Zeit geschützt.
+
+=== Folgeaufgaben
+
+Als nächster Schritt soll das konkrete Testdaten-Set mit dem Team und
+explizit mit dem Dev-Team abgestimmt und als neues Issue
+„Testdaten-Set finalisieren" erfasst werden.
+
+=== Vergleich der vorgeschlagenen Ansätze
+
+Bei der Vorgehensweise stand: Zwei Ansätze vergleichen — Datenbank-Init-
+Skripte in MariaDB (`/docker-entrypoint-initdb.d/`) vs. Django-Fixtures
+(`python manage.py loaddata`) beim Container-Start. Ich habe die beiden
+Ansätze recherchiert und bin zu folgendem Ergebnis gekommen:
+
+==== Ansatz 1: MariaDB Init-Skripte
+
+*Läuft nur beim ersten Start → Kein Schutz für echte Daten → Verworfen*
+
+- Erster Start + leeres Volume → MariaDB initialisiert DB → SQL-Skripte in
+  `/docker-entrypoint-initdb.d/` laufen
+- Zweiter Start + Volume hat schon Daten → MariaDB sieht: DB existiert
+  schon → SQL-Skripte laufen NICHT mehr
+- Wann läuft das Init-Skript doch wieder? Wenn man das Volume löscht mit
+  `docker compose down -v` und dann `docker compose up` → Volume leer →
+  MariaDB initialisiert neu → Init-Skripte laufen wieder
+
+==== Ansatz 2: Django-Fixtures
+
+*Läuft bei jedem Start → Überschreibt echte Daten → Verworfen*
+
+Funktionsweise: Django-Fixtures (`python manage.py loaddata`) → läuft bei
+jedem Start → fügt Daten blind ein ohne zu prüfen was schon da ist → führt
+zu Duplikaten bei jedem Neustart → kein Mechanismus um echte Daten zu
+schützen → verworfen.
+
+==== Ansatz 3: Management Command (gewählt)
+
+*Läuft bei jedem Start → Schützt echte Daten mit is_seed → Gewählt*
+
+Dieser Ansatz soll der sicherste und beste für uns sein.
+
+Ablauf bei jedem Start — `python manage.py seed_data` läuft:
+
+. Alte Testdaten löschen → `filter(is_seed=True).delete()` → nur
+  Testdaten weg, echte Daten bleiben
+. Echte Daten? → nie anfassen → `is_seed=False` → wird ignoriert
+. Neue Testdaten einfügen → alle mit `is_seed=True` markiert → sauber
+  und ohne Duplikate
