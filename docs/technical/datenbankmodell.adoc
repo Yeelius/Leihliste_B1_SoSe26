@@ -86,8 +86,8 @@
 | id | INT | PK |
 | gegenstand_id | INT | FK → Gegenstand |
 | inventarnummer | VARCHAR | | unique, nie wiederverwendet
-| zustand | ENUM | | gut, beschaedigt, defekt, verloren
-| verfuegbarkeitsstatus | ENUM | | verfuegbar, reserviert, ausgeliehen, nicht_verfuegbar
+| zustand | ENUM | | neu, gut, beschaedigt, defekt, verloren
+| verfuegbarkeitsstatus | ENUM | | verfuegbar, nicht_verfuegbar
 | erstellt_am | DATETIME | |
 | aktualisiert_am | DATETIME | |
 | is_seed | BOOLEAN | |
@@ -105,7 +105,7 @@
 | organisation_id | INT | FK → Organisation |
 | startdatum | DATE | |
 | enddatum | DATE | |
-| anfragestatus | ENUM | | eingereicht, genehmigt, abgelehnt, zurueckgezogen, abgelaufen, teilweise abgelehnt
+| anfragestatus | ENUM | | eingereicht, genehmigt, abgelehnt, zurueckgezogen, abgelaufen
 | ablehnungsgrund | VARCHAR | | nullable
 | bedingungen_akzeptiert | BOOLEAN | |
 | erstellt_am | DATETIME | |
