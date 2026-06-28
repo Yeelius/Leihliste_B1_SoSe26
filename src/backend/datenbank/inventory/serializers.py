@@ -151,3 +151,40 @@ class GegenstandsexemplarUebersichtSerializer(serializers.ModelSerializer):
     def get_zustand_display(self, obj):
         """Gibt den lesbaren Zustands-Namen zurück"""
         return obj.get_zustand_display()
+    
+class GegenstandsexemplarSerializer(serializers.ModelSerializer):
+    """
+    Detail-Serializer für ein einzelnes Gegenstandsexemplar
+    """
+
+    name = serializers.CharField(source='gegenstand.name', read_only=True)
+    standort = serializers.CharField(source='gegenstand.standort.name', read_only=True, default='Nicht zugewiesen')
+    kategorie = serializers.CharField(source='gegenstand.kategorie.name', read_only=True, default='Nicht kategorisiert')
+    gegenstandstyp = serializers.IntegerField(source='gegenstand.id', read_only=True)
+
+    verfuegbarkeitsstatus_display = serializers.SerializerMethodField(read_only=True)
+    zustand_display = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = Gegenstandsexemplar
+        fields = [
+            'id',
+            'inventarnummer',
+            'name',
+            'gegenstandstyp',
+            'standort',
+            'kategorie',
+            'verfuegbarkeitsstatus',
+            'verfuegbarkeitsstatus_display',
+            'zustand',
+            'zustand_display',
+            'erstellt_am',
+            'aktualisiert_am',
+        ]
+        read_only_fields = fields
+
+    def get_verfuegbarkeitsstatus_display(self, obj):
+        return obj.get_verfuegbarkeitsstatus_display()
+
+    def get_zustand_display(self, obj):
+        return obj.get_zustand_display()

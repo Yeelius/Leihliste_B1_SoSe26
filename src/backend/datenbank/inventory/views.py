@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from .models import Gegenstandsexemplar, Verfuegbarkeitsstatus
-from .serializers import GegenstandsexemplarUebersichtSerializer, VerfügbareGegenstandsexemplarSerializer
+from .serializers import GegenstandsexemplarUebersichtSerializer, VerfügbareGegenstandsexemplarSerializer,  GegenstandsexemplarSerializer
 
 class VerfügbareGegenstandsexemplarViewSet(viewsets.ReadOnlyModelViewSet):
     """
@@ -56,3 +56,11 @@ class GegenstandsexemplarViewSet(viewsets.ReadOnlyModelViewSet):
     ).all()
     
     serializer_class = GegenstandsexemplarUebersichtSerializer
+
+class GegenstandsexemplarDetailViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    Liefert Detaildaten (und listet auch, falls Route dafür existiert).
+    Für reines Detail kannst du die List-Route später weglassen.
+    """
+    queryset = Gegenstandsexemplar.objects.all()
+    serializer_class = GegenstandsexemplarSerializer
