@@ -37,6 +37,6 @@ include::../_includes/default-attributes.inc.adoc[]
 | (Woche 4)| Retrospektive ✓ | Do 02.07.26  | 14:00 - 15:00 | S531 und BBB | link:../Protokolle/Sprint_3/Retrospektive_S3.adoc[Retrospektive]
 | (Woche 4)| Standup (Weekly) ✓ | So 05.07.26 | 14:00 – 15:00 | Discord | link:../Protokolle/Sprint_3/weekly_meetings_S3.adoc#meeting04072026[Weekly], link:../Protokolle/Sprint_3/Sprint3_Report.adoc[Report]
 
-
+| *Sprint 4* (Woche 0)| Feedback-Treffen  ✓ | Fr 02.10.26 | 12:00 – 13:00 | Discord | link:../Protokolle/Sprint_4/feedback_loesung.adoc[Feedback]
 
 |===
