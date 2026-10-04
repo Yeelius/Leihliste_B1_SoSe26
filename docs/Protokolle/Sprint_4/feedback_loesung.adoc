@@ -6,7 +6,7 @@
 
 | **1. Akzeptanzkriterien (Miro)**
 | Akzeptanzkriterien gehören nicht in eine User Story Map, sondern in die User Stories im Backlog. Die USM dient primär dem Identifizieren von User Stories.
-| War nur als dokumentation gedacht, ist nicht im fertigen Miroboard. 
+| War nur als Dokumentation gedacht, ist nicht im fertigen Miroboard. 
 | -
 
 | **2. PO-Verantwortung (teamcharter)**
@@ -16,7 +16,12 @@
 
 | **3. Domänenmodell (domain_glossary)**
 | "Gegenstand" statt "Gegenstandsexemplar" nutzen. Standort vom Typ lösen (eher an Gegenstand oder eigene Klasse binden). "Kategorie" braucht kein Attribut von Typ zu sein. Optionale Attribute mit [0..1] kennzeichnen und in den richtigen UML-Abschnitt (nicht Methoden) verschieben.
-| Gegenstand und Gegenstandstyp mehr veralgemeinern.
+| Gegenstand und Gegenstandstyp mehr verallgemeinern.
+Bsp.: +
+- jedes Exemplar hat Standort +
+- Gegenstand: Mikrospkop groß Nr. 1 +
+- Typ: Mikroskop groß +
+- Kategorie: Laborgeräte
 | Rico
 
 | **4. Sprintziel Sprint 3**
